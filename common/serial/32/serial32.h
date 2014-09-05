@@ -1,7 +1,7 @@
 #ifndef SERIAL_32_H
 #define SERIAL_32_H
 
-#include <uart.h>
+#include <plib.h>
 
 /**
  * Returns the UART_MODULE object identifier by serial Port Index.

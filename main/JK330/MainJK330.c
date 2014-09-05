@@ -99,51 +99,22 @@
 //#include "drivers/IO/PCF8563.h"
 
 
-// definition des bits de configuration.
-// Quartz externe, PLL x 20/2
-
-/*#pragma config FNOSC    = PRIPLL        // Oscillator Selection
-#pragma config FPLLIDIV = DIV_2         // PLL Input Divider (PIC32 Starter Kit: use divide by 2 only)
-#pragma config FPLLMUL  = MUL_20        // PLL Multiplier
-#pragma config FPLLODIV = DIV_1         // PLL Output Divider
-#pragma config FPBDIV   = DIV_2         // Peripheral Clock divisor
-#pragma config FWDTEN   = OFF           // Watchdog Timer
-#pragma config WDTPS    = PS1           // Watchdog Timer Postscale
-#pragma config FCKSM    = CSDCMD        // Clock Switching & Fail Safe Clock Monitor
-#pragma config OSCIOFNC = OFF           // CLKO Enable
-#pragma config POSCMOD  = XT            // Primary Oscillator
-#pragma config IESO     = OFF           // Internal/External Switch-over
-#pragma config FSOSCEN  = OFF           // Secondary Oscillator Enable
-#pragma config CP       = OFF           // Code Protect
-#pragma config BWP      = OFF           // Boot Flash Write Protect
-#pragma config PWP      = OFF           // Program Flash Write Protect
-#pragma config ICESEL   = ICS_PGx1      // ICE/ICD Comm Channel Select
-#pragma config DEBUG    = ON           // Debugger Disabled for Starter Kit
 
 
-#define SERIAL_PORT_PC		2
-#define SERIAL_PORT_DEBUG 	3
-
-
-//Definition I2C
-#define I2C_CLOCK_FREQ 		(100000)    //100Khz
-#define BRG_VAL 0xc6	//100khz
-*/
-
-#ifndef MPLAB_SIMULATION
-    #ifdef PROG_32
-        #define SERIAL_PORT_DEBUG         SERIAL_PORT_2
-        #define SERIAL_PORT_PC             SERIAL_PORT_6
-        #define SERIAL_PORT_LCD            SERIAL_PORT_5
-    #else
-        #define SERIAL_PORT_DEBUG         SERIAL_PORT_1
+//#ifndef MPLAB_SIMULATION
+//    #ifdef PROG_32
+        #define SERIAL_PORT_DEBUG         SERIAL_PORT_3
         #define SERIAL_PORT_PC             SERIAL_PORT_2
-    #endif
-#else
+        #define SERIAL_PORT_LCD            SERIAL_PORT_5
+//    #else
+//        #define SERIAL_PORT_DEBUG         SERIAL_PORT_1
+//        #define SERIAL_PORT_PC             SERIAL_PORT_2
+//    #endif
+//#else
     // We use the same port for both
-    #define SERIAL_PORT_PC             SERIAL_PORT_1
-    #define SERIAL_PORT_DEBUG         SERIAL_PORT_1
-#endif
+ //   #define SERIAL_PORT_PC             SERIAL_PORT_1
+ //   #define SERIAL_PORT_DEBUG         SERIAL_PORT_1
+//#endif
 
 // serial link DEBUG
 static char debugInputBufferArray[MAIN_BOARD_DEBUG_INPUT_BUFFER_LENGTH];
@@ -317,19 +288,47 @@ int main(void) {
             SERIAL_PORT_DEBUG,
             DEFAULT_SERIAL_SPEED);
 
+    // Open the serial Link for the PC
+    openSerialLink(&pcSerialStreamLink,
+            &pcInputBuffer,
+            &pcInputBufferArray,
+            MAIN_BOARD_PC_INPUT_BUFFER_LENGTH,
+            &pcOutputBuffer,
+            &pcOutputBufferArray,
+            MAIN_BOARD_PC_OUTPUT_BUFFER_LENGTH,
+            &pcOutputStream,
+            SERIAL_PORT_PC,
+            DEFAULT_SERIAL_SPEED);
+
+   appendString(&pcOutputStream, "JK330 with PIC32...on UART PC\r");
+   appendString(&debugOutputStream, "JK330 with PIC32...on UART DEBUG\r");
+
+   while(1);
+
     // LCD (LCD03 via Serial interface)
-   // initLCDOutputStream(&lcdOutputStream);
+    //initLCDOutputStream(&lcdOutputStream);
+
+    initTimerList(&timerListArray, MAIN_BOARD_TIMER_LENGTH);
+
+    // Init the logs
+    initLog(DEBUG);
+    addLogHandler(&debugSerialLogHandler, "UART", &debugOutputStream, DEBUG);
+    addLogHandler(&lcdLogHandler, "LCD", &lcdOutputStream, ERROR);
+
+    appendString(getOutputStreamLogger(ALWAYS), getPicName());
+    println(getOutputStreamLogger(ALWAYS));
+
+    //initDevicesDescriptor();
+    //initDriversDescriptor();
 
     //    UINT32 actualClock;
-    Setup();
-    Init();
+    //Setup();
+    //Init();
 
- /*  outputStream = &pcoutputStream;
-   appendString(outputStream, "JK330 with PIC32...on UART PC\r");
-   outputStream = &debugoutputStream;
-   appendString(outputStream, "JK330 with PIC32...on UART DEBUG\r");
+   appendString(&pcOutputStream, "JK330 with PIC32...on UART PC\r");
+   appendString(&debugOutputStream, "JK330 with PIC32...on UART DEBUG\r");
 
-   outputStream = &debugoutputStream;
+ /*  outputStream = &debugoutputStream;
    appendString(outputStream, "Lecture Horloge \r");
    getTime(outputStream);
    appendCR(outputStream);

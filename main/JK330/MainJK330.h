@@ -2,6 +2,7 @@
 #define MAINJK330_H
 
 #include "../../common/io/outputStream.h"
+#include "../../common/serial/serial.h"
 
 #include "../../main/motorboard/motorBoard.h"
 #include "../../main/meca1/mechanicalBoard1.h"

@@ -274,10 +274,62 @@ void Setup() {
 
 }
 
+/**
+ * @private
+ */
+void initDevicesDescriptor() {
+    initDeviceList(&deviceListArray, MAIN_BOARD_DEVICE_LENGTH);
+
+    // Test & System
+    // addI2CRemoteDevice(&testDevice, getTestDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
+    addLocalDevice(getSystemDeviceInterface(), getSystemDeviceDescriptor());
+    addLocalDevice(getSystemDebugDeviceInterface(), getSystemDebugDeviceDescriptor());
+    addLocalDevice(getI2cMasterDebugDeviceInterface(), getI2cMasterDebugDeviceDescriptor());
+
+    // Local
+    addLocalDevice(getLCDDeviceInterface(), getLCDDeviceDescriptor());
+    // addLocalDevice(&servoDevice, getServoDeviceInterface(), getServoDeviceDescriptor());
+    addLocalDevice(getRobotConfigDeviceInterface(), getRobotConfigDeviceDescriptor());
+    addLocalDevice(getStartMatchDetectorDeviceInterface(), getStartMatchDetectorDeviceDescriptor());
+    addLocalDevice(getEndMatchDetectorDeviceInterface(), getEndMatchDetectorDeviceDescriptor());
+    addLocalDevice(getSonarDeviceInterface(), getSonarDeviceDescriptor());
+    addLocalDevice(getRobotSonarDetectorDeviceInterface(), getRobotSonarDetectorDeviceDescriptor());
+
+    // Mechanical Board 2->I2C
+    // Device* armDevice = addI2CRemoteDevice(getArm2012DeviceInterface(), MECHANICAL_BOARD_2_I2C_ADDRESS);
+    // Device* infraredDetectorDevice = addI2CRemoteDevice(getRobotInfraredDetectorDeviceInterface(), MECHANICAL_BOARD_2_I2C_ADDRESS);
+
+    // Motor Board->I2C
+    addI2CRemoteDevice(getPIDDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
+    addI2CRemoteDevice(getMotorDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
+    addI2CRemoteDevice(getCodersDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
+    Device* trajectoryDevice = addI2CRemoteDevice(getTrajectoryDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
+    Device* motionDevice = addI2CRemoteDevice(getMotionDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
+
+    // Beacon Receiver Board->I2C
+    // addI2CRemoteDevice(getBeaconReceiverDeviceInterface(), BEACON_RECEIVER_I2C_ADDRESS);
+
+    // Strategy Board->I2C
+    // addI2CRemoteDevice(getStrategyDeviceInterface(), STRATEGY_BOARD_I2C_ADDRESS);
+
+    // Air Conditioning Board
+    addI2CRemoteDevice(getAirConditioningDeviceInterface(), AIR_CONDITIONING_BOARD_I2C_ADDRESS);
+
+    // Init the devices
+    initDevices();  
+
+    // Manage the callback notification
+    trajectoryDevice->deviceHandleCallbackRawData = &mainBoardCallbackRawData;
+    // testDevice.deviceHandleCallbackRawData = &mainBoardCallbackRawData;
+    motionDevice->deviceHandleCallbackRawData = &mainBoardCallbackRawData;
+    // infraredDetectorDevice->deviceHandleCallbackRawData = &mainBoardCallbackRawData;
+}
+
+
 
 int main(void) {
     
-    setPicName("MAIN BOARD");
+    setPicName("MAIN BOARD JK330");
 
     // Open the serial Link for debug
     openSerialLink(&debugSerialStreamLink,
@@ -316,13 +368,6 @@ int main(void) {
 
 
     initLCDOutputStream(&lcdOutputStream);
-    appendString(&lcdOutputStream,"test");
-    //outputStream->openOutputStream(outputStream, 0); //InitLCD();
-
-    // LCD (LCD24064)
-   // initLCDOutputStream(&lcdOutputStream);
-
-   while(1);
 
     initTimerList(&timerListArray, MAIN_BOARD_TIMER_LENGTH);
 
@@ -334,18 +379,21 @@ int main(void) {
     appendString(getOutputStreamLogger(ALWAYS), getPicName());
     println(getOutputStreamLogger(ALWAYS));
 
-    //initDevicesDescriptor();
+
+    
+    appendString(&lcdOutputStream,"test");
+    drawPicture();
+
+    initDevicesDescriptor();
     //initDriversDescriptor();
 
     //    UINT32 actualClock;
     //Setup();
     //Init();
 
-   appendString(&pcOutputStream, "JK330 with PIC32...on UART PC\r");
-   appendString(&debugOutputStream, "JK330 with PIC32...on UART DEBUG\r");
 
- /*  outputStream = &debugoutputStream;
-   appendString(outputStream, "Lecture Horloge \r");
+
+ /*  appendString(&debugoutputStream, "Lecture Horloge \r");
    getTime(outputStream);
    appendCR(outputStream);
    

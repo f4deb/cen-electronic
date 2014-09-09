@@ -1,5 +1,5 @@
 #include <plib.h>
-
+#include "../../common/commons.h"
 //#include "../SOFT/../SOFT/main/MainJK330.h"
 #include "lcd24064.h"
 
@@ -294,15 +294,12 @@ void SetTxt_24064_24064(void) {
 }
 
 /************************************
- * InitLCD_24064							*
+ * initLCD							*
  * initialise l afficheur			*
  * @prarm : none						*
  * @return : none					*
  ************************************/
 void initLCD(void) {
-    int i;
-
-
 
     // adresse de base text area = 0x0000
     dataWriteLCD_24064(0x00); //low adresse
@@ -340,35 +337,13 @@ void initLCD(void) {
 
     commandWriteLCD_24064(0x94);
 
-
     ClrTexteLCD_24064();
     ClrGraphLCD_24064();
 
     SetGrTx_24064();
     dataWriteLCD_24064(0x00);
     dataWriteLCD_24064(0x00);
-    commandWriteLCD_24064(adpset);
-//    commandWriteLCD_24064(awron);
-
-//    dataWriteLCD_24064(0x28);
-//    dataWriteLCD_24064('E');
-//    dataWriteLCD_24064('L');
-//    dataWriteLCD_24064('L');
-//    dataWriteLCD_24064('O');
-
-//    commandWriteLCD_24064(awroff);
-
-    //aff graphique
-    dataWriteLCD_24064(0x00);
-    dataWriteLCD_24064(0x02);
-    commandWriteLCD_24064(adpset);
-
-    commandWriteLCD_24064(awron);
-
-    for (i = 0; i < 2560; i++) {
-        dataWriteLCD_24064(logo[i]);
-    }
-    commandWriteLCD_24064(awroff);
+    commandWriteLCD_24064(adpset); 
 }
 
 /**************************
@@ -464,16 +439,24 @@ void scrolltText_24064 (void ){
 }
 
 /**************************
- * writeCharLCD_24064
+ * writeLCDChar
  * affiche un caractere dans la zone TEXT ？ la position du curseur
  * @param : c = caractere a afficher
  * @return : none
  **************************/
 void writeLCDChar (char c){
+    if (c == LF ){
+        currentColumn =0;
+        currentRow ++;
+        setCursorPosition(currentRow,currentColumn);
+        return;
+    }
 
     commandWriteLCD_24064(awron);
     dataWriteLCD_24064( c - (0x20) );
     commandWriteLCD_24064(awroff);
+    
+
 
     currentColumn ++;
     if (currentColumn >= maxColumn) {
@@ -688,8 +671,22 @@ void line_24064(int x1,int y1,int x2,int y2){
         }
 
     }
+}
 
 
+void drawPicture (void){
+    int i;
+    //aff graphique
+    dataWriteLCD_24064(0x00);
+    dataWriteLCD_24064(0x02);
+    commandWriteLCD_24064(adpset);
+
+    commandWriteLCD_24064(awron);
+
+    for (i = 0; i < 2560; i++) {
+        dataWriteLCD_24064(logo[i]);
+    }
+    commandWriteLCD_24064(awroff);
 }
 
 /*MEMO

@@ -74,10 +74,13 @@
 #include "../../device/i2c/master/i2cMasterDebugDeviceInterface.h"
 
 // LCD
-//#include "../../drivers/lcd/lcd.h"
+#include "../../drivers/lcd/lcd.h"
 //#include "../../drivers/lcd/lcd4d.h"
-//#include "../../device/lcd/lcdDevice.h"
-//#include "../../device/lcd/lcdDeviceInterface.h"
+#include "../../drivers/lcd/lcd24064.h"
+#include "../../drivers/lcd/lcdProvider_24064.h"
+
+#include "../../device/lcd/lcdDevice.h"
+#include "../../device/lcd/lcdDeviceInterface.h"
 
 //#include "../device/led/led.h"
 
@@ -303,10 +306,23 @@ int main(void) {
    appendString(&pcOutputStream, "JK330 with PIC32...on UART PC\r");
    appendString(&debugOutputStream, "JK330 with PIC32...on UART DEBUG\r");
 
-   while(1);
 
-    // LCD (LCD03 via Serial interface)
-    //initLCDOutputStream(&lcdOutputStream);
+
+    //Configure les PIN de control de l'afficheur MGSLS24064
+    SetupLCD_24064();
+
+    //creer le flux lcd
+   //Initialise l'afficheur LCD et affiche l'image d'accueil
+
+
+    initLCDOutputStream(&lcdOutputStream);
+    appendString(&lcdOutputStream,"test");
+    //outputStream->openOutputStream(outputStream, 0); //InitLCD();
+
+    // LCD (LCD24064)
+   // initLCDOutputStream(&lcdOutputStream);
+
+   while(1);
 
     initTimerList(&timerListArray, MAIN_BOARD_TIMER_LENGTH);
 

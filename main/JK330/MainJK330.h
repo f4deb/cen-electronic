@@ -10,6 +10,7 @@
 #include "../../main/beaconReceiver/beaconReceiverBoard.h"
 #include "../../main/strategy/strategyMain.h"
 
+
 // DEBUG UART
 
 #define MAIN_BOARD_DEBUG_INPUT_BUFFER_LENGTH    28

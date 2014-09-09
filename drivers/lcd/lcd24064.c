@@ -1,9 +1,10 @@
 #include <plib.h>
 
-#include "../SOFT/../SOFT/main/MainJK330.h"
+//#include "../SOFT/../SOFT/main/MainJK330.h"
 #include "lcd24064.h"
 
-#include "lcdOutputStream.h"
+#include "../../common/io/outputStream.h"
+#include "../../common/delay/cenDelay.h"
 
 
 #define bus_LCD	PORTE
@@ -203,7 +204,7 @@ char dataReadLCD_24064 (void) {
     cd_LCD = 0; // LCD en data
     wr_LCD = 1;
     rd_LCD = 0; // LCD en lecture
-delay100us(1);
+    delay100us(1);
 
     ce_LCD = 0; // active le LCD
     delay100us(1);
@@ -298,7 +299,7 @@ void SetTxt_24064_24064(void) {
  * @prarm : none						*
  * @return : none					*
  ************************************/
-void InitLCD_24064(void) {
+void initLCD(void) {
     int i;
 
 
@@ -468,7 +469,7 @@ void scrolltText_24064 (void ){
  * @param : c = caractere a afficher
  * @return : none
  **************************/
-void writeCharLCD_24064 (char c){
+void writeLCDChar (char c){
 
     commandWriteLCD_24064(awron);
     dataWriteLCD_24064( c - (0x20) );

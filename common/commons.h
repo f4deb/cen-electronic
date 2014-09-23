@@ -49,4 +49,7 @@
 #define IN_AS_STRING "IN"
 #define OUT_AS_STRING "OUT"
 
+//I2C
+#define _I2C1
+
 #endif

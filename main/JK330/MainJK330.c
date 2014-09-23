@@ -73,6 +73,10 @@
 #include "../../device/i2c/master/i2cMasterDebugDevice.h"
 #include "../../device/i2c/master/i2cMasterDebugDeviceInterface.h"
 
+//CLOCK
+
+#include "../../drivers/clock/PCF8563.h"
+
 // LCD
 #include "../../drivers/lcd/lcd.h"
 //#include "../../drivers/lcd/lcd4d.h"
@@ -265,7 +269,9 @@ void Init(void) {
 void Setup() {
 
     //Active CONNEXION I2C1
- //   OpenI2C1(I2C_ON, BRG_VAL); //Enable I2C channel
+    OpenI2C1(I2C_ON, 0xC6); //Enable I2C channel
+
+
     //   I2C1CONbits.ACKDT=1;
     //   I2C1CONbits.ACKEN=0;
 
@@ -341,9 +347,25 @@ void initDevicesDescriptor() {
  */
 }
 
+unsigned char   ReadCharI2C (BOOL ACKNL){
+    char  data = MasterReadI2C1();
+  /*  if (ACKNL == TRUE){
+        AckI2C1();
+    }
+    else {
+        NotAckI2C1();
+    }
+*/
+    IdleI2C1();
+    //delaymSec(100);
+    return data;
+}
 
 
 int main(void) {
+  
+    i2cMasterInitialize();
+
     
     setPicName("MAIN BOARD JK330");
 
@@ -385,6 +407,8 @@ int main(void) {
 
     initLCDOutputStream(&lcdOutputStream);
 
+    
+
     initTimerList(&timerListArray, MAIN_BOARD_TIMER_LENGTH);
 
     // Init the logs
@@ -392,16 +416,52 @@ int main(void) {
     addLogHandler(&debugSerialLogHandler, "UART", &debugOutputStream, DEBUG);
     addLogHandler(&lcdLogHandler, "LCD", &lcdOutputStream, ERROR);
 
-    appendString(getOutputStreamLogger(ALWAYS), getPicName());
-    println(getOutputStreamLogger(ALWAYS));
+    appendString(getOutputStreamLogger(DEBUG), getPicName());
+    println(getOutputStreamLogger(DEBUG));
 
 
     
-    appendString(&lcdOutputStream,"test");
+    //appendString(getOutputStreamLogger(ALWAYS),"test");
+    clearScreen();
     drawPicture();
 
     initDevicesDescriptor();
     initDriversDescriptor();
+
+    hor.ti_hour=0x17;
+    hor.ti_min=0x23;
+    hor.ti_sec=0x30;
+    hor.ti_day=0x012;
+    hor.ti_month=0x08;
+    hor.ti_year=0x14;
+    setTime_8563();
+
+
+
+
+    clearScreen();
+    setCursorAtHome();
+        while (1){
+    setCursorPosition_24064(3,10);  //raw,col
+    appendString(getOutputStreamLogger(ALWAYS),"HEURE : " );
+
+    getTime_8563();
+    // l'affiche sur le flux de sortie
+    //setCursorPosition(2,20);
+    appendHex2(&lcdOutputStream, hor.ti_hour); //heure
+    appendString(getOutputStreamLogger(ALWAYS), ":");
+    appendHex2(getOutputStreamLogger(ALWAYS), hor.ti_min); //min
+    appendString(getOutputStreamLogger(ALWAYS), ":");
+    appendHex2(getOutputStreamLogger(ALWAYS), hor.ti_sec); //sec
+
+    appendString(getOutputStreamLogger(ALWAYS), " ");
+    appendHex2(getOutputStreamLogger(ALWAYS), hor.ti_day); //day
+
+    append(getOutputStreamLogger(ALWAYS), '/');
+    appendHex2(getOutputStreamLogger(ALWAYS), hor.ti_month); //month
+    append(getOutputStreamLogger(ALWAYS), '/');
+    appendHex2(getOutputStreamLogger(ALWAYS), hor.ti_year); //month
+        }
 
     //    UINT32 actualClock;
     //Setup();

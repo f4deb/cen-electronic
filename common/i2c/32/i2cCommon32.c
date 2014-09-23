@@ -13,8 +13,10 @@ void WaitI2C() {
 
 inline void portableStartI2C() {
     StartI2C1();
+    WaitI2C();//Wait to complete
 }
 
 inline void portableStopI2C() {
     StopI2C1();
+    WaitI2C();//Wait to complete
 }

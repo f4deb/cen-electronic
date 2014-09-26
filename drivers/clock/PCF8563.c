@@ -15,12 +15,6 @@
  **/
 void getTime_8563 (void){
 
-    // fait clignoter les leds avec le PCF8574 juste pour test A SUPPRIMER
-    i2cMasterWriteChar(0x40,0xFF);
-    delaymSec(100);
-    i2cMasterWriteChar(0x40,0x00);
-    delaymSec(100);
-
     //Registre pour acceder a l'horloge
     i2cMasterWriteChar(PCF8563_W,0x02);
 
@@ -63,3 +57,18 @@ void setTime_8563 (void){
     WriteCharI2C(hor.ti_month);
     CloseI2C();
  */
+void printTime(OutputStream* outputStream){
+    appendHex2(outputStream, hor.ti_hour); //heure
+    appendString(outputStream, ":");
+    appendHex2(outputStream, hor.ti_min); //min
+    appendString(outputStream, ":");
+    appendHex2(outputStream, hor.ti_sec); //sec
+
+    appendString(outputStream, " ");
+    appendHex2(outputStream, hor.ti_day); //day
+
+    append(outputStream, '/');
+    appendHex2(outputStream, hor.ti_month); //month
+    append(outputStream, '/');
+    appendHex2(outputStream, hor.ti_year); //month
+}

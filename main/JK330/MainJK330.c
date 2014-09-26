@@ -77,6 +77,9 @@
 
 #include "../../drivers/clock/PCF8563.h"
 
+//SENSOR
+#include "../../drivers/sensor/MCP9804.h"
+
 // LCD
 #include "../../drivers/lcd/lcd.h"
 //#include "../../drivers/lcd/lcd4d.h"
@@ -100,7 +103,7 @@
 
 
 
-//#include "../menu/menu.h"
+#include "../../menu/menu.h"
 
 //#include "../setup/clockConstants.h"
 //#include "drivers/IO/PCF8563.h"
@@ -181,6 +184,7 @@ static OutputStream lcdOutputStream;
 static LogHandler debugSerialLogHandler;
 static LogHandler lcdLogHandler;
 
+
 // Devices
 static Device deviceListArray[MAIN_BOARD_DEVICE_LENGTH];
 
@@ -260,25 +264,7 @@ void Init(void) {
  */
 }
 
-/************************************************************
- * setup														*
- * configure les ports du PIC32 pour les fonctions du projet *
- * @param : none												*
- * @return : none											
- ************************************************************/
-void Setup() {
 
-    //Active CONNEXION I2C1
-    OpenI2C1(I2C_ON, 0xC6); //Enable I2C channel
-
-
-    //   I2C1CONbits.ACKDT=1;
-    //   I2C1CONbits.ACKEN=0;
-
-    //Configure les PIN de control de l'afficheur MGSLS24064
-//    SetupLCD_24064();
-
-}
 
 /**
  * @private
@@ -362,6 +348,8 @@ unsigned char   ReadCharI2C (BOOL ACKNL){
 }
 
 
+
+
 int main(void) {
   
     i2cMasterInitialize();
@@ -400,14 +388,12 @@ int main(void) {
 
     //Configure les PIN de control de l'afficheur MGSLS24064
     SetupLCD_24064();
+    initRegMCP9804 (0x00,0x18,0x01,0xE0,0x01,0x40,0x02,0x40); // 30C,20C,34C
 
     //creer le flux lcd
    //Initialise l'afficheur LCD et affiche l'image d'accueil
 
-
     initLCDOutputStream(&lcdOutputStream);
-
-    
 
     initTimerList(&timerListArray, MAIN_BOARD_TIMER_LENGTH);
 
@@ -416,57 +402,51 @@ int main(void) {
     addLogHandler(&debugSerialLogHandler, "UART", &debugOutputStream, DEBUG);
     addLogHandler(&lcdLogHandler, "LCD", &lcdOutputStream, ERROR);
 
+
     appendString(getOutputStreamLogger(DEBUG), getPicName());
     println(getOutputStreamLogger(DEBUG));
+   
 
-
-    
-    //appendString(getOutputStreamLogger(ALWAYS),"test");
     clearScreen();
     drawPicture();
 
     initDevicesDescriptor();
     initDriversDescriptor();
 
-    hor.ti_hour=0x17;
-    hor.ti_min=0x23;
-    hor.ti_sec=0x30;
-    hor.ti_day=0x012;
-    hor.ti_month=0x08;
+    //Affiche la liste des loggger sur DEBUG
+    printLogger(getOutputStreamLogger(DEBUG));
+
+/*
+    hor.ti_hour=0x21;
+    hor.ti_min=0x36;
+    hor.ti_sec=0x00;
+    hor.ti_day=0x24;
+    hor.ti_month=0x09;
     hor.ti_year=0x14;
-    setTime_8563();
+   setTime_8563();
+*/
+   appendString(getOutputStreamLogger(DEBUG), "Lecture Horloge \r");
+   getTime_8563();
+   appendCR(getOutputStreamLogger(DEBUG));
 
 
+   clearScreen();
+   setCursorAtHome();
+   menu_P(&lcdOutputStream);
+   while (1){
+        setCursorPosition_24064(0,23);  //raw,col
 
+        //CLOCK Read
+        getTime_8563();
+        // l'affiche sur le flux de sortie
+        printTime(&lcdOutputStream);
+        
 
-    clearScreen();
-    setCursorAtHome();
-        while (1){
-    setCursorPosition_24064(3,10);  //raw,col
-    appendString(getOutputStreamLogger(ALWAYS),"HEURE : " );
+        setCursorPosition_24064(0,19);
 
-    getTime_8563();
-    // l'affiche sur le flux de sortie
-    //setCursorPosition(2,20);
-    appendHex2(&lcdOutputStream, hor.ti_hour); //heure
-    appendString(getOutputStreamLogger(ALWAYS), ":");
-    appendHex2(getOutputStreamLogger(ALWAYS), hor.ti_min); //min
-    appendString(getOutputStreamLogger(ALWAYS), ":");
-    appendHex2(getOutputStreamLogger(ALWAYS), hor.ti_sec); //sec
+        appendDec(&lcdOutputStream, ReadTempAmbMCP9804());
 
-    appendString(getOutputStreamLogger(ALWAYS), " ");
-    appendHex2(getOutputStreamLogger(ALWAYS), hor.ti_day); //day
-
-    append(getOutputStreamLogger(ALWAYS), '/');
-    appendHex2(getOutputStreamLogger(ALWAYS), hor.ti_month); //month
-    append(getOutputStreamLogger(ALWAYS), '/');
-    appendHex2(getOutputStreamLogger(ALWAYS), hor.ti_year); //month
-        }
-
-    //    UINT32 actualClock;
-    //Setup();
-    //Init();
-
+   }
 
 
  /*  appendString(&debugoutputStream, "Lecture Horloge \r");

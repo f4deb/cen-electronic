@@ -10,14 +10,10 @@
 #include "../../../common/i2c/i2cCommon.h"
 #include "../../../common/io/buffer.h"
 
-void i2cMasterWriteBuffer(char address, char reg,  Buffer* buffer) {
-    portableStartI2C();
-    portableMasterWriteI2C(address);
-    WaitI2C();
-    portableMasterWriteI2C(reg);
-    WaitI2C();
+void i2cMasterWriteBuffer(char address, Buffer* buffer) {
 
-    //portableMasterWaitSendI2C();
+
+    portableMasterWaitSendI2C();
     // Wait till Start sequence is completed
     //WaitI2C();
 

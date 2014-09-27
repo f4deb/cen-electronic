@@ -7,6 +7,8 @@
 #include "../../common/i2c/i2cCommon.h"
 
 
+
+
 /**
  * getTime_8563
  * lit l'heure et la date et la stock dans la structure "hor"
@@ -15,11 +17,11 @@
  **/
 void getTime_8563 (void){
 
-    //Registre pour acceder a l'horloge
+    //Pointe sur Registre pour acceder a l'horloge
     i2cMasterWriteChar(PCF8563_W,0x02);
 
     //lecture des data
-    portableStartI2C();//OpenI2C();
+    portableStartI2C();
     MasterWriteI2C1(PCF8563_R);
     hor.ti_sec = MasterReadI2C1() & 0b01111111;   AckI2C1();WaitI2C();
     hor.ti_min = MasterReadI2C1() & 0b01111111;   AckI2C1();WaitI2C();
@@ -31,8 +33,13 @@ void getTime_8563 (void){
     portableStopI2C();//CloseI2C();
 }
 
-void setTime_8563 (void){
-    portableStartI2C();//OpenI2C();
+void setTime_8563 (Buffer* buffer){
+
+
+
+    i2cMasterWriteBuffer( PCF8563_W, buffer );
+/*
+    portableStartI2C();
     MasterWriteI2C1(PCF8563_W);
     MasterWriteI2C1(0x02);
     MasterWriteI2C1(hor.ti_sec);
@@ -43,6 +50,7 @@ void setTime_8563 (void){
     MasterWriteI2C1(hor.ti_month);
     MasterWriteI2C1(hor.ti_year);
     portableStopI2C();//CloseI2C();
+ */
 
 
 

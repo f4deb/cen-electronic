@@ -148,11 +148,18 @@ static char driverRequestBufferArray[MAIN_BOARD_REQUEST_DRIVER_BUFFER_LENGTH];
 static Buffer driverResponseBuffer;
 static char driverResponseBufferArray[MAIN_BOARD_RESPONSE_DRIVER_BUFFER_LENGTH];
 
+//DRIVERS CLOCK
+static Buffer driverClockBuffer;
+static char driverClockBufferArray[CLOCK_BUFFER_LENGTH];
+
+
 // DEBUG I2C
 static char i2cMasterDebugOutputBufferArray[MAIN_BOARD_I2C_DEBUG_MASTER_OUT_BUFFER_LENGTH];
 static Buffer i2cMasterDebugOutputBuffer;
 static char i2cMasterDebugInputBufferArray[MAIN_BOARD_I2C_DEBUG_MASTER_IN_BUFFER_LENGTH];
 static Buffer i2cMasterDebugInputBuffer;
+
+
 
 // DISPATCHER I2C
 
@@ -274,6 +281,8 @@ void initDriversDescriptor() {
     initDrivers(&driverRequestBuffer, &driverRequestBufferArray, MAIN_BOARD_REQUEST_DRIVER_BUFFER_LENGTH,
                 &driverResponseBuffer, &driverResponseBufferArray, MAIN_BOARD_RESPONSE_DRIVER_BUFFER_LENGTH);
 
+
+
     // Get test driver for debug purpose
 //    addDriver(driverTestGetDescriptor(), TRANSMIT_LOCAL);
 
@@ -333,19 +342,7 @@ void initDevicesDescriptor() {
  */
 }
 
-unsigned char   ReadCharI2C (BOOL ACKNL){
-    char  data = MasterReadI2C1();
-  /*  if (ACKNL == TRUE){
-        AckI2C1();
-    }
-    else {
-        NotAckI2C1();
-    }
-*/
-    IdleI2C1();
-    //delaymSec(100);
-    return data;
-}
+
 
 
 
@@ -381,6 +378,8 @@ int main(void) {
             SERIAL_PORT_PC,
             DEFAULT_SERIAL_SPEED);
 
+
+
    appendString(&pcOutputStream, "JK330 with PIC32...on UART PC\r");
    appendString(&debugOutputStream, "JK330 with PIC32...on UART DEBUG\r");
 
@@ -402,6 +401,8 @@ int main(void) {
     addLogHandler(&debugSerialLogHandler, "UART", &debugOutputStream, DEBUG);
     addLogHandler(&lcdLogHandler, "LCD", &lcdOutputStream, ERROR);
 
+    initBuffer(&driverClockBuffer, &driverClockBufferArray, CLOCK_BUFFER_LENGTH, "CLOCK_BUFFER", "");
+
 
     appendString(getOutputStreamLogger(DEBUG), getPicName());
     println(getOutputStreamLogger(DEBUG));
@@ -416,15 +417,25 @@ int main(void) {
     //Affiche la liste des loggger sur DEBUG
     printLogger(getOutputStreamLogger(DEBUG));
 
-/*
-    hor.ti_hour=0x21;
-    hor.ti_min=0x36;
+    append(getOutputStream(&driverClockBuffer),0x02);
+    append(getOutputStream(&driverClockBuffer),0x00);//s
+    append(getOutputStream(&driverClockBuffer),0x57);//m
+    append(getOutputStream(&driverClockBuffer),0x15);//h
+    append(getOutputStream(&driverClockBuffer),0x27);//d
+    append(getOutputStream(&driverClockBuffer),0x00);//dayweek
+    append(getOutputStream(&driverClockBuffer),0x09);//m
+    append(getOutputStream(&driverClockBuffer),0x14);//y
+     
+
+    hor.ti_reg=0x02;//registre horloge
+    hor.ti_hour=0x03;
+    hor.ti_min=0x04;
     hor.ti_sec=0x00;
-    hor.ti_day=0x24;
-    hor.ti_month=0x09;
-    hor.ti_year=0x14;
-   setTime_8563();
-*/
+    hor.ti_day=0x05;
+    hor.ti_month=0x06;
+    hor.ti_year=0x07;
+   setTime_8563(&driverClockBuffer);
+
    appendString(getOutputStreamLogger(DEBUG), "Lecture Horloge \r");
    getTime_8563();
    appendCR(getOutputStreamLogger(DEBUG));

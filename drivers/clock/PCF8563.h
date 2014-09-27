@@ -12,6 +12,8 @@
 #define PCF8563_R 0xA3
 
 struct Horloge {
+    int ti_reg;
+    int ti_size;
     int ti_hour;
     int ti_min;
     int ti_sec;

@@ -35,7 +35,7 @@ inline void portableMasterWaitSendI2C( void );
 * @param buffer the buffer of data
  *@param reg    the register to select
 */
-void i2cMasterWriteBuffer( char address, char reg,  Buffer* buffer );
+void i2cMasterWriteBuffer( char address, Buffer* buffer );
 
 /**
 * Sends a char to the I2C.

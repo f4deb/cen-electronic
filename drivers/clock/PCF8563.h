@@ -8,12 +8,11 @@
 #ifndef PCF8563_H
 #define	PCF8563_H
 
-#define PCF8563_W 0xA2
-#define PCF8563_R 0xA3
+//I2C address
+#define PCF8563 0xA2
+
 
 struct Horloge {
-    int ti_reg;
-    int ti_size;
     int ti_hour;
     int ti_min;
     int ti_sec;
@@ -22,9 +21,6 @@ struct Horloge {
     int ti_month;
     int ti_year;
 }hor;
-
-void getTime_8563 (void);
-
 
 
 

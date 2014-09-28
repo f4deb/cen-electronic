@@ -20,3 +20,8 @@ inline void portableStopI2C() {
     StopI2C1();
     WaitI2C();//Wait to complete
 }
+
+inline void portableAckI2C() {
+    AckI2C1();
+    WaitI2C();//Wait to complete
+}

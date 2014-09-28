@@ -1,5 +1,9 @@
 #include "../../../common/commons.h"
 
+#include <peripheral/legacy/i2c_legacy.h>
+#include "../../../drivers/clock/PCF8563.h"
+
+
 #include "i2cMaster.h"
 
 #include "../../../common/delay/cenDelay.h"
@@ -89,3 +93,42 @@ char i2cMasterReadRegisterValue(char address, char commandRegister) {
     portableStopI2C();
     return data;
 }
+
+void i2cMasterRegisterReadBuffer(char address,char reg, char length, Buffer* buffer){
+
+    // Set the register command
+    i2cMasterWriteChar(address,reg);
+
+    // read the data
+    portableStartI2C();
+    portableMasterWriteI2C(address | 0x01);
+
+    int i;
+    for (i = 0; i <length ; i++) {
+        char c = portableMasterReadI2C();
+        AckI2C1();
+        WaitI2C();
+        bufferWriteChar(buffer, c);
+    }        
+    portableStopI2C();
+}
+
+void i2cMasterReadBuffer(char address, char length, Buffer* buffer){
+
+    portableStartI2C();
+    portableMasterWriteI2C(address );
+
+    // read the data
+    portableStartI2C();
+    portableMasterWriteI2C(address | 0x01);
+
+    int i;
+    for (i = 0; i <length ; i++) {
+        char c = portableMasterReadI2C();
+        portableAckI2C();
+        WaitI2C();
+        bufferWriteChar(buffer, c);
+    }
+    portableStopI2C();
+}
+

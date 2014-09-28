@@ -417,27 +417,20 @@ int main(void) {
     //Affiche la liste des loggger sur DEBUG
     printLogger(getOutputStreamLogger(DEBUG));
 
-    append(getOutputStream(&driverClockBuffer),0x02);
-    append(getOutputStream(&driverClockBuffer),0x00);//s
-    append(getOutputStream(&driverClockBuffer),0x57);//m
-    append(getOutputStream(&driverClockBuffer),0x15);//h
-    append(getOutputStream(&driverClockBuffer),0x27);//d
-    append(getOutputStream(&driverClockBuffer),0x00);//dayweek
-    append(getOutputStream(&driverClockBuffer),0x09);//m
-    append(getOutputStream(&driverClockBuffer),0x14);//y
-     
-
-    hor.ti_reg=0x02;//registre horloge
-    hor.ti_hour=0x03;
-    hor.ti_min=0x04;
+    hor.ti_hour=0x18;
+    hor.ti_min=0x54;
     hor.ti_sec=0x00;
-    hor.ti_day=0x05;
-    hor.ti_month=0x06;
-    hor.ti_year=0x07;
-   setTime_8563(&driverClockBuffer);
+    hor.ti_day=0x28;
+    hor.ti_month=0x09;
+    hor.ti_year=0x14;
 
-   appendString(getOutputStreamLogger(DEBUG), "Lecture Horloge \r");
-   getTime_8563();
+   //setTime_8563(&driverClockBuffer);
+
+   appendString(getOutputStreamLogger(DEBUG), "Lecture Horloge : \r");
+  //CLOCK Read
+  getTime_8563(&driverClockBuffer);
+  // l'affiche sur le flux de sortie
+  printTime(getOutputStreamLogger(DEBUG));
    appendCR(getOutputStreamLogger(DEBUG));
 
 
@@ -448,10 +441,9 @@ int main(void) {
         setCursorPosition_24064(0,23);  //raw,col
 
         //CLOCK Read
-        getTime_8563();
+        getTime_8563(&driverClockBuffer);
         // l'affiche sur le flux de sortie
         printTime(&lcdOutputStream);
-        
 
         setCursorPosition_24064(0,19);
 

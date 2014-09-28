@@ -1,6 +1,5 @@
 #include <plib.h>
 #include "../../common/commons.h"
-//#include "../SOFT/../SOFT/main/MainJK330.h"
 #include "lcd24064.h"
 
 #include "../../common/io/outputStream.h"

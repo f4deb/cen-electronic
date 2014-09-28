@@ -77,6 +77,9 @@
 
 #include "../../drivers/clock/PCF8563.h"
 
+//KEYBOARD
+#include "../../drivers/keyboard/74c922.h"
+
 //SENSOR
 #include "../../drivers/sensor/MCP9804.h"
 
@@ -403,6 +406,7 @@ int main(void) {
 
     initBuffer(&driverClockBuffer, &driverClockBufferArray, CLOCK_BUFFER_LENGTH, "CLOCK_BUFFER", "");
 
+    init74c922();
 
     appendString(getOutputStreamLogger(DEBUG), getPicName());
     println(getOutputStreamLogger(DEBUG));
@@ -445,9 +449,14 @@ int main(void) {
         // l'affiche sur le flux de sortie
         printTime(&lcdOutputStream);
 
+        unsigned int c = readKey();
+        appendHex2(&lcdOutputStream, c);
+
         setCursorPosition_24064(0,19);
 
         appendDec(&lcdOutputStream, ReadTempAmbMCP9804());
+
+        
 
    }
 

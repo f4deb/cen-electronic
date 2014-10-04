@@ -74,6 +74,8 @@
 #include "../../device/i2c/master/i2cMasterDebugDeviceInterface.h"
 
 //CLOCK
+#include "../../device/clock/clockDevice.h"
+#include "../../device/clock/clockDeviceInterface.h"
 
 #include "../../drivers/clock/PCF8563.h"
 
@@ -307,6 +309,7 @@ void initDevicesDescriptor() {
 
     // Local
     addLocalDevice(getLCDDeviceInterface(), getLCDDeviceDescriptor());
+    addLocalDevice(getClockDeviceInterface(), getClockDeviceDescriptor());
     // addLocalDevice(&servoDevice, getServoDeviceInterface(), getServoDeviceDescriptor());
 /*    addLocalDevice(getRobotConfigDeviceInterface(), getRobotConfigDeviceDescriptor());
     addLocalDevice(getStartMatchDetectorDeviceInterface(), getStartMatchDetectorDeviceDescriptor());

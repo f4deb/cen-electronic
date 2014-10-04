@@ -11,13 +11,13 @@ int deviceClockGetInterface(char header, int mode, bool fillDeviceArgumentList){
     if (header == COMMAND_READ_CLOCK ) {
         // Same INPUT/OUTPUT
         if (fillDeviceArgumentList) {
-            setFunctionNoArgumentAndNoResult("readClock");
+            setFunctionNoArgumentAndNoResult("Clock Read");
         }
         return 0;
     } else if (header == COMMAND_WRITE_CLOCK) {
         // Same INPUT/OUTPUT
         if (fillDeviceArgumentList) {
-            setFunctionNoArgumentAndNoResult("writeClock");
+            setFunctionNoArgumentAndNoResult("Clock Write");
         }
         return 0;
     }

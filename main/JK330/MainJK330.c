@@ -348,12 +348,77 @@ void initDevicesDescriptor() {
 
 
 
+void waitForInstruction(void) {
+    /*
+    // Listen instruction from pcStream->Devices
+    handleStreamInstruction(
+            &pcInputBuffer,
+            &pcOutputBuffer,
+            &pcOutputStream,
+            &filterRemoveCRLF,
+            NULL);
+    */
+    // Listen instruction from debugStream->Devices
+    handleStreamInstruction(
+            &debugInputBuffer,
+            &debugOutputBuffer,
+            &debugOutputStream,
+            &filterRemoveCRLF,
+            NULL);
 
+    // Listen instructions from Devices (I2C Slave) -> Main Board (I2C Master)
+    /*
+    while (handleNotificationFromDispatcherList(TRANSMIT_I2C)) {
+        // loop for all notification
+        // notification handler must avoid to directly information in notification callback
+        // and never to the call back device
+    }
+    */
+
+    /*
+    // Notify to the strategy board the position of the robot
+    if (isRobotPositionChanged()) {
+        sentStrategyRobotPosition(0, getRobotPositionX(), getRobotPositionY(), getRobotAngle());
+        resetRobotPositionChanged();
+    }
+
+    if (mustNotifyObstacle) {
+        mustNotifyObstacle = false;
+        // Obtain robot position
+        // Ask the robot position from the MOTOR BOARD
+        trajectoryDriverUpdateRobotPosition();
+
+        // compute the obstacle position. If it's outside the table, does nothing
+        int obstacleDistance = 350.0f;
+        appendStringAndDec(getOutputStreamLogger(INFO), "\nInstruction Type:", instructionType);
+
+        if (instructionType == INSTRUCTION_TYPE_BACKWARD) {
+            obstacleDistance = -obstacleDistance;
+        }
+        if (isObstacleOutsideTheTable(obstacleDistance)) {
+            appendString(getOutputStreamLogger(INFO), "\nObstacle OUT side the Table!\n");
+        }
+        else {
+            appendString(getOutputStreamLogger(INFO), "\nObstacle !\n");
+            // Send information to Strategy Board
+            stopRobotObstacle();
+            armDriver2012Up(ARM_LEFT);
+            armDriver2012Up(ARM_RIGHT);
+            // we are ready for next motion (next loop)
+            setReadyForNextMotion(true);
+        }
+    }
+
+    // Update the current Opponent Robot position
+    if (useBalise) {
+        updateOpponentRobotIfNecessary();
+    }
+    */
+}
 
 int main(void) {
   
     i2cMasterInitialize();
-
     
     setPicName("MAIN BOARD JK330");
 
@@ -448,6 +513,9 @@ int main(void) {
         getTime_8563(&driverClockBuffer);
         // l'affiche sur le flux de sortie
         printTime(&lcdOutputStream);
+        waitForInstruction();
+
+
 
         unsigned int c = readKey();
         appendHex2(&lcdOutputStream, c);

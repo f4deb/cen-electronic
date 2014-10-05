@@ -29,11 +29,18 @@ bool isClockDeviceOk(void) {
 void deviceClockHandleRawData(char header, InputStream* inputStream, OutputStream* outputStream){
         if (header == COMMAND_READ_CLOCK) {
         // Read XXX Parameters from the inputStream
-         ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_READ_CLOCK);
+
         // Do the Job
+        ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_READ_CLOCK);
     } else if (header == COMMAND_WRITE_CLOCK) {
-        // Same as for XXXX
+        // Read XXX Parameters from the inputStream
+        unsigned int heure = readHex2(inputStream);
+        // Do the Job
         ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_WRITE_CLOCK);
+        //hor.ti_hour = heure;
+
+        //setClock();
+
     }
 }
 

@@ -496,7 +496,7 @@ int main(void) {
     hor.ti_month=0x09;
     hor.ti_year=0x14;
 
-   //setTime_8563(&driverClockBuffer);
+   setTime_8563(&driverClockBuffer);
 
    appendString(getOutputStreamLogger(DEBUG), "Lecture Horloge : \r");
   //CLOCK Read

@@ -17,9 +17,12 @@ int deviceClockGetInterface(char header, int mode, bool fillDeviceArgumentList){
     } else if (header == COMMAND_WRITE_CLOCK) {
         // Same INPUT/OUTPUT
         if (fillDeviceArgumentList) {
-            setFunctionNoArgumentAndNoResult("Clock Write");
+            setFunction("Clock Write",3,0);
+            setArgumentUnsignedHex2(0, "HOUR");
+            setArgumentUnsignedHex2(1, "MINUTE");
+            setArgumentUnsignedHex2(2, "SECONDE");
         }
-        return 0;
+        return commandLengthValueForMode(mode, 6, 0);
     }
     return DEVICE_HEADER_NOT_HANDLED;
 }

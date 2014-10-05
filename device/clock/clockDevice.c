@@ -1,5 +1,6 @@
 #include <peripheral/legacy/i2c_legacy.h>
 
+#include "../../drivers/clock/PCF8563.h"
 #include "clock.h"
 #include "clockDevice.h"
 #include "clockDeviceInterface.h"
@@ -34,13 +35,12 @@ void deviceClockHandleRawData(char header, InputStream* inputStream, OutputStrea
         ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_READ_CLOCK);
     } else if (header == COMMAND_WRITE_CLOCK) {
         // Read XXX Parameters from the inputStream
-        unsigned int heure = readHex2(inputStream);
+        hor.ti_hour = readHex2(inputStream);
+        hor.ti_min = readHex2(inputStream);
+        hor.ti_sec = readHex2(inputStream);
         // Do the Job
         ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_WRITE_CLOCK);
-        //hor.ti_hour = heure;
-
-        //setClock();
-
+        setClock();
     }
 }
 

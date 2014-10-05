@@ -51,6 +51,35 @@ void setTime_8563 (Buffer* buffer){
     i2cMasterWriteBuffer(PCF8563, buffer );
 }
 
+void setClock (void){
+    portableMasterWaitSendI2C();
+    // Wait till Start sequence is completed
+    //WaitI2C();
+
+    portableStartI2C();
+    // Adress
+    portableMasterWriteI2C(PCF8563);
+    WaitI2C();
+    portableMasterWriteI2C(0x02);
+    WaitI2C();
+    portableMasterWriteI2C(hor.ti_sec);
+    WaitI2C();
+    portableMasterWriteI2C(hor.ti_min);
+    WaitI2C();
+    portableMasterWriteI2C(hor.ti_hour);
+    WaitI2C();
+    portableMasterWriteI2C(hor.ti_day);
+    WaitI2C();
+    portableMasterWriteI2C(hor.ti_wday);
+    WaitI2C();
+    portableMasterWriteI2C(hor.ti_month);
+    WaitI2C();
+    portableMasterWriteI2C(hor.ti_year);
+    WaitI2C();
+
+    portableStopI2C();
+}
+
 void printTime(OutputStream* outputStream){
     appendHex2(outputStream, hor.ti_hour); //heure
     appendString(outputStream, ":");

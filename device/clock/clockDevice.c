@@ -30,16 +30,36 @@ bool isClockDeviceOk(void) {
 void deviceClockHandleRawData(char header, InputStream* inputStream, OutputStream* outputStream){
         if (header == COMMAND_READ_CLOCK) {
         // Read XXX Parameters from the inputStream
-
+            
         // Do the Job
         ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_READ_CLOCK);
-    } else if (header == COMMAND_WRITE_CLOCK) {
+        appendHex2(outputStream,hor.ti_hour);
+        append(outputStream,':');
+        appendHex2(outputStream,hor.ti_min);
+        append(outputStream,':');
+        appendHex2(outputStream,hor.ti_sec);
+        append(outputStream,' ');
+        appendHex2(outputStream,hor.ti_day);
+        append(outputStream,'/');
+        appendHex2(outputStream,hor.ti_month);
+        append(outputStream,'/');
+        appendHex2(outputStream,hor.ti_year);
+        append(outputStream,' ');
+    } else if (header == COMMAND_WRITE_HOUR) {
         // Read XXX Parameters from the inputStream
         hor.ti_hour = readHex2(inputStream);
         hor.ti_min = readHex2(inputStream);
         hor.ti_sec = readHex2(inputStream);
         // Do the Job
-        ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_WRITE_CLOCK);
+        ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_WRITE_HOUR);
+        setClock();
+    } else if (header == COMMAND_WRITE_DATE) {
+        // Read XXX Parameters from the inputStream
+        hor.ti_day = readHex2(inputStream);
+        hor.ti_month = readHex2(inputStream);
+        hor.ti_year = readHex2(inputStream);
+        // Do the Job
+        ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_WRITE_DATE);
         setClock();
     }
 }

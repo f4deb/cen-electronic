@@ -25,9 +25,14 @@
 #define COMMAND_READ_CLOCK         'r'
 
 /**
-* Defines the header to write the clock.
+* Defines the header to write the Houre on the clock.
 */
-#define COMMAND_WRITE_CLOCK         'w'
+#define COMMAND_WRITE_HOUR         'h'
+
+/**
+* Defines the header to write the Houre on the clock.
+*/
+#define COMMAND_WRITE_DATE         'd'
 
 // Function to get the specific Device Interface
 

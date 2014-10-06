@@ -489,7 +489,7 @@ int main(void) {
     //Affiche la liste des loggger sur DEBUG
     printLogger(getOutputStreamLogger(DEBUG));
 
-    hor.ti_hour=0x18;
+   /* hor.ti_hour=0x18;
     hor.ti_min=0x54;
     hor.ti_sec=0x00;
     hor.ti_day=0x28;
@@ -497,6 +497,7 @@ int main(void) {
     hor.ti_year=0x14;
 
    setTime_8563(&driverClockBuffer);
+    */
 
    appendString(getOutputStreamLogger(DEBUG), "Lecture Horloge : \r");
   //CLOCK Read

@@ -124,6 +124,10 @@
 #define SRF02_ADDRESS_14         0xFC
 #define SRF02_ADDRESS_15         0xFE
 
+//CLOCK PCF8563 Adress
+#define PCF8563                 0xA2
+#define CLOCK_REGISTER          0x02
+
 
 #endif
 

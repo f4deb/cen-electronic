@@ -1,10 +1,3 @@
-/* 
- * File:   clock.h
- * Author: f4deb
- *
- * Created on 4 octobre 2014, 19:02
- */
-
 #ifndef CLOCK_DEVICE_INTERFACE_H
 #define	CLOCK_DEVICE_INTERFACE_H
 
@@ -41,5 +34,4 @@
 */
 DeviceInterface* getClockDeviceInterface();
 
-#endif	/* CLOCK_DEVICE_INTERFACE_H */
-
+#endif

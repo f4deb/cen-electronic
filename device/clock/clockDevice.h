@@ -3,5 +3,10 @@
 
 #include "../../device/device.h"
 
+/**
+* Returns a descriptor on the CLOCK device.
+*/
+DeviceDescriptor* getClockDeviceDescriptor();
+
 #endif
 

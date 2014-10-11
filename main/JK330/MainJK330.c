@@ -74,10 +74,12 @@
 #include "../../device/i2c/master/i2cMasterDebugDeviceInterface.h"
 
 //CLOCK
+#include "../../drivers/clock/PCF8563.h"
+
+#include "../../device/clock/clock.h"
 #include "../../device/clock/clockDevice.h"
 #include "../../device/clock/clockDeviceInterface.h"
 
-#include "../../drivers/clock/PCF8563.h"
 
 //KEYBOARD
 #include "../../drivers/keyboard/74c922.h"
@@ -153,18 +155,11 @@ static char driverRequestBufferArray[MAIN_BOARD_REQUEST_DRIVER_BUFFER_LENGTH];
 static Buffer driverResponseBuffer;
 static char driverResponseBufferArray[MAIN_BOARD_RESPONSE_DRIVER_BUFFER_LENGTH];
 
-//DRIVERS CLOCK
-static Buffer driverClockBuffer;
-static char driverClockBufferArray[CLOCK_BUFFER_LENGTH];
-
-
 // DEBUG I2C
 static char i2cMasterDebugOutputBufferArray[MAIN_BOARD_I2C_DEBUG_MASTER_OUT_BUFFER_LENGTH];
 static Buffer i2cMasterDebugOutputBuffer;
 static char i2cMasterDebugInputBufferArray[MAIN_BOARD_I2C_DEBUG_MASTER_IN_BUFFER_LENGTH];
 static Buffer i2cMasterDebugInputBuffer;
-
-
 
 // DISPATCHER I2C
 
@@ -472,8 +467,6 @@ int main(void) {
     addLogHandler(&debugSerialLogHandler, "UART", &debugOutputStream, DEBUG);
     addLogHandler(&lcdLogHandler, "LCD", &lcdOutputStream, ERROR);
 
-    initBuffer(&driverClockBuffer, &driverClockBufferArray, CLOCK_BUFFER_LENGTH, "CLOCK_BUFFER", "");
-
     init74c922();
 
     appendString(getOutputStreamLogger(DEBUG), getPicName());
@@ -489,21 +482,14 @@ int main(void) {
     //Affiche la liste des loggger sur DEBUG
     printLogger(getOutputStreamLogger(DEBUG));
 
-   /* hor.ti_hour=0x18;
-    hor.ti_min=0x54;
-    hor.ti_sec=0x00;
-    hor.ti_day=0x28;
-    hor.ti_month=0x09;
-    hor.ti_year=0x14;
-
-   setTime_8563(&driverClockBuffer);
-    */
-
    appendString(getOutputStreamLogger(DEBUG), "Lecture Horloge : \r");
-  //CLOCK Read
-  getTime_8563(&driverClockBuffer);
-  // l'affiche sur le flux de sortie
-  printTime(getOutputStreamLogger(DEBUG));
+
+   //CLOCK Read
+   Clock* globalClock = getGlobalClock();
+   updateClockFromHardware(globalClock);
+
+   // l'affiche sur le flux de sortie
+   printClock(getOutputStreamLogger(DEBUG), globalClock);
    appendCR(getOutputStreamLogger(DEBUG));
 
 
@@ -514,12 +500,11 @@ int main(void) {
         setCursorPosition_24064(0,23);  //raw,col
 
         //CLOCK Read
-        getTime_8563(&driverClockBuffer);
+        Clock* globalClock = getGlobalClock();
+        updateClockFromHardware(globalClock);
         // l'affiche sur le flux de sortie
-        printTime(&lcdOutputStream);
+        printClock(&lcdOutputStream, globalClock);
         waitForInstruction();
-
-
 
         unsigned int c = readKey();
         appendHex2(&lcdOutputStream, c);
@@ -527,16 +512,9 @@ int main(void) {
         setCursorPosition_24064(0,19);
 
         appendDec(&lcdOutputStream, ReadTempAmbMCP9804());
-
-        
-
    }
 
-
- /*  appendString(&debugoutputStream, "Lecture Horloge \r");
-   getTime(outputStream);
-   appendCR(outputStream);
-   
+ /*
     clearScreen();
     setCursorAtHome();
 
@@ -578,34 +556,6 @@ int main(void) {
     appendHex2( outputStream, eepromI2CRead (0x10));
     appendCR(outputStream);
     appendCR(outputStream);
-
-
-
-    //lecture
-
-
-    hor.ti_hour=0x17;
-    hor.ti_min=0x23;
-    hor.ti_sec=0x30;
-    hor.ti_day=0x012;
-    hor.ti_month=0x08;
-    hor.ti_year=0x14;
-    //setTime();
-    while (1) {
-    outputStream = &lcdoutputStream;
-    setCursorPosition_24064(0,23);
-    getTime(outputStream);
-
-    
-    setCursorPosition_24064(0,19);
-
-    appendDec(outputStream, ReadTempAmbMCP9804());
-    append(outputStream,'C');
-
-
-
-    delaymSec(1000);
-    }
  */
 }
 

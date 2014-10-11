@@ -75,7 +75,7 @@
 #define    RLY08_ADDRESS_7            0x7E
 
 //CLOCK PCF8563 Adress
-#define PCF8563                 0xA2
+#define PCF8563_ADDRESS               0xA2
 
 // CMPS03
 

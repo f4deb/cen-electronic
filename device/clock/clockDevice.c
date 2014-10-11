@@ -1,18 +1,15 @@
 #include <peripheral/legacy/i2c_legacy.h>
 
-#include "../../drivers/clock/PCF8563.h"
 #include "clock.h"
 #include "clockDevice.h"
 #include "clockDeviceInterface.h"
 
 #include "../../common/cmd/commonCommand.h"
-
-// Others includes
-
 #include "../../common/io/printWriter.h"
 #include "../../common/io/reader.h"
 #include "../../common/io/stream.h"
 
+#include "../../drivers/clock/PCF8563.h"
 
 void deviceClockInit(void) {
 }
@@ -25,37 +22,36 @@ bool isClockDeviceOk(void) {
 }
 
 void deviceClockHandleRawData(char header, InputStream* inputStream, OutputStream* outputStream){
-        if (header == COMMAND_READ_CLOCK) {
-
+    if (header == COMMAND_READ_CLOCK) {
+        Clock* clock = getGlobalClock();
         ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_READ_CLOCK);
-        appendHex2(outputStream,hor.ti_hour);
+        appendHex2(outputStream, clock->hour);
         append(outputStream,':');
-        appendHex2(outputStream,hor.ti_min);
+        appendHex2(outputStream, clock->minute);
         append(outputStream,':');
-        appendHex2(outputStream,hor.ti_sec);
+        appendHex2(outputStream, clock->second);
         append(outputStream,' ');
-        appendHex2(outputStream,hor.ti_day);
+        appendHex2(outputStream, clock->day);
         append(outputStream,'/');
-        appendHex2(outputStream,hor.ti_month);
+        appendHex2(outputStream, clock->month);
         append(outputStream,'/');
-        appendHex2(outputStream,hor.ti_year);
-        append(outputStream,' ');
+        appendHex2(outputStream, clock->year);
     } else if (header == COMMAND_WRITE_HOUR) {
-
-        hor.ti_hour = readHex2(inputStream);
-        hor.ti_min = readHex2(inputStream);
-        hor.ti_sec = readHex2(inputStream);
+        Clock* clock = getGlobalClock();
+        clock->hour = readHex2(inputStream);
+        clock->minute = readHex2(inputStream);
+        clock->second = readHex2(inputStream);
         
         ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_WRITE_HOUR);
-        setClock();
+        updateClockToHardware(clock);
     } else if (header == COMMAND_WRITE_DATE) {
-        
-        hor.ti_day = readHex2(inputStream);
-        hor.ti_month = readHex2(inputStream);
-        hor.ti_year = readHex2(inputStream);
+        Clock* clock = getGlobalClock();
+        clock->day = readHex2(inputStream);
+        clock->month = readHex2(inputStream);
+        clock->year = readHex2(inputStream);
         
         ackCommand(outputStream, CLOCK_DEVICE_HEADER, COMMAND_WRITE_DATE);
-        setClock();
+        updateClockToHardware(clock);
     }
 }
 

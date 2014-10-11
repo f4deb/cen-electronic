@@ -41,7 +41,6 @@
 
 #define MAIN_BOARD_REQUEST_DRIVER_BUFFER_LENGTH                    30
 #define MAIN_BOARD_RESPONSE_DRIVER_BUFFER_LENGTH                30
-#define CLOCK_BUFFER_LENGTH                                    10
 
 // DEVICE
 

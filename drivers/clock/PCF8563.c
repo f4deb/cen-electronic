@@ -1,96 +1,61 @@
-//#include <plib.h>
-//#include <peripheral/i2c.h>
+#include "PCF8563.h"
+
 #include <peripheral/legacy/i2c_legacy.h>
 
-#include "PCF8563.h"
+#include "../../device/clock/clock.h"
 #include "../../common/i2c/i2cConstants.h"
-//#include "../../common/I2C/I2Ccommon.h"
 #include "../../common/i2c/i2cCommon.h"
 #include "../../common/io/buffer.h"
 
+#define PCF8563_CLOCK_BUFFER_LENGTH     10
+static Buffer pcf8563Buffer;
+static char pcf8563BufferArray[PCF8563_CLOCK_BUFFER_LENGTH];
+static Buffer pcf8563Buffer;
 
-
-
-/**
- * getTime_8563
- * lit l'heure et la date et la stock dans la structure "hor"
- * @param  : none
- * @return : none
- **/
-void getTime_8563 (Buffer* buffer){
-
-    i2cMasterRegisterReadBuffer(PCF8563, CLOCK_REGISTER,7 ,  buffer);
-            int d = bufferReadChar(buffer);
-        hor.ti_sec = d & 0b01111111;
-        d = bufferReadChar(buffer);
-        hor.ti_min = d & 0b01111111;
-        d = bufferReadChar(buffer);
-        hor.ti_hour = d & 0b00111111;
-        d = bufferReadChar(buffer);
-        hor.ti_day = d & 0b00111111;
-        d = bufferReadChar(buffer);
-        hor.ti_wday = d & 0b00001111;
-        d = bufferReadChar(buffer);
-        hor.ti_month = d & 0b00011111;
-        d = bufferReadChar(buffer);
-        hor.ti_year = d ;
+void updateClockFromHardware (Clock* clock){
+    bool bufferInitialized = isBufferInitialized(&pcf8563Buffer);
+    if (!bufferInitialized) {
+        initBuffer(&pcf8563Buffer, &pcf8563BufferArray, PCF8563_CLOCK_BUFFER_LENGTH, "CLOCK_BUFFER", "");
+    }
+    i2cMasterRegisterReadBuffer(PCF8563_ADDRESS, PCF8563_CLOCK_REGISTER, 7, &pcf8563Buffer);
+    int d = bufferReadChar(&pcf8563Buffer);
+    clock->second = d & 0b01111111;
+    d = bufferReadChar(&pcf8563Buffer);
+    clock->minute = d & 0b01111111;
+    d = bufferReadChar(&pcf8563Buffer);
+    clock->hour = d & 0b00111111;
+    d = bufferReadChar(&pcf8563Buffer);
+    clock->day = d & 0b00111111;
+    d = bufferReadChar(&pcf8563Buffer);
+    clock->dayofweek = d & 0b00001111;
+    d = bufferReadChar(&pcf8563Buffer);
+    clock->month = d & 0b00011111;
+    d = bufferReadChar(&pcf8563Buffer);
+    clock->year = d ;
 }
 
-void setTime_8563 (Buffer* buffer){
-    
-    // charge dans le buffer
-    append(getOutputStream(buffer),CLOCK_REGISTER);
-    append(getOutputStream(buffer),hor.ti_sec);//s
-    append(getOutputStream(buffer),hor.ti_min);//m
-    append(getOutputStream(buffer),hor.ti_hour);//h
-    append(getOutputStream(buffer),hor.ti_day);//d
-    append(getOutputStream(buffer),hor.ti_wday);//dayweek
-    append(getOutputStream(buffer),hor.ti_month);//m
-    append(getOutputStream(buffer),hor.ti_year);//y
-
-    //send the buffer on the I2C bus
-    i2cMasterWriteBuffer(PCF8563, buffer );
-}
-
-void setClock (void){
+void updateClockToHardware (Clock* clock){
     portableMasterWaitSendI2C();
 
     portableStartI2C();
-    // Adress
-    portableMasterWriteI2C(PCF8563);
+    portableMasterWriteI2C(PCF8563_ADDRESS);
     WaitI2C();
-    portableMasterWriteI2C(CLOCK_REGISTER);
+    portableMasterWriteI2C(PCF8563_CLOCK_REGISTER);
     WaitI2C();
-    portableMasterWriteI2C(hor.ti_sec);
+    portableMasterWriteI2C(clock->second);
     WaitI2C();
-    portableMasterWriteI2C(hor.ti_min);
+    portableMasterWriteI2C(clock->minute);
     WaitI2C();
-    portableMasterWriteI2C(hor.ti_hour);
+    portableMasterWriteI2C(clock->hour);
     WaitI2C();
-    portableMasterWriteI2C(hor.ti_day);
+    portableMasterWriteI2C(clock->day);
     WaitI2C();
-    portableMasterWriteI2C(hor.ti_wday);
+    portableMasterWriteI2C(clock->dayofweek);
     WaitI2C();
-    portableMasterWriteI2C(hor.ti_month);
+    portableMasterWriteI2C(clock->month);
     WaitI2C();
-    portableMasterWriteI2C(hor.ti_year);
+    portableMasterWriteI2C(clock->year);
     WaitI2C();
 
     portableStopI2C();
-}
-
-void printTime(OutputStream* outputStream){
-    appendHex2(outputStream, hor.ti_hour); //heure
-    appendString(outputStream, ":");
-    appendHex2(outputStream, hor.ti_min); //min
-    appendString(outputStream, ":");
-    appendHex2(outputStream, hor.ti_sec); //sec
-
-    appendString(outputStream, " ");
-    appendHex2(outputStream, hor.ti_day); //day
-
-    append(outputStream, '/');
-    appendHex2(outputStream, hor.ti_month); //month
-    append(outputStream, '/');
-    appendHex2(outputStream, hor.ti_year); //month
 }

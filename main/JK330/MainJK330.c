@@ -86,10 +86,10 @@
 
 //SENSOR
 #include "../../drivers/sensor/MCP9804.h"
+#include "../../drivers/sensor/LM75A.h"
 
 // LCD
 #include "../../drivers/lcd/lcd.h"
-//#include "../../drivers/lcd/lcd4d.h"
 #include "../../drivers/lcd/lcd24064.h"
 #include "../../drivers/lcd/lcdProvider_24064.h"
 
@@ -98,25 +98,8 @@
 
 //#include "../device/led/led.h"
 
-//#include "../drivers/io/MCP9804.h"
-
 //#include "../drivers/io/EEPROM_I2C.h"
-//#include "../drivers/io/PCF8563.h"
-//#include "../drivers/io/time.h"
-
-//#include "../drivers/lcd/lcd24064.h"
-//#include "../drivers/lcd/lcdOutputStream.h"
-//#include "../drivers/lcd/lcdProvider_24064.h"
-
-
-
 #include "../../menu/menu.h"
-
-//#include "../setup/clockConstants.h"
-//#include "drivers/IO/PCF8563.h"
-
-
-
 
 //#ifndef MPLAB_SIMULATION
 //    #ifdef PROG_32

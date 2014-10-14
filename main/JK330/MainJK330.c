@@ -80,18 +80,23 @@
 #include "../../device/clock/clockDevice.h"
 #include "../../device/clock/clockDeviceInterface.h"
 
+//TEMPERATURE SENSOR
+#include "../../device/temperatureSensor/temperatureSensor.h"
+#include "../../device/temperatureSensor/temperatureSensorDevice.h"
+#include "../../device/temperatureSensor/temperatureSensorDeviceInterface.h"
+
 
 //KEYBOARD
 #include "../../drivers/keyboard/74c922.h"
-
-//SENSOR
-#include "../../drivers/sensor/MCP9804.h"
-#include "../../drivers/sensor/LM75A.h"
 
 // LCD
 #include "../../drivers/lcd/lcd.h"
 #include "../../drivers/lcd/lcd24064.h"
 #include "../../drivers/lcd/lcdProvider_24064.h"
+
+//SENSOR
+#include "../../drivers/sensor/MCP9804.h"
+#include "../../drivers/sensor/LM75A.h"
 
 #include "../../device/lcd/lcdDevice.h"
 #include "../../device/lcd/lcdDeviceInterface.h"
@@ -286,8 +291,10 @@ void initDevicesDescriptor() {
     addLocalDevice(getI2cMasterDebugDeviceInterface(), getI2cMasterDebugDeviceDescriptor());
 
     // Local
-    addLocalDevice(getLCDDeviceInterface(), getLCDDeviceDescriptor());
     addLocalDevice(getClockDeviceInterface(), getClockDeviceDescriptor());
+    addLocalDevice(getLCDDeviceInterface(), getLCDDeviceDescriptor());
+    addLocalDevice(getTemperatureSensorDeviceInterface(), getTemperatureSensorDeviceDescriptor());
+
     // addLocalDevice(&servoDevice, getServoDeviceInterface(), getServoDeviceDescriptor());
 /*    addLocalDevice(getRobotConfigDeviceInterface(), getRobotConfigDeviceDescriptor());
     addLocalDevice(getStartMatchDetectorDeviceInterface(), getStartMatchDetectorDeviceDescriptor());
@@ -330,7 +337,7 @@ void initDevicesDescriptor() {
 
 
 void waitForInstruction(void) {
-    /*
+    
     // Listen instruction from pcStream->Devices
     handleStreamInstruction(
             &pcInputBuffer,
@@ -338,7 +345,7 @@ void waitForInstruction(void) {
             &pcOutputStream,
             &filterRemoveCRLF,
             NULL);
-    */
+    
     // Listen instruction from debugStream->Devices
     handleStreamInstruction(
             &debugInputBuffer,
@@ -471,7 +478,7 @@ int main(void) {
    Clock* globalClock = getGlobalClock();
    updateClockFromHardware(globalClock);
 
-   // l'affiche sur le flux de sortie
+   // Print on the OutputStream
    printClock(getOutputStreamLogger(DEBUG), globalClock);
    appendCR(getOutputStreamLogger(DEBUG));
 
@@ -485,9 +492,11 @@ int main(void) {
         //CLOCK Read
         Clock* globalClock = getGlobalClock();
         updateClockFromHardware(globalClock);
-        // l'affiche sur le flux de sortie
+        // Print on the OutputStream
         printClock(&lcdOutputStream, globalClock);
         waitForInstruction();
+
+        printTemperatureSensor(&lcdOutputStream);
 
         unsigned int c = readKey();
         appendHex2(&lcdOutputStream, c);

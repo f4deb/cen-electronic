@@ -65,20 +65,3 @@ static DeviceDescriptor descriptor = {
 DeviceDescriptor* getClockDeviceDescriptor() {
     return &descriptor;
 }
-
-
-
-
-/*
-static DeviceDescriptor descriptor = {
-    .deviceInit = &deviceClockInit,
-    .deviceShutDown = &deviceClockShutDown,
-    .deviceIsOk = &isClockDeviceOk,
-    .deviceHandleRawData = &deviceClockHandleRawData,
-};
-
-
-
-DeviceDescriptor* getClockDeviceDescriptor() {
-    return &descriptor;
-}*/

@@ -1,23 +1,25 @@
-/* 
- * File:   temperatureSensor.h
- * Author: f4deb
- *
- * Created on 12 octobre 2014, 22:47
- */
-
 #ifndef TEMPERATURESENSOR_H
 #define	TEMPERATURESENSOR_H
 
-#ifdef	__cplusplus
-extern "C" {
+/**
+ * Universal TemperatureSensor definition.
+ */
+typedef struct {
+    int temperatureAmbient;
+    int temperatureAlertMin;
+    int temperatureAlertMax;
+} TemperatureSensor;
+
+/**
+ * Returns the singleton for TemperatureSensor.
+ * @returns the singleton for TemperatureSensor.
+ */
+TemperatureSensor* getGlobalTemperatureSensor();
+
+/**
+ * get the value from the temperature sensor
+ * @return temperature  the value from the temperature sensor
+ */
+int getTemperatureSensor (void);
+
 #endif
-
-
-
-
-#ifdef	__cplusplus
-}
-#endif
-
-#endif	/* TEMPERATURESENSOR_H */
-

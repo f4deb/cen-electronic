@@ -5,20 +5,8 @@
 
 #include "../../drivers/sensor/LM75A.h"
 
-/** Singleton of temperatureSensor (private) */
-static TemperatureSensor globalTemperatureSensor;
-
-TemperatureSensor* getGlobalTemperatureSensor() {
-    return &globalTemperatureSensor;
-}
-
 void printTemperatureSensor(OutputStream* outputStream){
-    char temperature = 0;
-    temperature = getTemperatureSensor();
-    appendDec(outputStream, temperature);
-    
+    appendDec(outputStream, getTemperatureSensor());
 }
 
-void setTemperatureAlertLimit(int temperatureMin, int temperatureMax){
-    
-}
+

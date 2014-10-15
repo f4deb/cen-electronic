@@ -15,5 +15,11 @@
 
 #define COMMAND_READ_TEMPERATURE_SENSOR         'r'
 
+/**
+* Defines the header to set the temperature sensor Alert 
+*/
+
+#define COMMAND_SET_TEMPERATURE_SENSOR_ALERT         'a'
+
 #endif	
 

@@ -14,8 +14,13 @@ int deviceTemperatureSensorGetInterface(char header, int mode, bool fillDeviceAr
             setResultUnsignedHex2(0, "TEMPERATURE");
         }
         return commandLengthValueForMode(mode, 0, 2);
+    } else if (header == COMMAND_SET_TEMPERATURE_SENSOR_ALERT) {
+        if (fillDeviceArgumentList) {
+            setFunction("Set Alert Temperature Sensor", 1, 0);
+            setArgumentUnsignedHex2(0, "Alert Temperature");
+        }
+        return commandLengthValueForMode(mode, 2, 0);
     }
-
     return DEVICE_HEADER_NOT_HANDLED;
 }
 

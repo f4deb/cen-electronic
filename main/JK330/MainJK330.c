@@ -481,7 +481,7 @@ int main(void) {
    // Print on the OutputStream
    printClock(getOutputStreamLogger(DEBUG), globalClock);
    appendCR(getOutputStreamLogger(DEBUG));
-
+   setTemperatureAlertLimit(0x1A);//26°C
 
    clearScreen();
    setCursorAtHome();

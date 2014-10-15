@@ -30,3 +30,35 @@ char getTemperatureSensor(void){
     temperature = lm75aMsb;
     return temperature;
 }
+
+void setTemperatureAlertLimit(int TemperatureSensorAlert){
+
+    //2BCD to HEX
+    int data;
+    data = TemperatureSensorAlert>>4;
+    data = data * 10;
+    data = data +(TemperatureSensorAlert & 0b00001111);
+
+
+    portableStartI2C();
+    portableMasterWriteI2C(LM75A_ADDRESS);
+    WaitI2C();
+    portableMasterWriteI2C(LM75A_OVERTEMPERATURE_SENSOR_REGISTER);
+    WaitI2C();
+    portableMasterWriteI2C(data);
+    WaitI2C();
+    portableMasterWriteI2C(0x00);
+    WaitI2C();
+    portableStopI2C();
+
+
+        portableStartI2C();
+    portableMasterWriteI2C(LM75A_ADDRESS);
+    WaitI2C();
+    portableMasterWriteI2C(LM75A_CONFIGURATION_SENSOR_REGISTER);
+    WaitI2C();
+    portableMasterWriteI2C(4);
+
+    WaitI2C();
+    portableStopI2C();
+}

@@ -23,7 +23,11 @@ bool isTemperatureSensorDeviceOk(void) {
 void deviceTemperatureSensorHandleRawData(char header, InputStream* inputStream, OutputStream* outputStream){
     if (header == COMMAND_READ_TEMPERATURE_SENSOR) {
         ackCommand(outputStream, TEMPERATURE_SENSOR_DEVICE_HEADER, COMMAND_READ_TEMPERATURE_SENSOR);
-        appendHex2(outputStream, getTemperatureSensor());
+        appendDec(outputStream, getTemperatureSensor());
+    }else if (header == COMMAND_SET_TEMPERATURE_SENSOR_ALERT) {
+        char TemperatureSensorAlert = readHex2(inputStream);
+        ackCommand(outputStream, TEMPERATURE_SENSOR_DEVICE_HEADER, COMMAND_SET_TEMPERATURE_SENSOR_ALERT);
+        setTemperatureAlertLimit(TemperatureSensorAlert);
     }
 }
 

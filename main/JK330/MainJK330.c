@@ -206,61 +206,6 @@ int BCD10;
 
 int Temperature;
 
-/********************************************************************************************************************************
- *********************************************************************************************************************************
- *************************************************************** EN TEST *********************************************************
- *********************************************************************************************************************************
- ********************************************************************************************************************************/
-
-
-/********************************************************************************************************************************
- *********************************************************************************************************************************
- ************************************************ INITIALISATION CONFIGURATION ET MAIN *******************************************
- *********************************************************************************************************************************
- ********************************************************************************************************************************/
-
-/*******************************************************************************
- *  init									       *
- * initialise les differents peripheriquesdu projet                             *
- * @prarm : none                                                                *
- * @return : none                                                               *
- *******************************************************************************/
-
-void Init(void) {
-
-    //Initialise l'afficheur LCD et affiche l'image d'accueil
-
-/*    outputStream = &lcdoutputStream;
-    initLcdOutputStream(outputStream);
-    outputStream->openOutputStream(outputStream, 0); //InitLCD();
-
-        //Initialise port serie debug
-    outputStream = &debugoutputStream;
-    //initSerialOutputStream1(outputStream);
-    initSerialOutputStream(outputStream, SERIAL_PORT_DEBUG);
-    outputStream->openOutputStream(outputStream, 0);
-
-        //Initialise port serie PC
-    outputStream = &pcoutputStream;
-    //initSerialOutputStream2(outputStream);
-    initSerialOutputStream(outputStream, SERIAL_PORT_PC);
-    outputStream->openOutputStream(outputStream, 0);
-
-
-
-   // fais clignoter les leds de la facade
-    InitLed07();
-
-
-
-
-    // Initialise le capteur de temperature MCP9804
-    initRegMCP9804 (0x00,0x18,0x01,0xE0,0x01,0x40,0x02,0x40); // 30C,20C,34C
- */
-}
-
-
-
 /**
  * @private
  */
@@ -268,14 +213,6 @@ void initDriversDescriptor() {
     // Init the drivers
     initDrivers(&driverRequestBuffer, &driverRequestBufferArray, MAIN_BOARD_REQUEST_DRIVER_BUFFER_LENGTH,
                 &driverResponseBuffer, &driverResponseBufferArray, MAIN_BOARD_RESPONSE_DRIVER_BUFFER_LENGTH);
-
-
-
-    // Get test driver for debug purpose
-//    addDriver(driverTestGetDescriptor(), TRANSMIT_LOCAL);
-
-    // Direct Devantech Driver
-//    addDriver(getMD22DriverDescriptor(), TRANSMIT_NONE);
 }
 
 /**
@@ -285,7 +222,6 @@ void initDevicesDescriptor() {
     initDeviceList(&deviceListArray, MAIN_BOARD_DEVICE_LENGTH);
 
     // Test & System
-    // addI2CRemoteDevice(&testDevice, getTestDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
     addLocalDevice(getSystemDeviceInterface(), getSystemDeviceDescriptor());
     addLocalDevice(getSystemDebugDeviceInterface(), getSystemDebugDeviceDescriptor());
     addLocalDevice(getI2cMasterDebugDeviceInterface(), getI2cMasterDebugDeviceDescriptor());
@@ -295,46 +231,9 @@ void initDevicesDescriptor() {
     addLocalDevice(getLCDDeviceInterface(), getLCDDeviceDescriptor());
     addLocalDevice(getTemperatureSensorDeviceInterface(), getTemperatureSensorDeviceDescriptor());
 
-    // addLocalDevice(&servoDevice, getServoDeviceInterface(), getServoDeviceDescriptor());
-/*    addLocalDevice(getRobotConfigDeviceInterface(), getRobotConfigDeviceDescriptor());
-    addLocalDevice(getStartMatchDetectorDeviceInterface(), getStartMatchDetectorDeviceDescriptor());
-    addLocalDevice(getEndMatchDetectorDeviceInterface(), getEndMatchDetectorDeviceDescriptor());
-    addLocalDevice(getSonarDeviceInterface(), getSonarDeviceDescriptor());
-    addLocalDevice(getRobotSonarDetectorDeviceInterface(), getRobotSonarDetectorDeviceDescriptor());
-*/
-    // Mechanical Board 2->I2C
-    // Device* armDevice = addI2CRemoteDevice(getArm2012DeviceInterface(), MECHANICAL_BOARD_2_I2C_ADDRESS);
-    // Device* infraredDetectorDevice = addI2CRemoteDevice(getRobotInfraredDetectorDeviceInterface(), MECHANICAL_BOARD_2_I2C_ADDRESS);
-
-    // Motor Board->I2C
-/*    addI2CRemoteDevice(getPIDDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
-    addI2CRemoteDevice(getMotorDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
-    addI2CRemoteDevice(getCodersDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
-    Device* trajectoryDevice = addI2CRemoteDevice(getTrajectoryDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
-    Device* motionDevice = addI2CRemoteDevice(getMotionDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
-*/
-    // Beacon Receiver Board->I2C
-    // addI2CRemoteDevice(getBeaconReceiverDeviceInterface(), BEACON_RECEIVER_I2C_ADDRESS);
-
-    // Strategy Board->I2C
-    // addI2CRemoteDevice(getStrategyDeviceInterface(), STRATEGY_BOARD_I2C_ADDRESS);
-
-    // Air Conditioning Board
-/*   addI2CRemoteDevice(getAirConditioningDeviceInterface(), AIR_CONDITIONING_BOARD_I2C_ADDRESS);
-*/
     // Init the devices
     initDevices();  
-
-    // Manage the callback notification
-/*    trajectoryDevice->deviceHandleCallbackRawData = &mainBoardCallbackRawData;
-    // testDevice.deviceHandleCallbackRawData = &mainBoardCallbackRawData;
-    motionDevice->deviceHandleCallbackRawData = &mainBoardCallbackRawData;
-    // infraredDetectorDevice->deviceHandleCallbackRawData = &mainBoardCallbackRawData;
- */
 }
-
-
-
 
 void waitForInstruction(void) {
     
@@ -353,59 +252,9 @@ void waitForInstruction(void) {
             &debugOutputStream,
             &filterRemoveCRLF,
             NULL);
-
-    // Listen instructions from Devices (I2C Slave) -> Main Board (I2C Master)
-    /*
-    while (handleNotificationFromDispatcherList(TRANSMIT_I2C)) {
-        // loop for all notification
-        // notification handler must avoid to directly information in notification callback
-        // and never to the call back device
-    }
-    */
-
-    /*
-    // Notify to the strategy board the position of the robot
-    if (isRobotPositionChanged()) {
-        sentStrategyRobotPosition(0, getRobotPositionX(), getRobotPositionY(), getRobotAngle());
-        resetRobotPositionChanged();
-    }
-
-    if (mustNotifyObstacle) {
-        mustNotifyObstacle = false;
-        // Obtain robot position
-        // Ask the robot position from the MOTOR BOARD
-        trajectoryDriverUpdateRobotPosition();
-
-        // compute the obstacle position. If it's outside the table, does nothing
-        int obstacleDistance = 350.0f;
-        appendStringAndDec(getOutputStreamLogger(INFO), "\nInstruction Type:", instructionType);
-
-        if (instructionType == INSTRUCTION_TYPE_BACKWARD) {
-            obstacleDistance = -obstacleDistance;
-        }
-        if (isObstacleOutsideTheTable(obstacleDistance)) {
-            appendString(getOutputStreamLogger(INFO), "\nObstacle OUT side the Table!\n");
-        }
-        else {
-            appendString(getOutputStreamLogger(INFO), "\nObstacle !\n");
-            // Send information to Strategy Board
-            stopRobotObstacle();
-            armDriver2012Up(ARM_LEFT);
-            armDriver2012Up(ARM_RIGHT);
-            // we are ready for next motion (next loop)
-            setReadyForNextMotion(true);
-        }
-    }
-
-    // Update the current Opponent Robot position
-    if (useBalise) {
-        updateOpponentRobotIfNecessary();
-    }
-    */
 }
 
-int main(void) {
-  
+int main(void) {  
    
     setPicName("MAIN BOARD JK330");
 
@@ -485,7 +334,7 @@ int main(void) {
    printClock(getOutputStreamLogger(DEBUG), globalClock);
    appendCR(getOutputStreamLogger(DEBUG));
 
-   setTemperatureAlertLimit(0x1C);//26°C
+   setTemperatureAlertLimit(0x35);//35°C
 
    clearScreen();
    setCursorAtHome();
@@ -509,238 +358,4 @@ int main(void) {
 
         appendDec(&lcdOutputStream, ReadTempAmbMCP9804());
    }
-
- /*
-    clearScreen();
-    setCursorAtHome();
-
-    setCursorPosition_24064(7,39);  //raw,col
-    outputStream = &lcdoutputStream;
-    menu_P(&lcdoutputStream);
-
-
-    outputStream = &debugoutputStream;
-
-
-    //Effectue un test sur l'eeprom ecriture/lecture
-
-    //ecriture
-    
-    //eepromI2CWrite (0x00,0x00);
-
-    
- //   eepromI2CWrite (0x00,0x15);
-
-    appendHex2( outputStream, eepromI2CRead (0x00));
-
-    appendHex2( outputStream, eepromI2CRead (0x01));
-    appendHex2( outputStream, eepromI2CRead (0x02));
-    appendHex2( outputStream, eepromI2CRead (0x03));
-    appendHex2( outputStream, eepromI2CRead (0x04));
-    appendHex2( outputStream, eepromI2CRead (0x05));
-    appendHex2( outputStream, eepromI2CRead (0x06));
-    appendHex2( outputStream, eepromI2CRead (0x07));
-    appendHex2( outputStream, eepromI2CRead (0x08));
-    appendHex2( outputStream, eepromI2CRead (0x09));
-    appendHex2( outputStream, eepromI2CRead (0x0A));
-    appendHex2( outputStream, eepromI2CRead (0x0B));
-    appendHex2( outputStream, eepromI2CRead (0x0C));
-    appendHex2( outputStream, eepromI2CRead (0x0D));
-    appendHex2( outputStream, eepromI2CRead (0x0E));
-    appendHex2( outputStream, eepromI2CRead (0x0F));
-    appendCR(outputStream);
-    appendHex2( outputStream, eepromI2CRead (0x10));
-    appendCR(outputStream);
-    appendCR(outputStream);
- */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////////////////// MEMO.
-
-
-/*
-   outputStream = &debugoutputStream;
-
-
-   appendString (outputStream,"TOTO\0");
-   append(outputStream,'J');
-
- */
-
-/*    while (1) {
-
-        Temperature = ReadTempAmbMCP9804();
-        BCD10 = (Temperature / 10) ;
-        Temperature = (Temperature - (BCD10*10));
-        BCD1 = Temperature + '0' ;
-        BCD10 += '0';
-        WriteCharUart(SERIAL_PORT_DEBUG, BCD10);
-        WriteCharUart(SERIAL_PORT_DEBUG, BCD1 );
-        WriteCharUart(SERIAL_PORT_DEBUG, CR );
-        delaymSec(500);
-    }
- */
-
-
-
-
-//	outputStream->address=1;
-//	initOutputStream(OutputStream *outputStream);
-//	initOutputStream(&pcoutputStream);
-
-
-
-/*
-int main(void){
-        Setup();
-        Init();
-
-         static	OutputStream pcoutputStream ;
-	
-        OutputStream *outputStream = &pcoutputStream;
-
-        outputStream->x=0;
-
-//	appendString(getOutputStreamLogger(ALWAYS), "Homologation:");
-        SendDataBuffer (SERIAL_PORT_PC,HELLO_UART_PC);
-        SendDataBuffer (SERIAL_PORT_DEBUG,HELLO_UART_DEBUG);
-        }
- */
-
-////////////////////////////// MEMO 
-/*
-int main(void){
-
-        Setup();
-        Init();
-
-
-        OutputStream outputStream ;
-	
-        OutputStream *pointeur = &outputStream;
-
-
-        pointeur->x=0;
-        outputStream.x=1;
-        outputStream.y=1;
-
-
-
-
-
-//	appendString(getOutputStreamLogger(ALWAYS), "Homologation:");
-
-        SendDataBuffer (SERIAL_PORT_PC,HELLO_UART_PC);
-        SendDataBuffer (SERIAL_PORT_DEBUG,HELLO_UART_DEBUG);
-	
-        }
- */
-
-////////////////////////////// MEMO 
-
-/*
-void Init(void) {
-//	OpenUart(SERIAL_PORT_PC,BAUDERATE);
-//	OpenUart(SERIAL_PORT_DEBUG,BAUDERATE);
-
-        void (*toto)();
-        toto = OpenUartDefaut;
-
-        toto();
-//	OpenUartDefaut();
-//initLCD();
-}
- */
-
-/*
-    OpenI2C();
-    WriteCharI2C(0x30);
-    WriteCharI2C(0x01);
-    OpenI2C();
-    WriteCharI2C(0x31);
-    TempAmbMSB = ReadCharI2C(ACK);
-
-    TempAmbLSB = MasterReadI2C1();NotAckI2C1();IdleI2C1();
-    CloseI2C();
-
-    OpenI2C();
-    WriteCharI2C(0x30);
-    WriteCharI2C(0x02);
-    OpenI2C();
-    WriteCharI2C(0x31);//AckI2C1();
-    TempAmbMSB = MasterReadI2C1();AckI2C1();IdleI2C1();//AckI2C1();
-    TempAmbLSB = MasterReadI2C1();NotAckI2C1();IdleI2C1();
-    CloseI2C();
-
-    OpenI2C();
-    WriteCharI2C(0x30);
-    WriteCharI2C(0x03);
-    OpenI2C();
-    WriteCharI2C(0x31);//AckI2C1();
-    TempAmbMSB = MasterReadI2C1();AckI2C1();IdleI2C1();//AckI2C1();
-    TempAmbLSB = MasterReadI2C1();NotAckI2C1();IdleI2C1();
-    CloseI2C();
-
-    OpenI2C();
-    WriteCharI2C(0x30);
-    WriteCharI2C(0x04);
-    OpenI2C();
-    WriteCharI2C(0x31);//AckI2C1();
-    TempAmbMSB = MasterReadI2C1();AckI2C1();IdleI2C1();//AckI2C1();
-    TempAmbLSB = MasterReadI2C1();NotAckI2C1();IdleI2C1();
-    CloseI2C();
-
-    OpenI2C();
-    WriteCharI2C(0x30);
-    WriteCharI2C(0x05);
-    OpenI2C();
-    WriteCharI2C(0x31);//AckI2C1();
-    TempAmbMSB = MasterReadI2C1();AckI2C1();IdleI2C1();//AckI2C1();
-    TempAmbLSB = MasterReadI2C1();NotAckI2C1();IdleI2C1();
-    CloseI2C();
-
-    OpenI2C();
-    WriteCharI2C(0x30);
-    WriteCharI2C(0x06);
-    OpenI2C();
-    WriteCharI2C(0x31);//AckI2C1();
-    TempAmbMSB = MasterReadI2C1();AckI2C1();IdleI2C1();//AckI2C1();
-    TempAmbLSB = MasterReadI2C1();NotAckI2C1();IdleI2C1();
-    CloseI2C();
-
-    OpenI2C();
-    WriteCharI2C(0x30);
-    WriteCharI2C(0x07);
-    OpenI2C();
-    WriteCharI2C(0x31);//AckI2C1();
-    TempAmbMSB = MasterReadI2C1();AckI2C1();IdleI2C1();//AckI2C1();
-    TempAmbLSB = MasterReadI2C1();NotAckI2C1();IdleI2C1();
-    CloseI2C();
- */

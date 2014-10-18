@@ -182,7 +182,7 @@ void initSerialOutputStream(OutputStream* outputStream, int serialPortIndex) {
     } else if (serialPortIndex == SERIAL_PORT_3) {
         initSerialOutputStream3(outputStream);
     } else if (serialPortIndex == SERIAL_PORT_4) {
-        initSerialOutputStream2(outputStream);
+        initSerialOutputStream4(outputStream);
     } else if (serialPortIndex == SERIAL_PORT_5) {
         initSerialOutputStream5(outputStream);
     } else if (serialPortIndex == SERIAL_PORT_6) {

@@ -10,6 +10,9 @@
 
 #define ADC_DEVICE_HEADER            			'd'
 
+/** Led Device Header. */
+#define LED_DEVICE_HEADER            	'D'
+
 #define END_MATCH_DETECTOR_DEVICE_HEADER        'e'
 
 // The EEPROM DEVICE HEADER

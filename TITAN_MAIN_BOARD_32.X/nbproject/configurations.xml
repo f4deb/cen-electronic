@@ -155,6 +155,10 @@
         <itemPath>../device/lcd/lcdDevice.h</itemPath>
         <itemPath>../device/lcd/lcdDeviceInterface.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f10" displayName="device.led" projectFiles="true">
+        <itemPath>../device/led/ledDevice.h</itemPath>
+        <itemPath>../device/led/ledDeviceInterface.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="device.motion.pid"
                      displayName="device.motion.pid"
                      projectFiles="true">
@@ -497,6 +501,10 @@
       <logicalFolder name="device.lcd" displayName="device.lcd" projectFiles="true">
         <itemPath>../device/lcd/lcdDevice.c</itemPath>
         <itemPath>../device/lcd/lcdDeviceInterface.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f10" displayName="device.led" projectFiles="true">
+        <itemPath>../device/led/ledDevice.c</itemPath>
+        <itemPath>../device/led/ledDeviceInterface.c</itemPath>
       </logicalFolder>
       <logicalFolder name="device.motion.pid"
                      displayName="device.motion.pid"

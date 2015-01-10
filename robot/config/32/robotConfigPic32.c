@@ -25,7 +25,7 @@ signed int _robotConfigReadInt (RobotConfig* robotConfig){
 
 void initRobotConfigPic32(RobotConfig* robotConfig) {
     // Init the portb input selected as I/O
-    AD1PCFG = 0xBEC0;//0b1011111011000000;
+    AD1PCFG = 0xBFC0;//0b1011 1111 1100 0000; ACHTUNG!!! bit8 as input for RS232 UART5 RX
 
     //Init the port selected as Input
     TRISDbits.TRISD5 = 1;

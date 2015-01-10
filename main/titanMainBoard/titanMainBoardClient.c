@@ -69,6 +69,11 @@
 #include "../../device/clock/clockDevice.h"
 #include "../../device/clock/clockDeviceInterface.h"
 
+//LED
+#include "../../device/led/ledDevice.h"
+#include "../../device/led/ledDeviceInterface.h"
+
+
 // TEMPERATURE SENSOR
 #include "../../device/temperatureSensor/temperatureSensor.h"
 #include "../../device/temperatureSensor/temperatureSensorDevice.h"
@@ -178,7 +183,8 @@
     #ifdef PROG_32
         #define SERIAL_PORT_DEBUG          SERIAL_PORT_2
         #define SERIAL_PORT_PC             SERIAL_PORT_6
-        #define SERIAL_PORT_LCD            SERIAL_PORT_5
+        #define SERIAL_PORT_T2            SERIAL_PORT_5
+        #define SERIAL_PORT_T1              SERIAL_PORT_1
     #else
         #define SERIAL_PORT_DEBUG         SERIAL_PORT_1
         #define SERIAL_PORT_PC             SERIAL_PORT_2
@@ -204,6 +210,22 @@ static char pcOutputBufferArray[MAIN_BOARD_PC_OUTPUT_BUFFER_LENGTH];
 static Buffer pcOutputBuffer;
 static OutputStream pcOutputStream;
 static StreamLink pcSerialStreamLink;
+
+// serial link T1
+static char T1InputBufferArray[MAIN_BOARD_PC_INPUT_BUFFER_LENGTH];
+static Buffer T1InputBuffer;
+static char T1OutputBufferArray[MAIN_BOARD_PC_OUTPUT_BUFFER_LENGTH];
+static Buffer T1OutputBuffer;
+static OutputStream T1OutputStream;
+static StreamLink T1SerialStreamLink;
+
+// serial link T2
+static char T2InputBufferArray[MAIN_BOARD_PC_INPUT_BUFFER_LENGTH];
+static Buffer T2InputBuffer;
+static char T2OutputBufferArray[MAIN_BOARD_PC_OUTPUT_BUFFER_LENGTH];
+static Buffer T2OutputBuffer;
+static OutputStream T2OutputStream;
+static StreamLink T2SerialStreamLink;
 
 // both OutputStream as composite
 // static CompositeOutputStream compositePcAndDebugOutputStream;
@@ -463,6 +485,7 @@ void initDevicesDescriptor() {
     addLocalDevice(getI2cMasterDebugDeviceInterface(), getI2cMasterDebugDeviceDescriptor());
 
     // Local
+    addLocalDevice(getLedDeviceInterface(), getLedDeviceDescriptor());
     addLocalDevice(getClockDeviceInterface(), getClockDeviceDescriptor(&globalClock));
     addLocalDevice(getLCDDeviceInterface(), getLCDDeviceDescriptor());
     addLocalDevice(getTemperatureSensorDeviceInterface(), getTemperatureSensorDeviceDescriptor());
@@ -473,8 +496,8 @@ void initDevicesDescriptor() {
     addLocalDevice(getRobotConfigDeviceInterface(), getRobotConfigDeviceDescriptor(&robotConfig));
     addLocalDevice(getStartMatchDetectorDeviceInterface(), getStartMatchDetectorDeviceDescriptor(&startMatchDetector));
     addLocalDevice(getEndMatchDetectorDeviceInterface(), getEndMatchDetectorDeviceDescriptor());
-    addLocalDevice(getSonarDeviceInterface(), getSonarDeviceDescriptor());
-    addLocalDevice(getRobotSonarDetectorDeviceInterface(), getRobotSonarDetectorDeviceDescriptor());
+    //addLocalDevice(getSonarDeviceInterface(), getSonarDeviceDescriptor());
+    //addLocalDevice(getRobotSonarDetectorDeviceInterface(), getRobotSonarDetectorDeviceDescriptor());
 
     // Mechanical Board 2->I2C
     // Device* armDevice = addI2CRemoteDevice(getArm2012DeviceInterface(), MECHANICAL_BOARD_2_I2C_ADDRESS);
@@ -506,43 +529,6 @@ void initDevicesDescriptor() {
     // infraredDetectorDevice->deviceHandleCallbackRawData = &mainBoardCallbackRawData;
 }
 
-/*
-bool isObstacleOutsideTheTable(int distance) {
-    float a = getRobotAngle() * (PI / 1800.0);
-    float dca = cosf(a) * distance;
-    float dsa = sinf(a) * distance;
-    int obstacleX = getRobotPositionX() + dca;
-    int obstacleY = getRobotPositionY() + dsa;
-    
-    appendStringAndDec(getOutputStreamLogger(INFO), "\nObstacle Position:x=", obstacleX);
-    appendStringAndDec(getOutputStreamLogger(INFO), ",y=", obstacleY);
-    println(getOutputStreamLogger(INFO));
-
-    
-    int BORDER_THRESHOLD = 250;
-    int TOTEM_THRESHOLD_X = 250;
-    int TOTEM_THRESHOLD_Y = 600;
-
-    // Table border X
-    if (obstacleX < BORDER_THRESHOLD || obstacleX > GAME_BOARD_WIDTH - BORDER_THRESHOLD) {
-        return true;
-    }
-    // Table border Y
-    if (obstacleY < BORDER_THRESHOLD || obstacleY > GAME_BOARD_HEIGHT - BORDER_THRESHOLD) {
-        return true;
-    }
-    
-    // Totem Zone
-    if (    (obstacleX > GAME_BOARD_MIDDLE_WIDTH - TOTEM_THRESHOLD_X) 
-         && (obstacleX < GAME_BOARD_MIDDLE_WIDTH + TOTEM_THRESHOLD_X)
-         && (obstacleY > GAME_BOARD_MIDDLE_HEIGHT - TOTEM_THRESHOLD_Y) 
-         && (obstacleY < GAME_BOARD_MIDDLE_HEIGHT - TOTEM_THRESHOLD_Y)) {
-        return true;
-    }
-    return false;
-}
-*/
-
 void waitForInstruction() {
     
     // Listen instruction from pcStream->Devices
@@ -558,6 +544,22 @@ void waitForInstruction() {
             &debugInputBuffer,
             &debugOutputBuffer,
             &debugOutputStream,
+            &filterRemoveCRLF,
+            NULL);
+
+    // Listen instruction from T1Stream->Devices
+    handleStreamInstruction(
+            &T1InputBuffer,
+            &T1OutputBuffer,
+            &T1OutputStream,
+            &filterRemoveCRLF,
+            NULL);
+
+    // Listen instruction from T2Stream->Devices
+    handleStreamInstruction(
+            &T2InputBuffer,
+            &T2OutputBuffer,
+            &T2OutputStream,
             &filterRemoveCRLF,
             NULL);
 
@@ -612,9 +614,9 @@ void waitForInstruction() {
 }
 
 int main(void) {
-    setPicName("TITAN ELECTRONICAL MAIN BOARD 32bits V-JJ_7");
+    setPicName("TEST ELECTRONICAL MAIN BOARD 32 V1-30");
 
-    i2cMasterInitialize();
+    //i2cMasterInitialize();
     
     //setRobotMustStop(false);
     // Open the serial Link for debug
@@ -641,7 +643,32 @@ int main(void) {
             SERIAL_PORT_PC,
             DEFAULT_SERIAL_SPEED);
 
-    // LCD (LCD03 via Serial interface)
+    // Open the serial Link for the T1
+    openSerialLink(&T1SerialStreamLink,
+            &T1InputBuffer,
+            &T1InputBufferArray,
+            MAIN_BOARD_PC_INPUT_BUFFER_LENGTH,
+            &T1OutputBuffer,
+            &T1OutputBufferArray,
+            MAIN_BOARD_PC_OUTPUT_BUFFER_LENGTH,
+            &T1OutputStream,
+            SERIAL_PORT_T1,
+            DEFAULT_SERIAL_SPEED);
+
+    // Open the serial Link for the T2
+    openSerialLink(&T2SerialStreamLink,
+            &T2InputBuffer,
+            &T2InputBufferArray,
+            MAIN_BOARD_PC_INPUT_BUFFER_LENGTH,
+            &T2OutputBuffer,
+            &T2OutputBufferArray,
+            MAIN_BOARD_PC_OUTPUT_BUFFER_LENGTH,
+            &T2OutputStream,
+            SERIAL_PORT_T2,
+            DEFAULT_SERIAL_SPEED);
+
+
+    // LCD 
     initLCDOutputStream(&lcdOutputStream);
 
     initTimerList(&timerListArray, MAIN_BOARD_TIMER_LENGTH);
@@ -662,17 +689,9 @@ int main(void) {
     initClockPCF8563(&globalClock);
     init24C512Eeprom(&eeprom_);
 
-
-
-
-
-
-    initRobotConfigPic32(&robotConfig);
-
-
+     initRobotConfigPic32(&robotConfig);
 
     initStartMatchDetector32(&startMatchDetector);
-
 
     // Initializes the opponent robot
     // initOpponentRobot();
@@ -690,6 +709,9 @@ int main(void) {
     */
 
     appendString(&debugOutputStream, "DEBUG\n");
+    appendString(&pcOutputStream, "PC\n");
+    appendString(&T1OutputStream, "T1\n");
+    appendString(&T2OutputStream, "T2\n");
     
     // Start interruptions
     //startTimerList();  //////RALENTI FORTEMENT LE PIC!!! PLANTE I2C !!!!!!!!
@@ -738,18 +760,15 @@ int main(void) {
                         &i2cMasterDebugOutputBufferArray,
                         MAIN_BOARD_I2C_DEBUG_MASTER_OUT_BUFFER_LENGTH);
 
-
-    appendStringConfig(&lcdOutputStream);
+   // Inform PC waiting
+    showWaitingStart(&debugOutputStream);
 
     //pingDriverDataDispatcherList(getOutputStreamLogger(DEBUG));
 
-    // Inform PC waiting
-    showWaitingStart(&debugOutputStream);
-
-
+ 
 
     // wait other board initialization
-    delaymSec(1500);
+    //delaymSec(1500);
 
     // 2012 VALUE
     unsigned int configValue = getConfigValue();
@@ -791,6 +810,16 @@ int main(void) {
 
     // write begin of match
     showStarted(&pcOutputStream);
+
+    while (1) {
+        waitForInstruction();
+    }
+
+
+
+
+
+
 
     if (homologationIndex == 0) {
         // MATCH

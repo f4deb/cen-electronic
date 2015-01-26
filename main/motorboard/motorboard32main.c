@@ -1,3 +1,5 @@
+#include <p32xxxx.h>
+
 #include <peripheral/i2c.h>
 #include <stdlib.h>
 
@@ -243,6 +245,7 @@ int runMotorBoard() {
 }
 
 int main(void) {
+
     runMotorBoard();
 
     return (0);

@@ -72,6 +72,9 @@ LDLIBSOPTIONS=
 FIXDEPS=fixDeps
 
 .build-conf:  ${BUILD_SUBPROJECTS}
+ifneq ($(INFORMATION_MESSAGE), )
+	@echo $(INFORMATION_MESSAGE)
+endif
 	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/JK330_MAIN_BOARD_32.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=32MX795F512H
@@ -92,113 +95,113 @@ endif
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 ${OBJECTDIR}/_ext/1309593678/cenDelay.o: ../common/delay/cenDelay.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1309593678 
+	@${MKDIR} "${OBJECTDIR}/_ext/1309593678" 
 	@${RM} ${OBJECTDIR}/_ext/1309593678/cenDelay.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1309593678/cenDelay.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1309593678/cenDelay.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1309593678/cenDelay.o.d" -o ${OBJECTDIR}/_ext/1309593678/cenDelay.o ../common/delay/cenDelay.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1309593678/cenDelay.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1309593678/cenDelay.o.d" -o ${OBJECTDIR}/_ext/1309593678/cenDelay.o ../common/delay/cenDelay.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/1544592837/outputStream.o: ../common/io/outputStream.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1544592837 
+	@${MKDIR} "${OBJECTDIR}/_ext/1544592837" 
 	@${RM} ${OBJECTDIR}/_ext/1544592837/outputStream.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1544592837/outputStream.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1544592837/outputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1544592837/outputStream.o.d" -o ${OBJECTDIR}/_ext/1544592837/outputStream.o ../common/io/outputStream.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1544592837/outputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1544592837/outputStream.o.d" -o ${OBJECTDIR}/_ext/1544592837/outputStream.o ../common/io/outputStream.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/1544592837/printWriter.o: ../common/io/printWriter.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1544592837 
+	@${MKDIR} "${OBJECTDIR}/_ext/1544592837" 
 	@${RM} ${OBJECTDIR}/_ext/1544592837/printWriter.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1544592837/printWriter.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1544592837/printWriter.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1544592837/printWriter.o.d" -o ${OBJECTDIR}/_ext/1544592837/printWriter.o ../common/io/printWriter.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1544592837/printWriter.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1544592837/printWriter.o.d" -o ${OBJECTDIR}/_ext/1544592837/printWriter.o ../common/io/printWriter.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/1922645879/serialOutputStream.o: ../common/serial/serialOutputStream.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1922645879 
+	@${MKDIR} "${OBJECTDIR}/_ext/1922645879" 
 	@${RM} ${OBJECTDIR}/_ext/1922645879/serialOutputStream.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1922645879/serialOutputStream.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1922645879/serialOutputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1922645879/serialOutputStream.o.d" -o ${OBJECTDIR}/_ext/1922645879/serialOutputStream.o ../common/serial/serialOutputStream.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1922645879/serialOutputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1922645879/serialOutputStream.o.d" -o ${OBJECTDIR}/_ext/1922645879/serialOutputStream.o ../common/serial/serialOutputStream.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/649236794/lcd24064.o: ../drivers/lcd/lcd24064.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/649236794 
+	@${MKDIR} "${OBJECTDIR}/_ext/649236794" 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcd24064.o.d 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcd24064.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcd24064.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcd24064.o.d" -o ${OBJECTDIR}/_ext/649236794/lcd24064.o ../drivers/lcd/lcd24064.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcd24064.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcd24064.o.d" -o ${OBJECTDIR}/_ext/649236794/lcd24064.o ../drivers/lcd/lcd24064.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/649236794/lcdOutputStream.o: ../drivers/lcd/lcdOutputStream.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/649236794 
+	@${MKDIR} "${OBJECTDIR}/_ext/649236794" 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcdOutputStream.o.d 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcdOutputStream.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcdOutputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcdOutputStream.o.d" -o ${OBJECTDIR}/_ext/649236794/lcdOutputStream.o ../drivers/lcd/lcdOutputStream.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcdOutputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcdOutputStream.o.d" -o ${OBJECTDIR}/_ext/649236794/lcdOutputStream.o ../drivers/lcd/lcdOutputStream.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o: ../drivers/lcd/lcdProvider_24064.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/649236794 
+	@${MKDIR} "${OBJECTDIR}/_ext/649236794" 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o.d 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o.d" -o ${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o ../drivers/lcd/lcdProvider_24064.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o.d" -o ${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o ../drivers/lcd/lcdProvider_24064.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/1868118216/MainJK330.o: ../main/JK330/MainJK330.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1868118216 
+	@${MKDIR} "${OBJECTDIR}/_ext/1868118216" 
 	@${RM} ${OBJECTDIR}/_ext/1868118216/MainJK330.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1868118216/MainJK330.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1868118216/MainJK330.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1868118216/MainJK330.o.d" -o ${OBJECTDIR}/_ext/1868118216/MainJK330.o ../main/JK330/MainJK330.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1868118216/MainJK330.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1868118216/MainJK330.o.d" -o ${OBJECTDIR}/_ext/1868118216/MainJK330.o ../main/JK330/MainJK330.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/760809394/menu.o: ../menu/menu.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/760809394 
+	@${MKDIR} "${OBJECTDIR}/_ext/760809394" 
 	@${RM} ${OBJECTDIR}/_ext/760809394/menu.o.d 
 	@${RM} ${OBJECTDIR}/_ext/760809394/menu.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/760809394/menu.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/760809394/menu.o.d" -o ${OBJECTDIR}/_ext/760809394/menu.o ../menu/menu.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/760809394/menu.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/760809394/menu.o.d" -o ${OBJECTDIR}/_ext/760809394/menu.o ../menu/menu.c    -legacy-libc 
 	
 else
 ${OBJECTDIR}/_ext/1309593678/cenDelay.o: ../common/delay/cenDelay.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1309593678 
+	@${MKDIR} "${OBJECTDIR}/_ext/1309593678" 
 	@${RM} ${OBJECTDIR}/_ext/1309593678/cenDelay.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1309593678/cenDelay.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1309593678/cenDelay.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1309593678/cenDelay.o.d" -o ${OBJECTDIR}/_ext/1309593678/cenDelay.o ../common/delay/cenDelay.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1309593678/cenDelay.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1309593678/cenDelay.o.d" -o ${OBJECTDIR}/_ext/1309593678/cenDelay.o ../common/delay/cenDelay.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/1544592837/outputStream.o: ../common/io/outputStream.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1544592837 
+	@${MKDIR} "${OBJECTDIR}/_ext/1544592837" 
 	@${RM} ${OBJECTDIR}/_ext/1544592837/outputStream.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1544592837/outputStream.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1544592837/outputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1544592837/outputStream.o.d" -o ${OBJECTDIR}/_ext/1544592837/outputStream.o ../common/io/outputStream.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1544592837/outputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1544592837/outputStream.o.d" -o ${OBJECTDIR}/_ext/1544592837/outputStream.o ../common/io/outputStream.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/1544592837/printWriter.o: ../common/io/printWriter.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1544592837 
+	@${MKDIR} "${OBJECTDIR}/_ext/1544592837" 
 	@${RM} ${OBJECTDIR}/_ext/1544592837/printWriter.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1544592837/printWriter.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1544592837/printWriter.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1544592837/printWriter.o.d" -o ${OBJECTDIR}/_ext/1544592837/printWriter.o ../common/io/printWriter.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1544592837/printWriter.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1544592837/printWriter.o.d" -o ${OBJECTDIR}/_ext/1544592837/printWriter.o ../common/io/printWriter.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/1922645879/serialOutputStream.o: ../common/serial/serialOutputStream.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1922645879 
+	@${MKDIR} "${OBJECTDIR}/_ext/1922645879" 
 	@${RM} ${OBJECTDIR}/_ext/1922645879/serialOutputStream.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1922645879/serialOutputStream.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1922645879/serialOutputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1922645879/serialOutputStream.o.d" -o ${OBJECTDIR}/_ext/1922645879/serialOutputStream.o ../common/serial/serialOutputStream.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1922645879/serialOutputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1922645879/serialOutputStream.o.d" -o ${OBJECTDIR}/_ext/1922645879/serialOutputStream.o ../common/serial/serialOutputStream.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/649236794/lcd24064.o: ../drivers/lcd/lcd24064.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/649236794 
+	@${MKDIR} "${OBJECTDIR}/_ext/649236794" 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcd24064.o.d 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcd24064.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcd24064.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcd24064.o.d" -o ${OBJECTDIR}/_ext/649236794/lcd24064.o ../drivers/lcd/lcd24064.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcd24064.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcd24064.o.d" -o ${OBJECTDIR}/_ext/649236794/lcd24064.o ../drivers/lcd/lcd24064.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/649236794/lcdOutputStream.o: ../drivers/lcd/lcdOutputStream.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/649236794 
+	@${MKDIR} "${OBJECTDIR}/_ext/649236794" 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcdOutputStream.o.d 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcdOutputStream.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcdOutputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcdOutputStream.o.d" -o ${OBJECTDIR}/_ext/649236794/lcdOutputStream.o ../drivers/lcd/lcdOutputStream.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcdOutputStream.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcdOutputStream.o.d" -o ${OBJECTDIR}/_ext/649236794/lcdOutputStream.o ../drivers/lcd/lcdOutputStream.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o: ../drivers/lcd/lcdProvider_24064.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/649236794 
+	@${MKDIR} "${OBJECTDIR}/_ext/649236794" 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o.d 
 	@${RM} ${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o.d" -o ${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o ../drivers/lcd/lcdProvider_24064.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o.d" -o ${OBJECTDIR}/_ext/649236794/lcdProvider_24064.o ../drivers/lcd/lcdProvider_24064.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/1868118216/MainJK330.o: ../main/JK330/MainJK330.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1868118216 
+	@${MKDIR} "${OBJECTDIR}/_ext/1868118216" 
 	@${RM} ${OBJECTDIR}/_ext/1868118216/MainJK330.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1868118216/MainJK330.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1868118216/MainJK330.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1868118216/MainJK330.o.d" -o ${OBJECTDIR}/_ext/1868118216/MainJK330.o ../main/JK330/MainJK330.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1868118216/MainJK330.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1868118216/MainJK330.o.d" -o ${OBJECTDIR}/_ext/1868118216/MainJK330.o ../main/JK330/MainJK330.c    -legacy-libc 
 	
 ${OBJECTDIR}/_ext/760809394/menu.o: ../menu/menu.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/760809394 
+	@${MKDIR} "${OBJECTDIR}/_ext/760809394" 
 	@${RM} ${OBJECTDIR}/_ext/760809394/menu.o.d 
 	@${RM} ${OBJECTDIR}/_ext/760809394/menu.o 
-	@${FIXDEPS} "${OBJECTDIR}/_ext/760809394/menu.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/760809394/menu.o.d" -o ${OBJECTDIR}/_ext/760809394/menu.o ../menu/menu.c   
+	@${FIXDEPS} "${OBJECTDIR}/_ext/760809394/menu.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/760809394/menu.o.d" -o ${OBJECTDIR}/_ext/760809394/menu.o ../menu/menu.c    -legacy-libc 
 	
 endif
 
@@ -213,12 +216,12 @@ endif
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 dist/${CND_CONF}/${IMAGE_TYPE}/JK330_MAIN_BOARD_32.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -mdebugger -D__MPLAB_DEBUGGER_ICD3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/JK330_MAIN_BOARD_32.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}           -mreserve=data@0x0:0x1FC -mreserve=boot@0x1FC02000:0x1FC02FEF -mreserve=boot@0x1FC02000:0x1FC024FF  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_ICD3=1,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -mdebugger -D__MPLAB_DEBUGGER_ICD3=1 -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/JK330_MAIN_BOARD_32.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}          -legacy-libc    -mreserve=boot@0x1FC02000:0x1FC02FEF -mreserve=boot@0x1FC02000:0x1FC024FF  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_ICD3=1,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml
 	
 else
 dist/${CND_CONF}/${IMAGE_TYPE}/JK330_MAIN_BOARD_32.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/JK330_MAIN_BOARD_32.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}          -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -mprocessor=$(MP_PROCESSOR_OPTION)  -o dist/${CND_CONF}/${IMAGE_TYPE}/JK330_MAIN_BOARD_32.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} ${OBJECTFILES_QUOTED_IF_SPACED}          -legacy-libc  -Wl,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_LD_POST)$(MP_LINKER_FILE_OPTION),-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml
 	${MP_CC_DIR}/xc32-bin2hex dist/${CND_CONF}/${IMAGE_TYPE}/JK330_MAIN_BOARD_32.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} 
 endif
 

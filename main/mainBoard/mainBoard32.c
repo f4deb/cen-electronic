@@ -13,6 +13,7 @@
 #include "../../common/eeprom/eeprom.h"
 
 #include "../../common/MPU/MPU.h"
+#include "../../common/pll/pll.h"
 
 #include "../../common/i2c/i2cCommon.h"
 #include "../../common/i2c/i2cDebug.h"
@@ -82,6 +83,10 @@
 // MPU
 #include "../../device/MPU/mpuDevice.h"
 #include "../../device/MPU/mpuDeviceInterface.h"
+
+//PLL
+#include "../../device/pll/pllDevice.h"
+#include "../../device/pll/pllDeviceInterface.h"
 
 // SERIAL
 #include "../../device/serial/serialDebugDevice.h"
@@ -220,6 +225,10 @@ static I2cBusConnection clockI2cBusConnection;
 static Mpu mpu;
 static I2cBusConnection mpuI2cBusConnection;
 
+//PLL
+static Pll pll;
+static I2cBusConnection pllI2cBusConnection;
+
 // TEMPERATURE
 static Temperature temperature;
 static I2cBusConnection temperatureI2cBusConnection;
@@ -282,28 +291,12 @@ static Buffer motorBoardI2cInputBuffer;
 static InputStream motorBoardI2cInputStream;
 static OutputStream motorBoardI2cOutputStream;
 
-// i2c->Air Conditioning
-/*
-static I2cBusConnection airConditioningI2cBusConnection;
-static char airConditioningBoardInputBufferArray[MAIN_BOARD_LINK_TO_MECA_BOARD_2_BUFFER_LENGTH];
-static Buffer airConditioningBoardInputBuffer;
-static InputStream airConditioningBoardInputStream;
-static OutputStream airConditioningBoardOutputStream;
-*/
-
 // i2c->Mechanical 2
 static I2cBusConnection mechanicalBoard2I2cBusConnection;
 static char mechanical2BoardInputBufferArray[MAIN_BOARD_LINK_TO_MECA_BOARD_2_BUFFER_LENGTH];
 static Buffer mechanical2BoardInputBuffer;
 static InputStream mechanical2BoardInputStream;
 static OutputStream mechanical2BoardOutputStream;
-
-// DISPATCHER UART
-// uart->Motor
-// static char motorBoardUartInputBufferArray[MAIN_BOARD_UART_INPUT_DRIVER_DATA_DISPATCHER_BUFFER_LENGTH];
-// static Buffer motorBoardUartInputBuffer;
-// static InputStream motorBoardUartInputStream;
-// static OutputStream motorBoardUartOutputStream;
 
 // Robot Configuration
 static RobotConfig robotConfig;
@@ -361,7 +354,8 @@ void initMainBoardDevicesDescriptor() {
     addLocalDevice(getClockDeviceInterface(), getClockDeviceDescriptor(&clock));
     addLocalDevice(getMpuDeviceInterface(), getMpuDeviceDescriptor(&mpu));
     addLocalDevice(getADCDeviceInterface(), getADCDeviceDescriptor());
-    addLocalDevice(getServoDeviceInterface(), getServoDeviceDescriptor());
+    addLocalDevice(getPllDeviceInterface(), getPllDeviceDescriptor(&pll));
+    //addLocalDevice(getServoDeviceInterface(), getServoDeviceDescriptor());
     addLocalDevice(getLedDeviceInterface(), getLedDeviceDescriptor());
 //    addLocalDevice(getTemperatureSensorDeviceInterface(), getTemperatureSensorDeviceDescriptor(&temperature));
 

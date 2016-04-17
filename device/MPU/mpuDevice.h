@@ -11,5 +11,4 @@
 */
 DeviceDescriptor* getMpuDeviceDescriptor();
 
-
 #endif 

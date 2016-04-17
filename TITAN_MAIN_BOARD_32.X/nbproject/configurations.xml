@@ -91,6 +91,9 @@
       <logicalFolder name="f20" displayName="common.MPU" projectFiles="true">
         <itemPath>../common/MPU/MPU.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f23" displayName="common.pll" projectFiles="true">
+        <itemPath>../common/pll/pll.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="common.pwm" displayName="common.pwm" projectFiles="true">
         <itemPath>../common/pwm/pwmPic.h</itemPath>
       </logicalFolder>
@@ -208,6 +211,10 @@
       <logicalFolder name="f19" displayName="device.MPU" projectFiles="true">
         <itemPath>../device/MPU/mpuDeviceInterface.h</itemPath>
         <itemPath>../device/MPU/mpuDevice.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f22" displayName="device.pll" projectFiles="true">
+        <itemPath>../device/pll/pllDevice.h</itemPath>
+        <itemPath>../device/pll/pllDeviceInterface.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f11" displayName="device.serial" projectFiles="true">
         <itemPath>../device/serial/serialDebugDevice.h</itemPath>
@@ -468,6 +475,9 @@
       <logicalFolder name="f21" displayName="common.MPU" projectFiles="true">
         <itemPath>../common/MPU/MPU.c</itemPath>
       </logicalFolder>
+      <logicalFolder name="f23" displayName="common.pll" projectFiles="true">
+        <itemPath>../common/pll/pll.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="common.pwm.32"
                      displayName="common.pwm.32"
                      projectFiles="true">
@@ -603,6 +613,10 @@
       <logicalFolder name="f20" displayName="device.MPU" projectFiles="true">
         <itemPath>../device/MPU/mpuDevice.c</itemPath>
         <itemPath>../device/MPU/mpuDeviceInterface.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f22" displayName="device.pll" projectFiles="true">
+        <itemPath>../device/pll/pllDevice.c</itemPath>
+        <itemPath>../device/pll/pllDeviceInterface.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f11" displayName="device.serial" projectFiles="true">
         <itemPath>../device/serial/serialDebugDevice.c</itemPath>

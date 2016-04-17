@@ -41,6 +41,8 @@
 /** Command to ping */
 #define COMMAND_PING_DISPATCHER_INDEX               'p'
 
+#define PLL_DEVICE_HEADER                           'P'               
+
 /** Command to manipulate the clock. */
 #define CLOCK_DEVICE_HEADER                        'k'
 

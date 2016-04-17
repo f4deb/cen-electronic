@@ -3,6 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/device/MPU/mpuDevice.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/MPU/MPU.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/device/pll/pllDeviceInterface.h</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/device/pll/pllDevice.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/device/pll/pllDeviceInterface.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/pll/pll.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/TITAN_MAIN_BOARD_32.X/nbproject/Makefile-default.mk</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/eeprom/eeprom.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/main/mainBoard/mainBoard32.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/eeprom/memoryEeprom.c</file>
+        </group>
     </open-files>
 </project-private>

@@ -133,6 +133,11 @@ void setResultUnsignedHex2(int index, char* name) {
     deviceMethodMetaData.results[index].name = name;
 }
 
+void setResultUnsignedHex3(int index, char* name) {
+    deviceMethodMetaData.results[index].type = DEVICE_ARG_UNSIGNED_HEX_3;
+    deviceMethodMetaData.results[index].name = name;
+}
+
 void setResultUnsignedHex4(int index, char* name) {
     deviceMethodMetaData.results[index].type = DEVICE_ARG_UNSIGNED_HEX_4;
     deviceMethodMetaData.results[index].name = name;

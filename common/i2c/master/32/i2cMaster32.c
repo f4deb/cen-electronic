@@ -1,5 +1,6 @@
 #include <peripheral/legacy/i2c_legacy.h>
 #include <peripheral/i2c.h>
+
 #include <plib.h>
 
 #include "../i2cMaster.h"

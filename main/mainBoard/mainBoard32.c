@@ -1,9 +1,8 @@
 #include "../../common/commons.h"
 
 #include "../../common/setup/32/picSetup32.h"
-
 #include <plib.h>
-#include <stdlib.h>
+
 #include <math.h>
 
 #include "mainBoard32.h"
@@ -164,6 +163,7 @@
 #include "../../drivers/eeprom/24c512.h"
 #include "../../drivers/io/pcf8574.h"
 #include "../../drivers/MPU/MPU-6050.h"
+#include "../../drivers/pll/NJ88C22.h"
 #include "../../drivers/test/testDriver.h"
 #include "../../drivers/system/systemDriver.h"
 #include "../../drivers/motion/motionDriver.h"
@@ -521,7 +521,7 @@ bool mainBoardWaitForInstruction(StartMatch* startMatchParam) {
 int main(void) {
     setBoardName("MAIN BOARD");
     setRobotMustStop(false);
-
+    
     // LOG Global Configuration
     initLogs(DEBUG, &logHandlerListArray, MAIN_BOARD_LOG_HANDLER_LIST_LENGTH, LOG_HANDLER_CATEGORY_ALL_MASK);
 
@@ -595,7 +595,10 @@ int main(void) {
     initClockPCF8563(&clock, &clockI2cBusConnection);
     //-> Mpu
     initI2cBusConnection(&mpuI2cBusConnection, &i2cBus, MPU6050_WRITE_ADDRESS);
-    initMpuMPU6050(&mpu, &mpuI2cBusConnection);
+    initMpuMPU6050(&mpu, &mpuI2cBusConnection);    
+    //->PLL
+    initI2cBusConnection(&pllI2cBusConnection, &i2cBus, NJ88C22_WRITE_ADDRESS);
+    initPllNJ88C22(&pll, &pllI2cBusConnection);
     // -> Temperature
     initI2cBusConnection(&temperatureI2cBusConnection, &i2cBus, LM75A_ADDRESS);
     initTemperatureLM75A(&temperature, &temperatureI2cBusConnection);
@@ -623,7 +626,7 @@ int main(void) {
     while (1) {
         if (!mainBoardWaitForInstruction(&startMatch)) {
             break;
-        }
+        }        
     }
 
     showEnd(getAlwaysOutputStreamLogger());

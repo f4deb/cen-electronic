@@ -37,20 +37,18 @@ bool isPllDeviceOk(void) {
 void devicePllHandleRawData(char header, InputStream* inputStream, OutputStream* outputStream) {
     _devicePllCheckInitialized();
     if (header == WRITE_FREQUENCY_PLL) {     
-        PllData* pllData = pll->getAccelPLL(pll);
-        appendHex4(outputStream, pllData->accel_X);
-        append(outputStream,':');
-        appendHex4(outputStream, pllData->accel_Y);
-        append(outputStream,':');
-        appendHex4(outputStream, pllData->accel_Z);
+        PllData* pllData = &(pll->pllData);
+        int mhz = readHex4(inputStream);
+        mhz = bcd4CharToDec(mhz);
+        
+        int khz = readHex4(inputStream);
+        khz = bcd4CharToDec(khz);
+//        _writeNJ88C22Pll;
+        pllData->pllFrequency = (mhz * 1000) + (khz / 10);
+        pll->WritePll(pll);
         ackCommand(outputStream, PLL_DEVICE_HEADER, WRITE_FREQUENCY_PLL);
     }
 }
-
-
-      
-        
-
 
 static DeviceDescriptor descriptor = {
     .deviceInit = &devicePllInit,

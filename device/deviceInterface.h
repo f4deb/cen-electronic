@@ -292,6 +292,11 @@ void setResultSignedHex6(int index, char* name);
 /**
 * Set the result of the deviceMethodMetaData with index for name
 */
+void setResultUnsignedHex3(int index, char* name);
+
+/**
+* Set the result of the deviceMethodMetaData with index for name
+*/
 void setResultUnsignedHex4(int index, char* name);
 
 /**

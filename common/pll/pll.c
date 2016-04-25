@@ -10,22 +10,21 @@
 
 void printPll(OutputStream* outputStream, Pll* pll) {
     PllData* pllData = &(pll->pllData);
-    appendHex2(outputStream, pllData->accel_X);
+    appendHex4(outputStream, pllData->REGA);
 }
 
 void initPll(Pll* pll, 
         InitPLLFunction* initPLL,
-        GetAccelPLLFunction* getAccelPLL, 
-        
+        WritePllFunction* WritePll,        
         int* object) {
     pll->initPLL = initPLL;
-    pll->getAccelPLL = getAccelPLL;    
+    pll->WritePll = WritePll;    
     pll->object = object;
 }
 
 bool isPllInitialized(Pll* pll) {
     if (pll->initPLL == NULL 
-        | pll->getAccelPLL == NULL ) {
+        || pll->WritePll == NULL ) {
         return false;
     }
     return true;

@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <plib.h>
+#include <peripheral/uart.h>
 
 #include "../../../common/io/buffer.h"
 #include "../../../common/io/outputStream.h"

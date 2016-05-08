@@ -83,6 +83,10 @@
 #include "../../device/MPU/mpuDevice.h"
 #include "../../device/MPU/mpuDeviceInterface.h"
 
+//PERIOD METER
+#include "../../device/periodmeter/periodmeterDevice.h"
+#include "../../device/periodmeter/periodmeterDeviceInterface.h"
+
 //PLL
 #include "../../device/pll/pllDevice.h"
 #include "../../device/pll/pllDeviceInterface.h"
@@ -338,7 +342,7 @@ void initMainBoardDevicesDescriptor() {
     addLocalDevice(getSystemDeviceInterface(), getSystemDeviceDescriptor());
     addLocalDevice(getLogDeviceInterface(), getLogDeviceDescriptor());
     addLocalDevice(getSerialDebugDeviceInterface(), getSerialDebugDeviceDescriptor());
-    addLocalDevice(getTimerDeviceInterface(), getTimerDeviceDescriptor());
+    //addLocalDevice(getTimerDeviceInterface(), getTimerDeviceDescriptor());
     addLocalDevice(getTest2DeviceInterface(), getTest2DeviceDescriptor());
     addLocalDevice(getDataDispatcherDeviceInterface(), getDataDispatcherDeviceDescriptor());
     addLocalDevice(getI2cMasterDebugDeviceInterface(), getI2cMasterDebugDeviceDescriptor());
@@ -347,9 +351,9 @@ void initMainBoardDevicesDescriptor() {
     addLocalDevice(getLCDDeviceInterface(), getLCDDeviceDescriptor());
     addLocalDevice(getRobotConfigDeviceInterface(), getRobotConfigDeviceDescriptor(&robotConfig));
 
-    initStartMatch(&startMatch, isMatchStarted32, mainBoardWaitForInstruction, &eeprom);
-    addLocalDevice(getStartMatchDeviceInterface(), getStartMatchDeviceDescriptor(&startMatch));
-    addLocalDevice(getEndMatchDetectorDeviceInterface(), getEndMatchDetectorDeviceDescriptor());
+   initStartMatch(&startMatch, isMatchStarted32, mainBoardWaitForInstruction, &eeprom);
+    //addLocalDevice(getStartMatchDeviceInterface(), getStartMatchDeviceDescriptor(&startMatch));
+    //addLocalDevice(getEndMatchDetectorDeviceInterface(), getEndMatchDetectorDeviceDescriptor());
     addLocalDevice(getEepromDeviceInterface(), getEepromDeviceDescriptor(&eeprom));
     addLocalDevice(getClockDeviceInterface(), getClockDeviceDescriptor(&clock));
     addLocalDevice(getMpuDeviceInterface(), getMpuDeviceDescriptor(&mpu));
@@ -357,6 +361,8 @@ void initMainBoardDevicesDescriptor() {
     addLocalDevice(getPllDeviceInterface(), getPllDeviceDescriptor(&pll));
     //addLocalDevice(getServoDeviceInterface(), getServoDeviceDescriptor());
     addLocalDevice(getLedDeviceInterface(), getLedDeviceDescriptor());
+    addLocalDevice(getPeriodMeterDeviceInterface(), getPeriodMeterDeviceDescriptor());
+
 //    addLocalDevice(getTemperatureSensorDeviceInterface(), getTemperatureSensorDeviceDescriptor(&temperature));
 
     addLocalDevice(getTestDeviceInterface(), getTestDeviceDescriptor());
@@ -463,21 +469,6 @@ void initMainBoardDriverDataDispatcherList(void) {
             &airConditioningBoardInputStream,
             &i2cBusConnection);
     */
-}
-
-void doInstruction() {
-    int currentTime = getCurrentTimeInSecond();
-
-    if (instructionIndex == 0 && currentTime > 1) {
-        motionDriverForward(600.0f);
-        instructionIndex++;
-    }
-    else if (instructionIndex == 1 && currentTime > 10) {
-        motionDriverLeft(1800.0f);
-    }
-    else if (instructionIndex == 2 && currentTime > 20) {
-        motionDriverForward(600.0f);
-    }
 }
 
 bool mainBoardWaitForInstruction(StartMatch* startMatchParam) {
@@ -604,7 +595,7 @@ int main(void) {
     initTemperatureLM75A(&temperature, &temperatureI2cBusConnection);
 
     // TIMERS
-    initTimerList(&timerListArray, MAIN_BOARD_TIMER_LENGTH);
+    //initTimerList(&timerListArray, MAIN_BOARD_TIMER_LENGTH);
 
     // DEVICES, DRIVERS, DISPATCHERS
     initMainBoardDevicesDescriptor();
@@ -613,13 +604,13 @@ int main(void) {
 
 
     // Start interruptions
-    startTimerList();
+   startTimerList();
 
     loopUntilStart(&startMatch);
 
     counter = 1;
 
-    clearBuffer(&mechanicalBoard2InputBuffer);
+    //clearBuffer(&mechanicalBoard2InputBuffer);
 
     // enableNotificationRobotInfraredDetector(DETECTOR_GROUP_TYPE_FORWARD);
 

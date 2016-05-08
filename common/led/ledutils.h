@@ -1,10 +1,10 @@
 #ifndef LED_UTILS_H
 #define LED_UTILS_H
 
-#define led1 PORTCbits.RC14
+#define led1 PORTCbits.RC15
 #define led2 PORTDbits.RD11
 
-#define led1_dir TRISCbits.TRISC14
+#define led1_dir TRISCbits.TRISC15
 #define led2_dir TRISDbits.TRISD11
 
 /**

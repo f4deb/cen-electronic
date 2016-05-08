@@ -212,6 +212,10 @@
         <itemPath>../device/MPU/mpuDeviceInterface.h</itemPath>
         <itemPath>../device/MPU/mpuDevice.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f25" displayName="device.periodmeter" projectFiles="true">
+        <itemPath>../device/periodmeter/periodmeterDevice.h</itemPath>
+        <itemPath>../device/periodmeter/periodmeterDeviceInterface.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f22" displayName="device.pll" projectFiles="true">
         <itemPath>../device/pll/pllDevice.h</itemPath>
         <itemPath>../device/pll/pllDeviceInterface.h</itemPath>
@@ -617,6 +621,10 @@
         <itemPath>../device/MPU/mpuDevice.c</itemPath>
         <itemPath>../device/MPU/mpuDeviceInterface.c</itemPath>
       </logicalFolder>
+      <logicalFolder name="f25" displayName="device.periodmeter" projectFiles="true">
+        <itemPath>../device/periodmeter/periodmeterDevice.c</itemPath>
+        <itemPath>../device/periodmeter/periodmeterDeviceInterface.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="f22" displayName="device.pll" projectFiles="true">
         <itemPath>../device/pll/pllDevice.c</itemPath>
         <itemPath>../device/pll/pllDeviceInterface.c</itemPath>
@@ -796,6 +804,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>..</Elem>
+    <Elem>../plib/pic32mx/include/peripheral/legacy</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -808,7 +817,7 @@
         <platformTool>ICD3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>1.40</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <compileType>
         <linkerTool>
@@ -840,7 +849,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../C:/devtools/Microchip/MPLAB C32 Suite/pic32-libs/include/peripheral;../D:/DEV/C/MPLAB_C32/pic32-libs/include/peripheral;../common/serial;../device;../common/io;../common;../common/log;../common/math;../common/i2c;../common/timer;../common/cmd;../drivers;../drivers/dispatcher;../drivers/lcd;../device/system;../drivers/test;../device/test;../device/dispatcher;../device/servo;../drivers/motor;../robot;../robot/match;../device/lcd;../device/motor;../main/motorboard;../robot/config;../common/i2c/master;../device/sonar;../drivers/sonar;../drivers/motion;../drivers/system;../drivers/io;../device/motion/simple;../device/motion/position;../device/motion/pid;../device/beacon;../motion/simple;../main/meca2;../device/adc;../common/error;../robot/2012;../main/mainBoard;../device/strategy;../drivers/strategy;../common/2d;../drivers/beacon;../robot/opponent;../common/delay;../common/serial/32;../common/setup/32;../common/delay/32;../device/airconditioning;../main/airconditioning;../drivers/clock;../device/i2c/master;../common/clock;."/>
+                  value="../plib/pic32mx/include;../C:/devtools/Microchip/MPLAB C32 Suite/pic32-libs/include/peripheral;../D:/DEV/C/MPLAB_C32/pic32-libs/include/peripheral;../common/serial;../device;../common/io;../common;../common/log;../common/math;../common/i2c;../common/timer;../common/cmd;../drivers;../drivers/dispatcher;../drivers/lcd;../device/system;../drivers/test;../device/test;../device/dispatcher;../device/servo;../drivers/motor;../robot;../robot/match;../device/lcd;../device/motor;../main/motorboard;../robot/config;../common/i2c/master;../device/sonar;../drivers/sonar;../drivers/motion;../drivers/system;../drivers/io;../device/motion/simple;../device/motion/position;../device/motion/pid;../device/beacon;../motion/simple;../main/meca2;../device/adc;../common/error;../robot/2012;../main/mainBoard;../device/strategy;../drivers/strategy;../common/2d;../drivers/beacon;../robot/opponent;../common/delay;../common/serial/32;../common/setup/32;../common/delay/32;../device/airconditioning;../main/airconditioning;../drivers/clock;../device/i2c/master;../common/clock;.;C:\Program Files (x86)\Microchip\xc32\v1.40\pic32mx\include\lega-c"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
@@ -849,7 +858,8 @@
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="preprocessor-macros" value="_SUPPRESS_PLIB_WARNING"/>
+        <property key="preprocessor-macros"
+                  value="_SUPPRESS_PLIB_WARNING;_DISABLE_OPENADC10_CONFIGPORT_WARNING"/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
         <property key="use-cci" value="false"/>
@@ -864,7 +874,7 @@
         <property key="enable-symbols" value="false"/>
         <property key="exclude-floating-point-library" value="false"/>
         <property key="expand-macros" value="false"/>
-        <property key="extra-include-directories-for-assembler" value="..;;."/>
+        <property key="extra-include-directories-for-assembler" value="..;."/>
         <property key="extra-include-directories-for-preprocessor" value=""/>
         <property key="false-conditionals" value="false"/>
         <property key="keep-locals" value="false"/>
@@ -930,7 +940,7 @@
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
-        <property key="preprocessor-macros" value=""/>
+        <property key="preprocessor-macros" value="_SUPPRESS_PLIB_WARNING"/>
         <property key="rtti" value="true"/>
         <property key="strict-ansi" value="false"/>
         <property key="use-cci" value="false"/>
@@ -938,9 +948,9 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
-        <property key="common-include-directories" value=""/>
+        <property key="common-include-directories" value="../plib/pic32mx/include"/>
         <property key="gp-relative-option" value=""/>
-        <property key="legacy-libc" value="false"/>
+        <property key="legacy-libc" value="true"/>
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
         <property key="wpo-lto" value="false"/>

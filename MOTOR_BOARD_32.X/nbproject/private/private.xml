@@ -3,6 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/io/buffer.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/timer/32/timerSetup32.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/timer/timerList.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/led/ledutils.h</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/timer/cenTimer.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/drivers/driverStreamListener.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/main/mainBoard/mainBoard32.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/timer/32/timerInterrupt32.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/adc/32/adcutils32.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/serial/32/serialInputInterrupt32.c</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/common/MPU/MPU.h</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/plib/pic32-libs/include/peripheral/timer.h</file>
+            <file>file:/media/f4deb/travail/electronique/git-f4deb/cen-electronic/plib/pic32mx/include/peripheral/int.h</file>
+        </group>
     </open-files>
 </project-private>

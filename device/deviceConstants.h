@@ -39,9 +39,7 @@
 #define MPU_DEVICE_HEADER                          'J'
 
 /** Command to ping */
-#define COMMAND_PING_DISPATCHER_INDEX               'p'
-
-#define PLL_DEVICE_HEADER                           'P'               
+#define COMMAND_PING_DISPATCHER_INDEX               'p'             
 
 /** Command to manipulate the clock. */
 #define CLOCK_DEVICE_HEADER                        'k'
@@ -81,6 +79,10 @@
 
 /** TODO : Collision with I2C PID */
 #define PIN_DEVICE_HEADER                          'P'
+
+#define PLL_DEVICE_HEADER                          'q' 
+
+#define PERIOD_METER_HEADER                        'Q'
 
 #define BEACON_RECEIVER_DEVICE_HEADER              'r'
 

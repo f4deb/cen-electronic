@@ -8,7 +8,7 @@
 
 #include "../../common/pll/pll.h"
 
-#define FOSC_OL1_PLL 6400  //6400Khz
+#define FOSC_OL1_PLL 12800  //6400Khz
 #define FCOMP_OL1_PLL 10   //10KHz
 #define DIV_P 64           //diviseur par 64
 

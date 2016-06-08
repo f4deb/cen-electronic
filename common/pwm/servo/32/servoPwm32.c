@@ -42,11 +42,11 @@ int _confServoToPwm(int value) {
 // INIT
 
 void __internalPwmForServoHardware(int posInit) {
-    OpenOC1( OC_ON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE , 0,0 );
-    OpenOC2( OC_ON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE , 0,0 );
-    OpenOC5( OC_ON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE , 0,0 );
+    OpenOC1( OC_ON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE , 0,0 );
+    OpenOC2( OC_ON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE , 0,0 );
+    OpenOC5( OC_ON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE , 0,0 );
 
-        OpenTimer2(T2_ON|T2_PS_1_64 | T2_SOURCE_INT, PWM_TIMER_FOR_SERVO);
+        OpenTimer3(T3_ON|T3_PS_1_64 | T3_SOURCE_INT, PWM_TIMER_FOR_SERVO);
 
         OC1RS = _convPwmServo(posInit);
         OC2RS = _convPwmServo(posInit);

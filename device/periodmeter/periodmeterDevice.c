@@ -36,14 +36,15 @@ unsigned int readPeriodMeter(unsigned char periodMeterIndex) {
 }
 
 void deviceperiodMeterHandleRawData(char commandHeader, InputStream* inputStream, OutputStream* outputStream) {
+    int periodMeterIndex = 1; //timer1
+    int value = 0;      // init value
+    
     if (commandHeader == COMMAND_MESURE_PERIODMETER) {
         ackCommand(outputStream, PERIOD_METER_HEADER, COMMAND_MESURE_PERIODMETER);
 
-        unsigned char periodMeterIndex = readHex2(inputStream);
-        unsigned int value = readHex2(inputStream);
-        
-        //setPeriodMeterValue(periodMeterIndex,value);
-             
+        // read the period on TIMER1
+        value = readPeriodMeter(periodMeterIndex);
+        appendHex4(outputStream, value);             
     }       
 }
 

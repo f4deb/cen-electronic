@@ -505,6 +505,13 @@ bool mainBoardWaitForInstruction(StartMatch* startMatchParam) {
             &debugOutputStream,
             &filterRemoveCRLF,
             NULL);
+    
+    handleStreamInstruction(
+        &pcInputBuffer,
+        &pcOutputBuffer,
+        &pcOutputStream,
+        &filterRemoveCRLF,
+        NULL);
 
     return true;
 }

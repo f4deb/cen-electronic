@@ -24,8 +24,8 @@ void __ISR(_TIMER_3_VECTOR, IPL3SOFT) Timer3Handler(void) {
  * Example Code inspired from : http://learn.digilentinc.com/Documents/216
  */
 void __ISR(_TIMER_1_VECTOR, IPL3SOFT) Timer1Handler(void) {
-    //_internalUpdateTimerListValues(1);
-    frequency_Counter++;
+    _internalUpdateTimerListValues(1);
+    //frequency_Counter++;
     // clear the interrupt flag
     mT1ClearIntFlag();
 }

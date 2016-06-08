@@ -1,6 +1,9 @@
 #ifndef MAIN_BOARD_32_H
 #define MAIN_BOARD_32_H
 
+#define VERSION
+
+
 #include "../../common/io/outputStream.h"
 
 #include "../../main/motorboard/motorBoard32.h"

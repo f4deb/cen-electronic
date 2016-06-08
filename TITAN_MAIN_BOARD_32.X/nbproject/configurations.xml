@@ -347,6 +347,7 @@
         <itemPath>../main/meca2/mechanicalBoard2.h</itemPath>
         <itemPath>../main/airconditioning/airConditioningMain.h</itemPath>
         <itemPath>../main/mainBoard/mainBoard32.h</itemPath>
+        <itemPath>../main/titanMainBoard/titanMainBoardClient.h</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.simple"
                      displayName="motion.simple"
@@ -755,7 +756,7 @@
         <itemPath>../drivers/test/testDriver.c</itemPath>
       </logicalFolder>
       <logicalFolder name="main" displayName="main" projectFiles="true">
-        <itemPath>../main/mainBoard/mainBoard32.c</itemPath>
+        <itemPath>../main/titanMainBoard/titanMainBoardClient.c</itemPath>
       </logicalFolder>
       <logicalFolder name="robot" displayName="robot" projectFiles="true">
         <itemPath>../robot/robot.c</itemPath>
@@ -1002,6 +1003,7 @@
         <property key="UART6" value="true"/>
         <property key="USB" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

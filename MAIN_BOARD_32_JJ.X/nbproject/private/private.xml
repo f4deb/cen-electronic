@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Perso/cen-electronic/common/delay/cenDelay.c</file>
+            <file>file:/C:/Perso/cen-electronic/robot/match/32/startMatchDetector32.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/pwm/32/pwmPic32.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/timer/32/timerInterrupt32.c</file>
+            <file>file:/C:/Perso/cen-electronic/device/system/systemDevice.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/pwm/servo/32/servoPwm32.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/i2c/master/32/i2cMaster32.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/adc/32/adcutils32.c</file>
+            <file>file:/C:/Perso/cen-electronic/drivers/eeprom/24c512.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/serial/32/serial32.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/serial/32/serialInputInterrupt32.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/setup/32/picSetup32.h</file>
+            <file>file:/C:/Perso/cen-electronic/common/i2c/32/i2cCommon32.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/io/pin.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/i2c/master/32/i2cMasterSetup32.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/pwm/motor/32/motorPwm32.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/timer/32/timerSetup32.c</file>
+            <file>file:/C:/Perso/cen-electronic/drivers/lcd/lcdHd44780.c</file>
+            <file>file:/C:/Perso/cen-electronic/common/math/32/random32.c</file>
+            <file>file:/C:/Perso/cen-electronic/main/mainBoard/mainBoard32.c</file>
+        </group>
+    </open-files>
+</project-private>

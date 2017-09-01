@@ -1,3 +1,6 @@
+#define _SUPPRESS_PLIB_WARNING
+#define _DISABLE_OPENADC10_CONFIGPORT_WARNING
+
 #include "../../common/commons.h"
 
 #include "../../common/setup/32/picSetup32.h"

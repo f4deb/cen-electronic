@@ -1,3 +1,6 @@
+#define _SUPPRESS_PLIB_WARNING
+#define _DISABLE_OPENADC10_CONFIGPORT_WARNING
+
 #include "startMatchDetector32.h"
 #include "../startMatch.h"
 

@@ -60,6 +60,11 @@
 #include "../../device/eeprom/eepromDevice.h"
 #include "../../device/eeprom/eepromDeviceInterface.h"
 
+// SENSOR->DISTANCE
+#include "../../device/sensor/distance/distanceSensorDevice.h"
+#include "../../device/sensor/distance/distanceSensorDeviceInterface.h"
+
+
 // FILE
 #include "../../device/file/fileDevice.h"
 #include "../../device/file/fileDeviceInterface.h"
@@ -132,6 +137,7 @@
 #include "../../drivers/clock/softClock.h"
 #include "../../drivers/eeprom/24c512.h"
 #include "../../drivers/clock/PCF8563.h"
+#include "../../drivers/sensor/temperature/LM75A.h"
 
 #include "../../drivers/motor/motorDriver.h"
 
@@ -160,6 +166,10 @@ static Eeprom eeprom_;
 
 // Clock
 static Clock clock;
+
+// DISTANCE
+static Distance distance;
+static I2cBusConnection* distanceI2cBusConnection;
 
 // SERIAL
 static SerialLink serialLinkListArray[MOTOR_BOARD_SERIAL_LINK_LIST_LENGTH];
@@ -246,6 +256,8 @@ void initDevicesDescriptor() {
     addLocalDevice(getClockDeviceInterface(), getClockDeviceDescriptor(&clock));
     addLocalDevice(getTimerDeviceInterface(), getTimerDeviceDescriptor());
     addLocalDevice(getLogDeviceInterface(), getLogDeviceDescriptor());
+    addLocalDevice(getdistanceSensorDeviceInterface(), getdistanceSensorDeviceDescriptor(&distance));
+
 
     initDevices();
 }
@@ -344,6 +356,11 @@ int runMotorBoard() {
     // -> Clock
     clockI2cBusConnection = addI2cBusConnection(masterI2cBus, PCF8563_WRITE_ADDRESS, true);
     initClockPCF8563(&clock, clockI2cBusConnection);
+    
+    // -> Distance
+    distanceI2cBusConnection = addI2cBusConnection(i2cBus, LM75A_ADDRESS);
+    initDistanceLM75A(&distance, distanceI2cBusConnection);
+
 
     // PidMotion
     initPidMotion(&pidMotion, &eeprom_, (PidMotionDefinition(*)[]) &motionDefinitionArray, MOTOR_BOARD_PID_MOTION_INSTRUCTION_COUNT);

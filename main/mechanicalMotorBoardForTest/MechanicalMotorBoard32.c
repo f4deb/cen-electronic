@@ -64,6 +64,9 @@
 #include "../../device/sensor/distance/distanceSensorDevice.h"
 #include "../../device/sensor/distance/distanceSensorDeviceInterface.h"
 
+// SENSOR->TEMPERATURE
+#include "../../device/sensor/temperature/temperatureSensorDevice.h"
+#include "../../device/sensor/temperature/temperatureSensorDeviceInterface.h"
 
 // FILE
 #include "../../device/file/fileDevice.h"
@@ -138,6 +141,7 @@
 #include "../../drivers/eeprom/24c512.h"
 #include "../../drivers/clock/PCF8563.h"
 #include "../../drivers/sensor/temperature/LM75A.h"
+#include "../../drivers/sensor/distance/VL53L0X.h"
 
 #include "../../drivers/motor/motorDriver.h"
 
@@ -160,6 +164,8 @@ static I2cBusConnection* mainBoardI2cBusConnection;
 static I2cBus* masterI2cBus;
 static I2cBusConnection* eepromI2cBusConnection;
 static I2cBusConnection* clockI2cBusConnection;
+static I2cBusConnection* temperatureI2cBusConnection;
+static I2cBusConnection* distanceI2cBusConnection;
 
 // Eeprom
 static Eeprom eeprom_;
@@ -167,9 +173,11 @@ static Eeprom eeprom_;
 // Clock
 static Clock clock;
 
+// TEMPERATURE
+static Temperature temperature;
+
 // DISTANCE
 static Distance distance;
-static I2cBusConnection* distanceI2cBusConnection;
 
 // SERIAL
 static SerialLink serialLinkListArray[MOTOR_BOARD_SERIAL_LINK_LIST_LENGTH];
@@ -256,7 +264,8 @@ void initDevicesDescriptor() {
     addLocalDevice(getClockDeviceInterface(), getClockDeviceDescriptor(&clock));
     addLocalDevice(getTimerDeviceInterface(), getTimerDeviceDescriptor());
     addLocalDevice(getLogDeviceInterface(), getLogDeviceDescriptor());
-    addLocalDevice(getdistanceSensorDeviceInterface(), getdistanceSensorDeviceDescriptor(&distance));
+    addLocalDevice(getDistanceSensorDeviceInterface(), getDistanceSensorDeviceDescriptor(&distance));
+    //addLocalDevice(getTemperatureSensorDeviceInterface(), getTemperatureSensorDeviceDescriptor(&temperature));
 
 
     initDevices();
@@ -346,22 +355,24 @@ int runMotorBoard() {
 
     setDebugI2cEnabled(false);
 
-    // Eeprom
+    
     masterI2cBus = addI2cBus(I2C_BUS_TYPE_MASTER, I2C_BUS_PORT_4);
     i2cMasterInitialize(masterI2cBus);
+    
+    // Eeprom
     eepromI2cBusConnection = addI2cBusConnection(masterI2cBus, ST24C512_ADDRESS_0, true);
     init24C512Eeprom(&eeprom_, eepromI2cBusConnection);
 
+     
     // Clock
     // -> Clock
     clockI2cBusConnection = addI2cBusConnection(masterI2cBus, PCF8563_WRITE_ADDRESS, true);
     initClockPCF8563(&clock, clockI2cBusConnection);
     
     // -> Distance
-    distanceI2cBusConnection = addI2cBusConnection(i2cBus, LM75A_ADDRESS);
-    initDistanceLM75A(&distance, distanceI2cBusConnection);
-
-
+    distanceI2cBusConnection = addI2cBusConnection(masterI2cBus, VL53LOX_WRITE_ADRESS, true);
+    initDistanceVL53L0X(&distance, distanceI2cBusConnection);
+    
     // PidMotion
     initPidMotion(&pidMotion, &eeprom_, (PidMotionDefinition(*)[]) &motionDefinitionArray, MOTOR_BOARD_PID_MOTION_INSTRUCTION_COUNT);
 

@@ -101,6 +101,11 @@
         <itemPath>../common/pwm/motor/dualHBridgeMotorPwm.h</itemPath>
         <itemPath>../common/pwm/motor/motorPwm.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f2"
+                     displayName="common.sensor.distance"
+                     projectFiles="true">
+        <itemPath>../common/sensor/distance/distance.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="common.sensor.temperature"
                      displayName="common.sensor.temperature"
                      projectFiles="true">
@@ -297,6 +302,11 @@
                      displayName="drivers.sensor.temperature"
                      projectFiles="true">
         <itemPath>../drivers/sensor/temperature/LM75A.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3"
+                     displayName="drivers.sensor.VL53L0X"
+                     projectFiles="true">
+        <itemPath>../drivers/sensor/distance/VL53L0X.h</itemPath>
       </logicalFolder>
       <logicalFolder name="main" displayName="main" projectFiles="true">
         <itemPath>../main/mechanicalMotorBoardForTest/MechanicalMotorBoard32.h</itemPath>
@@ -517,6 +527,11 @@
         <itemPath>../common/pwm/motor/32/motorPwm32.c</itemPath>
         <itemPath>../common/pwm/motor/32/dualHBridgeMotorPwm32.c</itemPath>
       </logicalFolder>
+      <logicalFolder name="f2"
+                     displayName="common.sensor.distance"
+                     projectFiles="true">
+        <itemPath>../common/sensor/distance/distance.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="common.sensor.temperature"
                      displayName="common.sensor.temperature"
                      projectFiles="true">
@@ -702,6 +717,11 @@
                      displayName="drivers.sensor.temperature"
                      projectFiles="true">
         <itemPath>../drivers/sensor/temperature/LM75A.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3"
+                     displayName="drivers.sensor.VL53L0X"
+                     projectFiles="true">
+        <itemPath>../drivers/sensor/distance/VL53L0X.c</itemPath>
       </logicalFolder>
       <logicalFolder name="lib" displayName="lib" projectFiles="true">
       </logicalFolder>

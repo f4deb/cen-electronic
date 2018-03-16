@@ -8,6 +8,8 @@
 
 #define ADC_DEVICE_HEADER                          'd'
 
+#define DISTANCE_SENSOR_DEVICE_HEADER              'D'
+
 #define END_MATCH_DETECTOR_DEVICE_HEADER           'e'
 
 // The EEPROM DEVICE HEADER

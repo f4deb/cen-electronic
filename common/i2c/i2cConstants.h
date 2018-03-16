@@ -34,10 +34,16 @@
 #define PCF8574_ADDRESS_6        0x4C
 #define PCF8574_ADDRESS_7        0x4E
 
+// VL53L0X
+
+#define VL53LOX_WRITE_ADRESS     0x52
+#define VL53LOX_READ_ADRESS      0x53
+
+
 // FREE ADDRESS
 
 #define FREE_ADDRESS_0            0x50
-#define FREE_ADDRESS_1            0x52
+//#define FREE_ADDRESS_1            0x52
 #define FREE_ADDRESS_2            0x54
 #define FREE_ADDRESS_3            0x56
 #define FREE_ADDRESS_4            0x58

@@ -96,10 +96,10 @@
         <itemPath>../common/pwm/pwmPic.h</itemPath>
       </logicalFolder>
       <logicalFolder name="common.pwm.motor"
-                     displayName="common.pwm.motor"
+                     displayName="common.pwm.mechanicalMotor"
                      projectFiles="true">
-        <itemPath>../common/pwm/motor/dualHBridgeMotorPwm.h</itemPath>
-        <itemPath>../common/pwm/motor/motorPwm.h</itemPath>
+        <itemPath>../common/pwm/mechanicalMotor/dualHBridgeMotorPwm.h</itemPath>
+        <itemPath>../common/pwm/mechanicalMotor/motorPwm.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2"
                      displayName="common.sensor.distance"
@@ -517,15 +517,15 @@
         <itemPath>../common/pwm/32/pwmPic32.c</itemPath>
       </logicalFolder>
       <logicalFolder name="common.pwm.motor"
-                     displayName="common.pwm.motor"
+                     displayName="common.pwm.mechanicalMotor"
                      projectFiles="true">
-        <itemPath>../common/pwm/motor/motorPwm.c</itemPath>
+        <itemPath>../common/pwm/mechanicalMotor/motorPwm.c</itemPath>
       </logicalFolder>
       <logicalFolder name="common.pwm.motor.32"
-                     displayName="common.pwm.motor.32"
+                     displayName="common.pwm.mechanicalMotor.32"
                      projectFiles="true">
-        <itemPath>../common/pwm/motor/32/motorPwm32.c</itemPath>
-        <itemPath>../common/pwm/motor/32/dualHBridgeMotorPwm32.c</itemPath>
+        <itemPath>../common/pwm/mechanicalMotor/32/dualHBridgeMotorPwm32.c</itemPath>
+        <itemPath>../common/pwm/mechanicalMotor/32/motorPwm32.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f2"
                      displayName="common.sensor.distance"

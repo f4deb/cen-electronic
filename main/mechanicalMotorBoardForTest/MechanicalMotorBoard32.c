@@ -104,9 +104,9 @@
 #include "../../device/i2c/slave/i2cSlaveDebugDevice.h"
 #include "../../device/i2c/slave/i2cSlaveDebugDeviceInterface.h"
 
-// Motors
-#include "../../device/motor/pwmMotorDevice.h"
-#include "../../device/motor/pwmMotorDeviceInterface.h"
+// MechacnicalMotors 
+#include "../../device/mechanicalMotor/pwmMotorDevice.h"
+#include "../../device/mechanicalMotor/pwmMotorDeviceInterface.h"
 
 // PID
 #include "../../motion/pid/pid.h"
@@ -286,6 +286,8 @@ void waitForInstruction() {
 }
 
 int runMotorBoard() {
+    //desactive port JTAG pour liberer les bits  PORTB 10-11-12-13
+    DDPCONbits.JTAGEN = 0;
     // configure for multi-vectored mode
     INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
 

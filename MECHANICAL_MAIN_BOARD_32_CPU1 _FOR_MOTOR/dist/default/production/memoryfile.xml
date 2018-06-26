@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<project>                                  
+  <executable name="dist/default/production/MECHANICAL_MAIN_BOARD_32_CPU1__FOR_MOTOR.production.elf">                 
+    <memory name="program">                 
+      <units>bytes</units>                 
+      <length>531968</length>                 
+      <used>151112</used>                     
+      <free>380856</free>                     
+    </memory>                              
+    <memory name="data">              
+      <units>bytes</units>                 
+      <length>131072</length>                 
+      <used>5448</used>                     
+      <free>125624</free>                     
+    </memory>                              
+  </executable>                            
+</project>                                 

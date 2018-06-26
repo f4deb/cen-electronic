@@ -4,20 +4,13 @@
 
 // List of available functionality
 
-#include "motorBoard32.h"
+#include "MechanicalMotorBoard32.h"
 
 #include "../../common/commons.h"
-
 #include "../../common/2d/2d.h"
-
-#include "../../common/eeprom/eeprom.h"
-#include "../../common/eeprom/memoryEeprom.h"
-
 #include "../../common/math/cenMath.h"
 
 #include "../../common/setup/32/picSetup32.h"
-
-#include "../../common/color/color.h"
 
 #include "../../common/delay/cenDelay.h"
 
@@ -38,7 +31,6 @@
 #include "../../common/io/printWriter.h"
 
 #include "../../common/pwm/pwmPic.h"
-#include "../../common/pwm/motor/dualHBridgeMotorPwm.h"
 
 #include "../../common/serial/serial.h"
 #include "../../common/serial/serialLink.h"
@@ -67,6 +59,14 @@
 // EEPROM
 #include "../../device/eeprom/eepromDevice.h"
 #include "../../device/eeprom/eepromDeviceInterface.h"
+
+// SENSOR->DISTANCE
+#include "../../device/sensor/distance/distanceSensorDevice.h"
+#include "../../device/sensor/distance/distanceSensorDeviceInterface.h"
+
+// SENSOR->TEMPERATURE
+#include "../../device/sensor/temperature/temperatureSensorDevice.h"
+#include "../../device/sensor/temperature/temperatureSensorDeviceInterface.h"
 
 // FILE
 #include "../../device/file/fileDevice.h"
@@ -104,9 +104,9 @@
 #include "../../device/i2c/slave/i2cSlaveDebugDevice.h"
 #include "../../device/i2c/slave/i2cSlaveDebugDeviceInterface.h"
 
-// Motors (PWM)
-#include "../../device/motor/pwmMotorDevice.h"
-#include "../../device/motor/pwmMotorDeviceInterface.h"
+// MechacnicalMotors 
+#include "../../device/mechanicalMotor/pwmMotorDevice.h"
+#include "../../device/mechanicalMotor/pwmMotorDeviceInterface.h"
 
 // PID
 #include "../../motion/pid/pid.h"
@@ -138,26 +138,22 @@
 
 // Drivers
 #include "../../drivers/clock/softClock.h"
-#include "../../drivers/clock/PCF8563.h"
-
-// -> EEPROM
 #include "../../drivers/eeprom/24c512.h"
+#include "../../drivers/clock/PCF8563.h"
+#include "../../drivers/sensor/temperature/LM75A.h"
+#include "../../drivers/sensor/distance/VL53L0X.h"
 
-// -> MOTOR
-#include "../../drivers/motor/dualHBridgeMotorMd22.h"
+#include "../../drivers/motor/motorDriver.h"
 
 // Direct implementation
 #include "../../motion/motion.h"
 #include "../../motion/simple/simpleMotion.h"
 #include "../../motion/position/trajectory.h"
 #include "../../motion/position/coders.h"
+#include "../../motion/position/hctlCoder/32/hctl2032_pindefinition32.h"
 
 // #include "../../test/mathTest.h"
 #include "../../test/motion/bspline/bsplinetest.h"
-
-// 2018
-#include "../../robot/2018/launcherDevice2018.h"
-#include "../../robot/2018/launcherDeviceInterface2018.h"
 
 // I2C
 static I2cBus i2cBusListArray[MOTOR_BOARD_I2C_BUS_LIST_LENGTH];
@@ -169,17 +165,20 @@ static I2cBusConnection* mainBoardI2cBusConnection;
 static I2cBus* masterI2cBus;
 static I2cBusConnection* eepromI2cBusConnection;
 static I2cBusConnection* clockI2cBusConnection;
+static I2cBusConnection* temperatureI2cBusConnection;
+static I2cBusConnection* distanceI2cBusConnection;
 
 // Eeprom
 static Eeprom eeprom_;
-// Memory Eeprom
-static char memoryEepromArray[MOTOR_BOARD_MEMORY_EEPROM_LENGTH];
 
 // Clock
 static Clock clock;
 
-// MOTOR (for pidMotion)
-static DualHBridgeMotor motors;
+// TEMPERATURE
+static Temperature temperature;
+
+// DISTANCE
+static Distance distance;
 
 // SERIAL
 static SerialLink serialLinkListArray[MOTOR_BOARD_SERIAL_LINK_LIST_LENGTH];
@@ -200,16 +199,9 @@ static Buffer debugOutputBuffer;
 static OutputStream debugOutputStream;
 static StreamLink debugSerialStreamLink;
 
-// serial NOTIFY
-static char notifyInputBufferArray[MOTOR_BOARD_IN_BUFFER_LENGTH];
-static Buffer notifyInputBuffer;
-static char notifyOutputBufferArray[MOTOR_BOARD_OUT_BUFFER_LENGTH];
-static Buffer notifyOutputBuffer;
-static OutputStream notifyOutputStream;
-static StreamLink notifySerialStreamLink;
-
 // logs
 static LogHandler logHandlerListArray[MOTOR_BOARD_LOG_HANDLER_LIST_LENGTH];
+
 
 // i2c Link
 static char i2cSlaveInputBufferArray[MOTOR_BOARD_IN_BUFFER_LENGTH];
@@ -260,7 +252,7 @@ void initDevicesDescriptor() {
     addLocalDevice(getRobotKinematicsDeviceInterface(), getRobotKinematicsDeviceDescriptor(&eeprom_));
     addLocalDevice(getEepromDeviceInterface(), getEepromDeviceDescriptor(&eeprom_));
 
-    addLocalDevice(getMotorDeviceInterface(), getMotorDeviceDescriptor(&motors));
+    addLocalDevice(getMotorDeviceInterface(), getMotorDeviceDescriptor());
     addLocalDevice(getCodersDeviceInterface(), getCodersDeviceDescriptor());
     addLocalDevice(getPidDeviceInterface(), getPidDeviceDescriptor(&pidMotion));
     addLocalDevice(getPidDebugDeviceInterface(), getPidDebugDeviceDescriptor(&pidMotion));
@@ -273,16 +265,14 @@ void initDevicesDescriptor() {
     addLocalDevice(getClockDeviceInterface(), getClockDeviceDescriptor(&clock));
     addLocalDevice(getTimerDeviceInterface(), getTimerDeviceDescriptor());
     addLocalDevice(getLogDeviceInterface(), getLogDeviceDescriptor());
+    addLocalDevice(getDistanceSensorDeviceInterface(), getDistanceSensorDeviceDescriptor(&distance));
+    //addLocalDevice(getTemperatureSensorDeviceInterface(), getTemperatureSensorDeviceDescriptor(&temperature));
+
+
     initDevices();
 }
 
 void waitForInstruction() {
-    while (handleNotificationFromDispatcherList(TRANSMIT_UART)) {
-        // loop for all notification
-        // notification handler must avoid to directly information in notification callback
-        // and never to the call back device
-    }
-    
     // I2C Stream
     handleStreamInstruction(&i2cSlaveInputBuffer, &i2cSlaveOutputBuffer, NULL, &filterRemoveCRLF, NULL);
 
@@ -292,24 +282,20 @@ void waitForInstruction() {
     // DEBUG UART Stream
     handleStreamInstruction(&debugInputBuffer, &debugOutputBuffer, &debugOutputStream, &filterRemoveCRLF, NULL);
 
-    // NOTIFY UART
-    handleStreamInstruction(&notifyInputBuffer, &notifyOutputBuffer, &notifyOutputStream, &filterRemoveCRLF, NULL);
-    
     // Manage Motion
-    handleInstructionAndMotion(&pidMotion, &notifyOutputStream);
-    
-    // Notify if needed
-    trajectoryNotifyIfEnabledAndTreshold(&notifyOutputStream);
+    handleInstructionAndMotion(&pidMotion);
 }
 
 int runMotorBoard() {
+    //desactive port JTAG pour liberer les bits  PORTB 10-11-12-13
+    DDPCONbits.JTAGEN = 0;
     // configure for multi-vectored mode
     INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
 
     // enable interrupts
     INTEnableInterrupts();
 
-    setBoardName(MOTOR_BOARD_PIC_NAME);
+    setBoardName(MECHANICAL_MOTOR_BOARD_PIC_NAME);
 
     initSerialLinkList(&serialLinkListArray, MOTOR_BOARD_SERIAL_LINK_LIST_LENGTH);
 
@@ -336,19 +322,6 @@ int runMotorBoard() {
             &debugOutputStream,
             MOTOR_BOARD_SERIAL_PORT_DEBUG,
             DEFAULT_SERIAL_SPEED);
-    
-    // Notification
-        openSerialLink(&notifySerialStreamLink,
-            "SERIAL_NOTIFY",
-            &notifyInputBuffer,
-            &notifyInputBufferArray,
-            MOTOR_BOARD_IN_BUFFER_LENGTH,
-            &notifyOutputBuffer,
-            &notifyOutputBufferArray,
-            MOTOR_BOARD_OUT_BUFFER_LENGTH,
-            &notifyOutputStream,
-            MOTOR_BOARD_SERIAL_PORT_NOTIFICATION,
-            DEFAULT_SERIAL_SPEED);
 
     // Init the logs
     initLogs(LOG_LEVEL_DEBUG, (LogHandler(*)[]) &logHandlerListArray, MOTOR_BOARD_LOG_HANDLER_LIST_LENGTH, LOG_HANDLER_CATEGORY_ALL_MASK);
@@ -371,6 +344,7 @@ int runMotorBoard() {
             &i2cSlaveOutputBuffer,
             &i2cSlaveOutputBufferArray,
             MOTOR_BOARD_OUT_BUFFER_LENGTH,
+            // NULL, 
             mainBoardI2cBusConnection
             );
 
@@ -384,31 +358,26 @@ int runMotorBoard() {
 
     setDebugI2cEnabled(false);
 
-    // I2C Master (PORT 4)
+    
     masterI2cBus = addI2cBus(I2C_BUS_TYPE_MASTER, I2C_BUS_PORT_4);
     i2cMasterInitialize(masterI2cBus);
     
-    // EEPROM : If Eeprom is installed
+    // Eeprom
     eepromI2cBusConnection = addI2cBusConnection(masterI2cBus, ST24C512_ADDRESS_0, true);
-    // init24C512Eeprom(&eeprom_, eepromI2cBusConnection);
-    
-    // EEPROM : If we use Software Eeprom
-    initEepromMemory(&eeprom_, &memoryEepromArray, MOTOR_BOARD_MEMORY_EEPROM_LENGTH);
-    
+    init24C512Eeprom(&eeprom_, eepromI2cBusConnection);
+
+     
     // Clock
     // -> Clock
     clockI2cBusConnection = addI2cBusConnection(masterI2cBus, PCF8563_WRITE_ADDRESS, true);
     initClockPCF8563(&clock, clockI2cBusConnection);
     
-    // MOTOR (PWM for Motion)
-    initDualHBridgeMotorPWM(&motors);
+    // -> Distance
+    distanceI2cBusConnection = addI2cBusConnection(masterI2cBus, VL53LOX_WRITE_ADRESS, true);
+    initDistanceVL53L0X(&distance, distanceI2cBusConnection);
     
     // PidMotion
-    initPidMotion(&pidMotion,
-                  &motors,
-                  &eeprom_,
-                  (PidMotionDefinition(*)[]) &motionDefinitionArray,
-                  MOTOR_BOARD_PID_MOTION_INSTRUCTION_COUNT);
+    initPidMotion(&pidMotion, &eeprom_, (PidMotionDefinition(*)[]) &motionDefinitionArray, MOTOR_BOARD_PID_MOTION_INSTRUCTION_COUNT);
 
     // initSoftClock(&clock);
 
@@ -416,7 +385,7 @@ int runMotorBoard() {
     initDevicesDescriptor();
 
     // Init the timers management
-    startTimerList(true);
+    startTimerList();
 
     while (1) {
         waitForInstruction();
@@ -424,7 +393,6 @@ int runMotorBoard() {
 }
 
 int main(void) {
-    
     runMotorBoard();
 
     return (0);

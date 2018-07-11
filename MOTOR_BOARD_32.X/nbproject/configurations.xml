@@ -33,8 +33,6 @@
                      projectFiles="true">
         <itemPath>../common/eeprom/eeprom.h</itemPath>
         <itemPath>../common/eeprom/eepromAreas.h</itemPath>
-        <itemPath>../common/eeprom/memoryEeprom.h</itemPath>
-        <itemPath>../common/eeprom/eepromType.h</itemPath>
       </logicalFolder>
       <logicalFolder name="common.error"
                      displayName="common.error"
@@ -94,9 +92,6 @@
         <itemPath>../common/math/hexUtils.h</itemPath>
         <itemPath>../common/math/bcdUtils.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f1" displayName="common.motor" projectFiles="true">
-        <itemPath>../common/motor/dualHBridgeMotor.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="common.pwm" displayName="common.pwm" projectFiles="true">
         <itemPath>../common/pwm/pwmPic.h</itemPath>
       </logicalFolder>
@@ -104,6 +99,7 @@
                      displayName="common.pwm.motor"
                      projectFiles="true">
         <itemPath>../common/pwm/motor/dualHBridgeMotorPwm.h</itemPath>
+        <itemPath>../common/pwm/motor/motorPwm.h</itemPath>
       </logicalFolder>
       <logicalFolder name="common.sensor.temperature"
                      displayName="common.sensor.temperature"
@@ -231,6 +227,7 @@
                      projectFiles="true">
         <itemPath>../device/motor/pwmMotorDevice.h</itemPath>
         <itemPath>../device/motor/pwmMotorDeviceInterface.h</itemPath>
+        <itemPath>../device/motor/pwmMotor.h</itemPath>
       </logicalFolder>
       <logicalFolder name="device.sensor.temperature"
                      displayName="device.sensor.temperature"
@@ -287,6 +284,7 @@
       <logicalFolder name="drivers.motor"
                      displayName="drivers.motor"
                      projectFiles="true">
+        <itemPath>../drivers/motor/motorDriver.h</itemPath>
       </logicalFolder>
       <logicalFolder name="drivers.sensor.temperature"
                      displayName="drivers.sensor.temperature"
@@ -313,7 +311,6 @@
         <itemPath>../motion/parameters/motionParameter.h</itemPath>
         <itemPath>../motion/parameters/motionParameterPersistence.h</itemPath>
         <itemPath>../motion/parameters/motionParameterDebug.h</itemPath>
-        <itemPath>../motion/parameters/motionParameterTypeDebug.h</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.pid" displayName="motion.pid" projectFiles="true">
         <itemPath>../motion/pid/pid.h</itemPath>
@@ -324,17 +321,14 @@
         <itemPath>../motion/pid/detectedMotionType.h</itemPath>
         <itemPath>../motion/pid/pidComputationValues.h</itemPath>
         <itemPath>../motion/pid/motionInstruction.h</itemPath>
+        <itemPath>../motion/pid/pidMotionError.h</itemPath>
+        <itemPath>../motion/pid/pidCurrentValues.h</itemPath>
         <itemPath>../motion/pid/pidMotion.h</itemPath>
         <itemPath>../motion/pid/pidTimer.h</itemPath>
         <itemPath>../motion/pid/pidDebug.h</itemPath>
         <itemPath>../motion/pid/pidConstants.h</itemPath>
         <itemPath>../motion/pid/pidMotionDefinitionState.h</itemPath>
         <itemPath>../motion/pid/pidTypeOptimizer.h</itemPath>
-        <itemPath>../motion/pid/pidComputationInstructionValuesDebug.h</itemPath>
-        <itemPath>../motion/pid/motionInstructionDebug.h</itemPath>
-        <itemPath>../motion/pid/pidComputationInstructionValues.h</itemPath>
-        <itemPath>../motion/pid/pidMotionType.h</itemPath>
-        <itemPath>../motion/pid/pidTypeDebug.h</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.pid.computer"
                      displayName="motion.pid.computer"
@@ -347,39 +341,9 @@
                      displayName="motion.pid.endDetection"
                      projectFiles="true">
         <itemPath>../motion/pid/endDetection/motionEndDetection.h</itemPath>
+        <itemPath>../motion/pid/endDetection/motionEndDetectionParameter.h</itemPath>
+        <itemPath>../motion/pid/endDetection/motionEndInfo.h</itemPath>
         <itemPath>../motion/pid/endDetection/motionEndDetectionDebug.h</itemPath>
-        <itemPath>../motion/pid/endDetection/motionEndDetectionStatusUpdater.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f5"
-                     displayName="motion.pid.endDetection.blocked"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/blocked/motionBlockedDetection.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f6"
-                     displayName="motion.pid.endDetection.failed"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/failed/motionFailedDetection.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f2"
-                     displayName="motion.pid.endDetection.obstacle"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/obstacle/motionObstacleDetection.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f7"
-                     displayName="motion.pid.endDetection.parameters"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/parameters/motionEndDetectionParameter.h</itemPath>
-        <itemPath>../motion/pid/endDetection/parameters/motionEndDetectionParameterPersistence.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f4"
-                     displayName="motion.pid.endDetection.reached"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/reached/motionReachedDetection.h</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f3"
-                     displayName="motion.pid.endDetection.shocked"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/shocked/motionShockedDetection.h</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.pid.parameters"
                      displayName="motion.pid.parameters"
@@ -402,7 +366,6 @@
         <itemPath>../motion/position/trajectory.h</itemPath>
         <itemPath>../motion/position/coderType.h</itemPath>
         <itemPath>../motion/position/trajectoryDebug.h</itemPath>
-        <itemPath>../motion/position/codersDebug.h</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.position.hctlCoder"
                      displayName="motion.position.hctlCoder"
@@ -462,8 +425,6 @@
                      projectFiles="true">
         <itemPath>../common/eeprom/eeprom.c</itemPath>
         <itemPath>../common/eeprom/eepromAreas.c</itemPath>
-        <itemPath>../common/eeprom/memoryEeprom.c</itemPath>
-        <itemPath>../common/eeprom/eepromType.c</itemPath>
       </logicalFolder>
       <logicalFolder name="common.error"
                      displayName="common.error"
@@ -533,9 +494,6 @@
         <itemPath>../common/math/hexUtils.c</itemPath>
         <itemPath>../common/math/bcdUtils.c</itemPath>
       </logicalFolder>
-      <logicalFolder name="f1" displayName="common.motor" projectFiles="true">
-        <itemPath>../common/motor/dualHBridgeMotor.c</itemPath>
-      </logicalFolder>
       <logicalFolder name="common.pwm.32"
                      displayName="common.pwm.32"
                      projectFiles="true">
@@ -544,10 +502,12 @@
       <logicalFolder name="common.pwm.motor"
                      displayName="common.pwm.motor"
                      projectFiles="true">
+        <itemPath>../common/pwm/motor/motorPwm.c</itemPath>
       </logicalFolder>
       <logicalFolder name="common.pwm.motor.32"
                      displayName="common.pwm.motor.32"
                      projectFiles="true">
+        <itemPath>../common/pwm/motor/32/motorPwm32.c</itemPath>
         <itemPath>../common/pwm/motor/32/dualHBridgeMotorPwm32.c</itemPath>
       </logicalFolder>
       <logicalFolder name="common.sensor.temperature"
@@ -666,6 +626,7 @@
                      projectFiles="true">
         <itemPath>../device/motor/pwmMotorDevice.c</itemPath>
         <itemPath>../device/motor/pwmMotorDeviceInterface.c</itemPath>
+        <itemPath>../device/motor/pwmMotor.c</itemPath>
       </logicalFolder>
       <logicalFolder name="device.sensor.temperature"
                      displayName="device.sensor.temperature"
@@ -752,7 +713,6 @@
         <itemPath>../motion/parameters/motionParameter.c</itemPath>
         <itemPath>../motion/parameters/motionParameterPersistence.c</itemPath>
         <itemPath>../motion/parameters/motionParameterDebug.c</itemPath>
-        <itemPath>../motion/parameters/motionParameterTypeDebug.c</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.pid" displayName="motion.pid" projectFiles="true">
         <itemPath>../motion/pid/pid.c</itemPath>
@@ -761,16 +721,14 @@
         <itemPath>../motion/pid/pidType.c</itemPath>
         <itemPath>../motion/pid/pidMotion.c</itemPath>
         <itemPath>../motion/pid/motionInstruction.c</itemPath>
+        <itemPath>../motion/pid/pidMotionError.c</itemPath>
         <itemPath>../motion/pid/pidDebug.c</itemPath>
         <itemPath>../motion/pid/instructionType.c</itemPath>
         <itemPath>../motion/pid/pidMotionDefinitionState.c</itemPath>
+        <itemPath>../motion/pid/pidCurrentValues.c</itemPath>
         <itemPath>../motion/pid/detectedMotionType.c</itemPath>
         <itemPath>../motion/pid/pidTypeOptimizer.c</itemPath>
         <itemPath>../motion/pid/pidComputationValues.c</itemPath>
-        <itemPath>../motion/pid/motionInstructionDebug.c</itemPath>
-        <itemPath>../motion/pid/pidComputationInstructionValuesDebug.c</itemPath>
-        <itemPath>../motion/pid/pidComputationInstructionValues.c</itemPath>
-        <itemPath>../motion/pid/pidTypeDebug.c</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.pid.computer"
                      displayName="motion.pid.computer"
@@ -782,39 +740,9 @@
       <logicalFolder name="motion.pid.endDetection"
                      displayName="motion.pid.endDetection"
                      projectFiles="true">
+        <itemPath>../motion/pid/endDetection/motionEndDetection.c</itemPath>
+        <itemPath>../motion/pid/endDetection/motionEndInfo.c</itemPath>
         <itemPath>../motion/pid/endDetection/motionEndDetectionDebug.c</itemPath>
-        <itemPath>../motion/pid/endDetection/motionEndDetectionStatusUpdater.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f5"
-                     displayName="motion.pid.endDetection.blocked"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/blocked/motionBlockedDetection.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f6"
-                     displayName="motion.pid.endDetection.failed"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/failed/motionFailedDetection.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f2"
-                     displayName="motion.pid.endDetection.obstacle"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/obstacle/motionObstacleDetection.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f7"
-                     displayName="motion.pid.endDetection.parameters"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/parameters/motionEndDetectionParameter.c</itemPath>
-        <itemPath>../motion/pid/endDetection/parameters/motionEndDetectionParameterPersistence.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f4"
-                     displayName="motion.pid.endDetection.reached"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/reached/motionReachedDetection.c</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f3"
-                     displayName="motion.pid.endDetection.shocked"
-                     projectFiles="true">
-        <itemPath>../motion/pid/endDetection/shocked/motionShockedDetection.c</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.pid.parameters"
                      displayName="motion.pid.parameters"
@@ -834,7 +762,6 @@
         <itemPath>../motion/position/trajectory.c</itemPath>
         <itemPath>../motion/position/coderErrorComputer.c</itemPath>
         <itemPath>../motion/position/trajectoryDebug.c</itemPath>
-        <itemPath>../motion/position/codersDebug.c</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.position.hctlCoders"
                      displayName="motion.position.hctlCoders"
@@ -947,7 +874,7 @@
         <platformTool>ICD3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.05</languageToolchainVersion>
-        <platform>2</platform>
+        <platform>3</platform>
       </toolsSet>
       <compileType>
         <linkerTool>

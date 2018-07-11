@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/media/f4deb/5FA8E83012134053/electronique/git-f4deb/cen-electronic/motion/pid/parameters/pidParameterPersistence.c</file>
-            <file>file:/media/f4deb/5FA8E83012134053/electronique/git-f4deb/cen-electronic/motion/pid/pidDebug.c</file>
-            <file>file:/media/f4deb/5FA8E83012134053/electronique/git-f4deb/cen-electronic/motion/pid/pid.c</file>
-            <file>file:/media/f4deb/5FA8E83012134053/electronique/git-f4deb/cen-electronic/motion/pid/pidComputationValues.c</file>
-            <file>file:/media/f4deb/5FA8E83012134053/electronique/git-f4deb/cen-electronic/common/io/ioUtils.c</file>
-            <file>file:/media/f4deb/5FA8E83012134053/electronique/git-f4deb/cen-electronic/main/motorboard/motorboard32.c</file>
-            <file>file:/media/f4deb/5FA8E83012134053/electronique/git-f4deb/cen-electronic/main/mechanicalMotorBoardForTest/MechanicalMotorBoard32.c</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

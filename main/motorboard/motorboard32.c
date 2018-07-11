@@ -303,6 +303,10 @@ void waitForInstruction() {
 }
 
 int runMotorBoard() {
+    //desactive port JTAG pour liberer les bits  PORTB 10-11-12-13
+    DDPCONbits.JTAGEN = 0;
+        
+
     // configure for multi-vectored mode
     INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
 
@@ -416,7 +420,7 @@ int runMotorBoard() {
     initDevicesDescriptor();
 
     // Init the timers management
-    startTimerList(true);
+    startTimerList(true);  
 
     while (1) {
         waitForInstruction();

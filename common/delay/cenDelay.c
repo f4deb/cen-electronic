@@ -13,15 +13,7 @@
 
 
 void delayUs(void) {
-    char i;
-
-    i = 2;
-    while (i > 0) {
-        Nop();
-        Nop();
-        Nop();
-        --i;
-    }
+//environ 1.1 micro seconde
 }
 
 void delay10us(char uSecond) {

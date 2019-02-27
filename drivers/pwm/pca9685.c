@@ -160,6 +160,8 @@ void pca9685_setPWMFreq(I2cBusConnection* i2cBusConnection, float frequency) {
 
 void pca9685_setPWM(I2cBusConnection* i2cBusConnection, unsigned char pwmIndex, unsigned int on, unsigned int off) {
     I2cBus* i2cBus = i2cBusConnection->i2cBus;
+    
+   
 
     portableMasterWaitSendI2C(i2cBusConnection);
 

@@ -5,6 +5,7 @@
 // List of available functionality
 
 #include "motorBoard32.h"
+#include "motorBoardCommon.h"
 
 #include "../../common/commons.h"
 
@@ -67,6 +68,10 @@
 // EEPROM
 #include "../../device/eeprom/eepromDevice.h"
 #include "../../device/eeprom/eepromDeviceInterface.h"
+
+// IO EXPANDER
+#include "../../device/ioExpander/ioExpanderDevice.h"
+#include "../../device/ioExpander/ioExpanderDeviceInterface.h"
 
 // FILE
 #include "../../device/file/fileDevice.h"
@@ -143,6 +148,13 @@
 // -> EEPROM
 #include "../../drivers/eeprom/24c512.h"
 
+// -> IO EXPANDER
+#include "../../drivers/ioExpander/ioExpander.h"
+#include "../../drivers/ioExpander/ioExpanderDebug.h"
+#include "../../drivers/ioExpander/ioExpanderList.h"
+#include "../../drivers/ioExpander/ioExpanderPcf8574.h"
+#include "../../drivers/ioExpander/pcf8574.h"
+
 // -> MOTOR
 #include "../../drivers/motor/dualHBridgeMotorMd22.h"
 
@@ -177,6 +189,11 @@ static char memoryEepromArray[MOTOR_BOARD_MEMORY_EEPROM_LENGTH];
 
 // Clock
 static Clock clock;
+
+// IO Expander
+static IOExpanderList ioExpanderList;
+static IOExpander ioExpanderArray[MOTOR_BOARD_IO_EXPANDER_LIST_LENGTH];
+static I2cBusConnection* tofIoExpanderBusConnection;
 
 // MOTOR (for pidMotion)
 static DualHBridgeMotor motors;
@@ -273,6 +290,8 @@ void initDevicesDescriptor() {
     addLocalDevice(getClockDeviceInterface(), getClockDeviceDescriptor(&clock));
     addLocalDevice(getTimerDeviceInterface(), getTimerDeviceDescriptor());
     addLocalDevice(getLogDeviceInterface(), getLogDeviceDescriptor());
+    addLocalDevice(getIOExpanderDeviceInterface(), getIOExpanderDeviceDescriptor(&ioExpanderList));
+
     initDevices();
 }
 
@@ -390,15 +409,24 @@ int runMotorBoard() {
     
     // EEPROM : If Eeprom is installed
     eepromI2cBusConnection = addI2cBusConnection(masterI2cBus, ST24C512_ADDRESS_0, true);
-    // init24C512Eeprom(&eeprom_, eepromI2cBusConnection);
+    init24C512Eeprom(&eeprom_, eepromI2cBusConnection);
     
     // EEPROM : If we use Software Eeprom
-    initEepromMemory(&eeprom_, &memoryEepromArray, MOTOR_BOARD_MEMORY_EEPROM_LENGTH);
+    //initEepromMemory(&eeprom_, &memoryEepromArray, MOTOR_BOARD_MEMORY_EEPROM_LENGTH);
     
     // Clock
     // -> Clock
     clockI2cBusConnection = addI2cBusConnection(masterI2cBus, PCF8563_WRITE_ADDRESS, true);
     initClockPCF8563(&clock, clockI2cBusConnection);
+    
+    // IO Expander
+    appendString(getDebugOutputStreamLogger(), "PCF ...");
+    tofIoExpanderBusConnection = addI2cBusConnection(masterI2cBus, PCF8574_ADDRESS_0, true);
+    initIOExpanderList(&ioExpanderList, (IOExpander(*)[]) &ioExpanderArray, MOTOR_BOARD_IO_EXPANDER_LIST_LENGTH);
+    IOExpander* tofIoExpander = getIOExpanderByIndex(&ioExpanderList, 0);
+    initIOExpanderPCF8574(tofIoExpander, tofIoExpanderBusConnection);
+    appendStringLN(getDebugOutputStreamLogger(), "OK");
+    
     
     // MOTOR (PWM for Motion)
     initDualHBridgeMotorPWM(&motors);

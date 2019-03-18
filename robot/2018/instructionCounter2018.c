@@ -15,7 +15,7 @@
 #include "../../robot/strategy/gameStrategyContext.h"
 #include "../../robot/strategy/gameTargetList.h"
 
-#include "../../main/mainBoard/mainBoard32.h"
+#include "../../main/mainBoardBigRobot/mainBoardBig32.h"
 
 char* appendInstructionCounterAsString(unsigned int instructionCounter) {
     switch (instructionCounter) {

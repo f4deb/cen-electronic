@@ -373,6 +373,12 @@
         <itemPath>../../../drivers/lcd/lcd.h</itemPath>
         <itemPath>../../../drivers/lcd/lcdHd44780.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f24" displayName="drivers.pwm.servo" projectFiles="true">
+        <itemPath>../../../drivers/pwm/servo/pca9685.h</itemPath>
+        <itemPath>../../../drivers/pwm/servo/pca9685Debug.h</itemPath>
+        <itemPath>../../../drivers/pwm/servo/sd21.h</itemPath>
+        <itemPath>../../../drivers/pwm/servo/servoPwmPca9685.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f7" displayName="drivers.relay" projectFiles="true">
         <itemPath>../../../drivers/relay/relay.h</itemPath>
         <itemPath>../../../drivers/relay/relayDebug.h</itemPath>
@@ -417,7 +423,6 @@
         <itemPath>../../../drivers/tof/vl53l0x/tof_vl53l0x.h</itemPath>
       </logicalFolder>
       <logicalFolder name="main" displayName="main.mainboard" projectFiles="true">
-        <itemPath>../../mainBoard/mainBoard32.h</itemPath>
         <itemPath>../../mainBoard/mainBoardCommon.h</itemPath>
         <itemPath>../../mainBoard/mainBoardPc.h</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonLcd.h</itemPath>
@@ -426,6 +431,7 @@
         <itemPath>../../mainBoard/mainBoardCommonMotor.h</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonStrategy.h</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonTof.h</itemPath>
+        <itemPath>../mainBoardBig32.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f17" displayName="main.meca1" projectFiles="true">
         <itemPath>../../meca1/mechanicalMainBoard1Common.h</itemPath>
@@ -481,6 +487,8 @@
         <itemPath>../../../robot/2019/gameBoardElement2019.h</itemPath>
         <itemPath>../../../robot/2019/mainBoard2019.h</itemPath>
         <itemPath>../../../robot/2019/score2019.h</itemPath>
+        <itemPath>../../../robot/2019/forkDevice2019.h</itemPath>
+        <itemPath>../../../robot/2019/forkDeviceInterface2019.h</itemPath>
       </logicalFolder>
       <logicalFolder name="robot.config"
                      displayName="robot.config"
@@ -957,6 +965,11 @@
                      displayName="drivers.motion"
                      projectFiles="true">
       </logicalFolder>
+      <logicalFolder name="f24" displayName="drivers.pwm.servo" projectFiles="true">
+        <itemPath>../../../drivers/pwm/servo/pca9685.c</itemPath>
+        <itemPath>../../../drivers/pwm/servo/pca9685Debug.c</itemPath>
+        <itemPath>../../../drivers/pwm/servo/servoPwmPca9685.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="f8" displayName="drivers.relay" projectFiles="true">
         <itemPath>../../../drivers/relay/relay.c</itemPath>
         <itemPath>../../../drivers/relay/relayDebug.c</itemPath>
@@ -1001,7 +1014,6 @@
         <itemPath>../../../drivers/tof/vl53l0x/32/vl53l0x_platform_pic32.c</itemPath>
       </logicalFolder>
       <logicalFolder name="main" displayName="main.mainboard" projectFiles="true">
-        <itemPath>../../mainBoard/mainBoard32.c</itemPath>
         <itemPath>../../mainBoard/mainBoardCommon.c</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonLcd.c</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonMatch.c</itemPath>
@@ -1009,6 +1021,7 @@
         <itemPath>../../mainBoard/mainBoardCommonMotor.c</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonStrategy.c</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonTof.c</itemPath>
+        <itemPath>../mainBoardBig32.c</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.extended"
                      displayName="motion.extended"
@@ -1033,7 +1046,6 @@
         <itemPath>../../../robot/robot.c</itemPath>
       </logicalFolder>
       <logicalFolder name="robot.2018" displayName="robot.2018" projectFiles="true">
-        <itemPath>../../../robot/2018/strategy2018.c</itemPath>
         <itemPath>../../../robot/2018/strategy2018Utils.c</itemPath>
         <itemPath>../../../robot/2018/distributor2018.c</itemPath>
         <itemPath>../../../robot/2018/launcherDeviceInterface2018.c</itemPath>
@@ -1043,11 +1055,12 @@
         <itemPath>../../../robot/2018/gameBoardElement2018.c</itemPath>
         <itemPath>../../../robot/2018/strategyConfig2018.c</itemPath>
         <itemPath>../../../robot/2018/strategyAction2018.c</itemPath>
-        <itemPath>../../../robot/2018/instructionCounter2018.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f22" displayName="robot.2019" projectFiles="true">
         <itemPath>../../../robot/2019/gameBoardElement2019.c</itemPath>
         <itemPath>../../../robot/2019/mainBoard2019.c</itemPath>
+        <itemPath>../../../robot/2019/forkDevice2019.c</itemPath>
+        <itemPath>../../../robot/2019/forkDeviceInterface2019.c</itemPath>
       </logicalFolder>
       <logicalFolder name="robot.config"
                      displayName="robot.config"
@@ -1237,7 +1250,7 @@
         <platformTool>ICD4Tool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.15</languageToolchainVersion>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <packs>
         <pack name="PIC32MX_DFP" vendor="Microchip" version="1.0.25"/>

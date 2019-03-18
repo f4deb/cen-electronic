@@ -64,6 +64,14 @@ void clearLastError();
 #define SERIAL_LINK_LIST_TOO_MUCH_LINKS                                   0x0191
 #define SERIAL_LINK_LIST_OUT_OF_BOUNDS                                    0x0192
 
+// SERVO
+#define SERVO_LIST_NOT_INITIALIZED                                        0x01A0
+#define SERVO_LIST_TOO_MUCH_SERVOS                                        0x01A1
+#define SERVO_LIST_OUT_OF_BOUNDS                                          0x01A2
+#define SERVO_LIST_SERVO_NULL                                             0x01A3
+#define SERVO_LIST_SERVO_NOT_INITIALIZED                                  0x01A4
+#define SERVO_SERVO_LIST_NULL                                             0x01A5
+#define SERVO_LIST_NULL                                                   0x01A6
 
 // TIMER
 #define TIMERS_LIST_NOT_INITIALIZED                                       0x0200
@@ -102,6 +110,9 @@ void clearLastError();
 
 // COLOR
 #define COLOR_SENSOR_NULL                                                 0x04A0
+
+// ACCELEROMETER
+#define ACCELEROMETER_SENSOR_SETUP_PROBLEM                                0x04B0
 
 // OTHERS COMMON ERRORS
 #define UNIMPLETEMENTED_EXCEPTION                                         0x0500
@@ -217,12 +228,14 @@ void clearLastError();
 #define LOCATION_LIST_INDEX_OUT_OF_BOUNDS                                 0x5043
 #define LOCATION_SOURCE_TARGET_EQUAL                                      0x5044
 #define LOCATION_DOES_NOT_EXIST                                           0x5045
+#define LOCATION_NULL                                                     0x5046
 
 
 #define TOO_MUCH_PATHS                                                    0x5050
 #define PATH_LIST_NULL                                                    0x5051
 #define PATH_LIST_NOT_INITIALIZED                                         0x5052
 #define PATH_LIST_INDEX_OUT_OF_BOUNDS                                     0x5053
+#define PATH_NULL                                                         0x5054
 
 #define TOO_MUCH_ACTION                                                   0x5060
 #define TOO_MUCH_TARGET_ACTION                                            0x5070

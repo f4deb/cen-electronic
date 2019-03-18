@@ -13,6 +13,9 @@
 
 // READ FUNCTIONS
 
+// Command header to know the amount of Servo drivers
+#define SERVO_COMMAND_GET_COUNT                     'n'
+
 // Command header to read the speed, current Position, targetPosition of a servo with the specified index
 #define SERVO_COMMAND_READ                          'r'
 
@@ -27,11 +30,20 @@
 
 // DEBUG FUNCTIONS
 
+/** Enable a specific servo. */
+#define SERVO_COMMAND_ENABLE_DISABLE                'e'
+
+/** Enable or disable all servos . */
+#define SERVO_COMMAND_ENABLE_DISABLE_ALL            'E'
+
 // Command header to debug the servo list
 #define SERVO_COMMAND_DEBUG                         'd'
 
 // Command header to do the test program
 #define SERVO_COMMAND_TEST                          'T'
+
+// SERVO INDEX
+#define SERVO_ALL_INDEX                             0xFF
 
 /**
 * Interface for Servo Device.

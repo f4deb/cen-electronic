@@ -32,6 +32,8 @@
 #include "../../common/log/pc/consoleLogHandler.h"
 
 #include "../../common/pwm/servo/servoPwm.h"
+#include "../../common/pwm/servo/servoList.h"
+#include "../../common/pwm/servo/pc/servoListPc.h"
 
 #include "../../common/serial/serial.h"
 #include "../../common/serial/serialLink.h"
@@ -187,16 +189,17 @@
 #include "../../main/motorBoard/motorBoardPc.h"
 #include "../../main/meca1/mechanicalMainBoard1Pc.h"
 
-// 2018
-#include "../../robot/2018/mainBoard2018.h"
-#include "../../robot/2018/launcherDeviceInterface2018.h"
-#include "../../robot/2018/strategyDeviceInterface2018.h"
-#include "../../robot/2018/strategyDevice2018.h"
-#include "../../robot/2018/distributor2018.h"
+// 2019
+// #include "../../robot/2019/mainBoard2019.h"
+// #include "../../robot/2018/launcherDeviceInterface2018.h"
+// #include "../../robot/2019/strategyDeviceInterface2018.h"
+// #include "../../robot/2019/strategyDevice2018.h"
+// #include "../../robot/2019/distributor2019.h"
 
 // 2019
 #include "../../robot/2019/mainBoard2019.h"
-
+#include "../../robot/2019/forkDeviceInterface2019.h"
+#include "../../robot/2019/forkDevice2019.h"
 
 // Logs
 static LogHandler logHandlerListArray[MAIN_BOARD_PC_LOG_HANDLER_LIST_LENGTH];
@@ -262,8 +265,12 @@ static Buffer i2cMasterDebugOutputBuffer;
 static char i2cMasterDebugInputBufferArray[MAIN_BOARD_PC_I2C_DEBUG_MASTER_IN_BUFFER_LENGTH];
 static Buffer i2cMasterDebugInputBuffer;
 
+// ServoList
+static ServoList servoList;
+static Servo servoListArray[MAIN_BOARD_PC_SERVO_LIST_LENGTH];
+
 // Timers
-static Timer timerListArray[MAIN_BOARD_PC_TIMER_LENGTH];
+static Timer timerListArray[MAIN_BOARD_PC_TIMER_LIST_LENGTH];
 
 // ConsoleOutputStream
 static InputStream consoleInputStream;
@@ -287,7 +294,6 @@ static EndMatch endMatch;
 static GameStrategyContext* gameStrategyContext;
 static GameBoard* gameBoard;
 static Navigation* navigation;
-static Distributor* distributor;
 
 // TOF
 static TofSensorList tofSensorList;
@@ -357,7 +363,7 @@ void initMainBoardLocalDevices(void) {
     addLocalDevice(getI2cCommonDebugDeviceInterface(), getI2cCommonDebugDeviceDescriptor());
     addLocalDevice(getI2cMasterDebugDeviceInterface(), getI2cMasterDebugDeviceDescriptor());
     addLocalDevice(getDataDispatcherDeviceInterface(), getDataDispatcherDeviceDescriptor());
-    addLocalDevice(getServoDeviceInterface(), getServoDeviceDescriptor(PWM_SERVO_ENABLED_MASK_SERVO_1_2_5));
+    addLocalDevice(getServoDeviceInterface(), getServoDeviceDescriptor(&servoList));
     addLocalDevice(getTimerDeviceInterface(), getTimerDeviceDescriptor());
     addLocalDevice(getClockDeviceInterface(), getClockDeviceDescriptor(&clock));
     // addLocalDevice(getFileDeviceInterface(), getFileDeviceDescriptor());
@@ -378,8 +384,9 @@ void initMainBoardLocalDevices(void) {
     // addLocalDevice(getTofDeviceInterface(), getTofDeviceDescriptor(&tofSensorList));
     addLocalDevice(getGameboardDeviceInterface(), getGameboardDeviceDescriptor(gameBoard));
 
-    // 2018 specific
-    addLocalDevice(getStrategy2018DeviceInterface(), getStrategy2018DeviceDescriptor(distributor));
+    // 2019 specific
+//    addLocalDevice(getStrategy2018DeviceInterface(), getStrategy2018DeviceDescriptor(distributor));
+    addLocalDevice(getFork2019DeviceInterface(), getFork2019DeviceDescriptor(&servoList, NULL));
 }
 
 void runMainBoardPC(bool connectToRobotManagerMode, bool singleMode) {
@@ -403,7 +410,8 @@ void runMainBoardPC(bool connectToRobotManagerMode, bool singleMode) {
 
     initSerialLinkList((SerialLink(*)[]) &serialLinkListArray, MAIN_BOARD_PC_SERIAL_LINK_LIST_LENGTH);
 
-    initTimerList((Timer(*)[]) &timerListArray, MAIN_BOARD_PC_TIMER_LENGTH);
+    initTimerList((Timer(*)[]) &timerListArray, MAIN_BOARD_PC_TIMER_LIST_LENGTH);
+    initServoListPc(&servoList, (Servo(*)[]) &servoListArray, MAIN_BOARD_PC_SERVO_LIST_LENGTH);
 
     initBuffer(&consoleInputBuffer, (char(*)[]) &consoleInputBufferArray, MAIN_BOARD_PC_CONSOLE_INPUT_BUFFER_LENGTH, "inputConsoleBuffer", "IN");
     initBuffer(&consoleOutputBuffer, (char(*)[]) &consoleOutputBufferArray, MAIN_BOARD_PC_CONSOLE_OUTPUT_BUFFER_LENGTH, "outputConsoleBuffer", "IN");
@@ -470,7 +478,8 @@ void runMainBoardPC(bool connectToRobotManagerMode, bool singleMode) {
     }
 
     // CONFIG
-    initRobotConfigPc(&robotConfig);
+    // initRobotConfigPc(&robotConfig, ROBOT_TYPE_BIG);
+    initRobotConfigPc(&robotConfig, ROBOT_TYPE_SMALL);
 
     // EEPROM
     initEepromPc(&eeprom, "MAIN_BOARD_EEPROM");
@@ -494,9 +503,8 @@ void runMainBoardPC(bool connectToRobotManagerMode, bool singleMode) {
     // TOF
     initTofSensorListPc(&tofSensorList, (TofSensor(*)[]) &tofSensorArray, MOTOR_BOARD_PC_TOF_SENSOR_LIST_LENGTH);
 
-    navigation = initNavigation2018();
-    gameStrategyContext = initGameStrategyContext2018(&robotConfig, &endMatch, &tofSensorList);
-    // gameBoard = initGameBoard2018(gameStrategyContext);
+    navigation = initNavigation2019();
+    gameStrategyContext = initGameStrategyContext2019(&robotConfig, &endMatch, &tofSensorList);
     gameBoard = initGameBoard2019(gameStrategyContext);
 
     // Init the drivers
@@ -515,7 +523,7 @@ void runMainBoardPC(bool connectToRobotManagerMode, bool singleMode) {
 
     // Start Match
     initEndMatch(&endMatch, &robotConfig, MATCH_DURATION);
-    initStartMatch(&startMatch, &robotConfig, &endMatch, isMatchStartedPc, mainBoardPcWaitForInstruction);
+    initStartMatch(&startMatch, &robotConfig, &endMatch, isMatchStartedPc, mainBoardPcWaitForInstruction, mainBoardPcWaitForInstruction);
 
     initMainBoardLocalDevices();
 
@@ -533,12 +541,16 @@ void runMainBoardPC(bool connectToRobotManagerMode, bool singleMode) {
         addI2cRemoteDevice(getMotionSimulationDeviceInterface(), MOTOR_BOARD_I2C_ADDRESS);
 
         // MECHANICAL BOARD 1
-        addI2cRemoteDevice(getLauncher2018DeviceInterface(), MECHANICAL_BOARD_1_I2C_ADDRESS);
+        // addI2cRemoteDevice(getLauncher2018DeviceInterface(), MECHANICAL_BOARD_1_I2C_ADDRESS);
+
     }
     initDevices();
 
     startTimerList(false);
-    getTimerByCode(SERVO_TIMER_CODE)->enabled = true;
+    Timer* servoTimer = getTimerByCode(SERVO_TIMER_CODE);
+    if (servoTimer != NULL) {
+        servoTimer->enabled = true;
+    }
     getTimerByCode(END_MATCH_DETECTOR_TIMER_CODE)->enabled = true;
 
     delaymSec(100);

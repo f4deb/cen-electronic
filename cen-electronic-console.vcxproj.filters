@@ -748,12 +748,6 @@
     <Filter Include="Source Files\motion\pid\pc">
       <UniqueIdentifier>{274a3c45-a654-4b6d-974e-8c4f217df108}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\robot\2018">
-      <UniqueIdentifier>{f260461d-573a-47a1-ac5f-0241219104af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\robot\2018">
-      <UniqueIdentifier>{10e2986f-0922-4035-99c2-5f9715d73e84}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\main\meca1">
       <UniqueIdentifier>{06a58f68-9aa7-4885-bb9a-61ed1bb7253d}</UniqueIdentifier>
     </Filter>
@@ -972,6 +966,15 @@
     </Filter>
     <Filter Include="Source Files\robot\2019">
       <UniqueIdentifier>{8e9eeb68-f51e-4601-b099-cf4ef7f6546b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\robot\tof">
+      <UniqueIdentifier>{10b751a6-9f5a-456e-8607-08ef6536e15a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\robot\tof">
+      <UniqueIdentifier>{ad837bf4-431e-4957-956a-f3737634ad05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\common\pwm\servo\pc">
+      <UniqueIdentifier>{a54c6746-822c-43d5-8e7f-78e80742d4d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1680,18 +1683,6 @@
     <ClCompile Include="motion\pid\pc\pidPc.c">
       <Filter>Source Files\motion\pid\pc</Filter>
     </ClCompile>
-    <ClCompile Include="robot\2018\strategy2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\2018\strategy2018Utils.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\2018\launcherDevice2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\2018\launcherDeviceInterface2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
     <ClCompile Include="device\pc\pcDeviceInterface.c">
       <Filter>Source Files\device\pc</Filter>
     </ClCompile>
@@ -1929,26 +1920,11 @@
     <ClCompile Include="robot\match\endMatch.c">
       <Filter>Source Files\robot\match</Filter>
     </ClCompile>
-    <ClCompile Include="client\robot\2018\launcherClient2018.c">
-      <Filter>Source Files\client\robot\2018</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\2018\distributor2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
     <ClCompile Include="common\color\color.c">
       <Filter>Source Files\common\color</Filter>
     </ClCompile>
-    <ClCompile Include="robot\2018\strategyDevice2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\2018\strategyDeviceInterface2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
     <ClCompile Include="common\color\colorDebug.c">
       <Filter>Source Files\common\color</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\2018\distributorDebug2018.c">
-      <Filter>Source Files\robot\2018</Filter>
     </ClCompile>
     <ClCompile Include="client\clock\clientClock.c">
       <Filter>Source Files\client\clock</Filter>
@@ -1961,9 +1937,6 @@
     </ClCompile>
     <ClCompile Include="client\motion\simple\clientMotion.c">
       <Filter>Source Files\client\motion\simple</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\2018\gameBoardElement2018.c">
-      <Filter>Source Files\robot\2018</Filter>
     </ClCompile>
     <ClCompile Include="navigation\navigationDebug.c">
       <Filter>Source Files\navigation</Filter>
@@ -1979,9 +1952,6 @@
     </ClCompile>
     <ClCompile Include="main\meca1\mechanicalMainBoard1Pc.c">
       <Filter>Source Files\main\meca1</Filter>
-    </ClCompile>
-    <ClCompile Include="main\mainBoard\mainBoardCommon.c">
-      <Filter>Source Files\main\mainBoard</Filter>
     </ClCompile>
     <ClCompile Include="robot\gameboard\gameboardBSplinePrint.c">
       <Filter>Source Files\robot\gameboard</Filter>
@@ -2016,18 +1986,6 @@
     <ClCompile Include="motion\position\trajectoryTypeDebug.c">
       <Filter>Source Files\motion\position</Filter>
     </ClCompile>
-    <ClCompile Include="robot\2018\strategyTofSensorList2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\2018\strategyConfig2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\2018\strategyAction2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
-    <ClCompile Include="robot\2018\instructionCounter2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
     <ClCompile Include="motion\pid\endDetection\parameters\motionEndDetectionParameter.c">
       <Filter>Source Files\motion\pid\endDetection\parameters</Filter>
     </ClCompile>
@@ -2037,11 +1995,41 @@
     <ClCompile Include="robot\2019\gameBoardElement2019.c">
       <Filter>Source Files\robot\2019</Filter>
     </ClCompile>
-    <ClCompile Include="robot\2018\mainBoard2018.c">
-      <Filter>Source Files\robot\2018</Filter>
-    </ClCompile>
     <ClCompile Include="robot\2019\mainBoard2019.c">
       <Filter>Source Files\robot\2019</Filter>
+    </ClCompile>
+    <ClCompile Include="robot\tof\strategyTofSensorList.c">
+      <Filter>Source Files\robot\tof</Filter>
+    </ClCompile>
+    <ClCompile Include="common\pwm\servo\servoList.c">
+      <Filter>Source Files\common\pwm\servo</Filter>
+    </ClCompile>
+    <ClCompile Include="common\pwm\servo\pc\servoListPc.c">
+      <Filter>Source Files\common\pwm\servo\pc</Filter>
+    </ClCompile>
+    <ClCompile Include="robot\2019\forkDevice2019.c">
+      <Filter>Source Files\robot\2019</Filter>
+    </ClCompile>
+    <ClCompile Include="robot\2019\forkDeviceInterface2019.c">
+      <Filter>Source Files\robot\2019</Filter>
+    </ClCompile>
+    <ClCompile Include="robot\2019\distributor2019.c">
+      <Filter>Source Files\robot\2019</Filter>
+    </ClCompile>
+    <ClCompile Include="robot\2019\distributorDebug2019.c">
+      <Filter>Source Files\robot\2019</Filter>
+    </ClCompile>
+    <ClCompile Include="robot\2019\strategy2019.c">
+      <Filter>Source Files\robot\2019</Filter>
+    </ClCompile>
+    <ClCompile Include="robot\2019\strategy2019Utils.c">
+      <Filter>Source Files\robot\2019</Filter>
+    </ClCompile>
+    <ClCompile Include="robot\2019\strategyConfig2019.c">
+      <Filter>Source Files\robot\2019</Filter>
+    </ClCompile>
+    <ClCompile Include="robot\robotDebug.c">
+      <Filter>Source Files\robot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2792,12 +2780,6 @@
     <ClInclude Include="device\i2c\i2cCommonDebugDeviceInterface.h">
       <Filter>Header Files\device\i2c</Filter>
     </ClInclude>
-    <ClInclude Include="common\serial\serialLinkDebug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="common\serial\serialLinkList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="motion\pid\pidConstants.h">
       <Filter>Header Files\motion\pid</Filter>
     </ClInclude>
@@ -2806,18 +2788,6 @@
     </ClInclude>
     <ClInclude Include="motion\pid\pc\pidPc.h">
       <Filter>Header Files\motion\pid\pc</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\strategy2018.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\strategy2018Utils.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\launcherDevice2018.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\launcherDeviceInterface2018.h">
-      <Filter>Header Files\robot\2018</Filter>
     </ClInclude>
     <ClInclude Include="common\i2c\i2cBusConnectionList.h">
       <Filter>Header Files\common\i2c</Filter>
@@ -3047,29 +3017,14 @@
     <ClInclude Include="robot\match\endMatch.h">
       <Filter>Header Files\robot\match</Filter>
     </ClInclude>
-    <ClInclude Include="client\robot\2018\launcherClient2018.h">
-      <Filter>Header Files\client\robot\2018</Filter>
-    </ClInclude>
     <ClInclude Include="device\color\colorDevice.h">
       <Filter>Header Files\device\color</Filter>
     </ClInclude>
     <ClInclude Include="device\color\colorDeviceInterface.h">
       <Filter>Header Files\device\color</Filter>
     </ClInclude>
-    <ClInclude Include="robot\2018\distributor2018.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\strategyDevice2018.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\strategyDeviceInterface2018.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
     <ClInclude Include="common\color\colorDebug.h">
       <Filter>Header Files\common\color</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\score2018.h">
-      <Filter>Header Files\robot\2018</Filter>
     </ClInclude>
     <ClInclude Include="client\motion\position\clientTrajectory.h">
       <Filter>Header Files\client\motion\position</Filter>
@@ -3082,9 +3037,6 @@
     </ClInclude>
     <ClInclude Include="navigation\navigationDebug.h">
       <Filter>Header Files\navigation</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\gameBoardElement2018.h">
-      <Filter>Header Files\robot\2018</Filter>
     </ClInclude>
     <ClInclude Include="robot\gameboard\gameboardElementList.h">
       <Filter>Header Files\robot\gameboard</Filter>
@@ -3137,26 +3089,11 @@
     <ClInclude Include="motion\position\trajectoryTypeDebug.h">
       <Filter>Header Files\motion\position</Filter>
     </ClInclude>
-    <ClInclude Include="robot\2018\strategyTofSensorList2018.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\strategyConfig2018.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\strategyAction2018.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\instructionCounter2018.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
     <ClInclude Include="motion\pid\endDetection\parameters\motionEndDetectionParameter.h">
       <Filter>Header Files\motion\pid\endDetection\parameters</Filter>
     </ClInclude>
     <ClInclude Include="motion\pid\endDetection\parameters\motionEndDetectionParameterPersistence.h">
       <Filter>Header Files\motion\pid\endDetection\parameters</Filter>
-    </ClInclude>
-    <ClInclude Include="robot\2018\teamColor2018.h">
-      <Filter>Header Files\robot\2018</Filter>
     </ClInclude>
     <ClInclude Include="robot\2019\score2019.h">
       <Filter>Header Files\robot\2019</Filter>
@@ -3164,11 +3101,53 @@
     <ClInclude Include="robot\2019\gameBoardElement2019.h">
       <Filter>Header Files\robot\2019</Filter>
     </ClInclude>
-    <ClInclude Include="robot\2018\mainBoard2018.h">
-      <Filter>Header Files\robot\2018</Filter>
-    </ClInclude>
     <ClInclude Include="robot\2019\mainBoard2019.h">
       <Filter>Header Files\robot\2019</Filter>
+    </ClInclude>
+    <ClInclude Include="robot\tof\strategyTofSensorList.h">
+      <Filter>Header Files\robot\tof</Filter>
+    </ClInclude>
+    <ClInclude Include="common\pwm\servo\servoList.h">
+      <Filter>Header Files\common\pwm\servo</Filter>
+    </ClInclude>
+    <ClInclude Include="common\pwm\servo\pc\servoPwmPc.h">
+      <Filter>Header Files\common\pwm\servo\pc</Filter>
+    </ClInclude>
+    <ClInclude Include="common\pwm\servo\pc\servoListPc.h">
+      <Filter>Header Files\common\pwm\servo\pc</Filter>
+    </ClInclude>
+    <ClInclude Include="robot\2019\forkDevice2019.h">
+      <Filter>Header Files\robot\2019</Filter>
+    </ClInclude>
+    <ClInclude Include="robot\2019\forkDeviceInterface2019.h">
+      <Filter>Header Files\robot\2019</Filter>
+    </ClInclude>
+    <ClInclude Include="robot\2019\teamColor2019.h">
+      <Filter>Header Files\robot\2019</Filter>
+    </ClInclude>
+    <ClInclude Include="robot\2019\distributor2019.h">
+      <Filter>Header Files\robot\2019</Filter>
+    </ClInclude>
+    <ClInclude Include="robot\2019\distributorDebug2019.h">
+      <Filter>Header Files\robot\2019</Filter>
+    </ClInclude>
+    <ClInclude Include="robot\2019\strategy2019.h">
+      <Filter>Header Files\robot\2019</Filter>
+    </ClInclude>
+    <ClInclude Include="robot\2019\strategy2019Utils.h">
+      <Filter>Header Files\robot\2019</Filter>
+    </ClInclude>
+    <ClInclude Include="robot\2019\strategyConfig2019.h">
+      <Filter>Header Files\robot\2019</Filter>
+    </ClInclude>
+    <ClInclude Include="robot\robotDebug.h">
+      <Filter>Header Files\robot</Filter>
+    </ClInclude>
+    <ClInclude Include="common\serial\serialLinkList.h">
+      <Filter>Header Files\common\serial</Filter>
+    </ClInclude>
+    <ClInclude Include="common\serial\serialLinkDebug.h">
+      <Filter>Header Files\common\serial</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

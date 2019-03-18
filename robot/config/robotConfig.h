@@ -5,6 +5,16 @@
 
 #include "../../common/io/outputStream.h"
 
+/**
+ * Define a type of color which was detected.
+ */
+enum RobotType {
+    // The big robot authorized for Eurobot
+    ROBOT_TYPE_BIG,
+    // The Small robot authorized for Eurobot
+    ROBOT_TYPE_SMALL
+};
+
 // --- 8 LOW CONFIG BITS ---
 
 /** Mask for the strategy : 0b 0000 0111 */
@@ -22,9 +32,9 @@
 /** Use sonar with near detection distance : 0b0100 0000*/
 #define CONFIG_SONAR_NEAR_MASK         0x0040
 
-/** Indicates we have the color green if set. */
+/** Indicates we have the color yellow if set. */
 // 0b 1000 0000
-#define CONFIG_COLOR_GREEN_MASK         0x0080
+#define CONFIG_COLOR_YELLOW_MASK       0x0080
 
 // --- 8 HIGH CONFIG BITS ---
 
@@ -78,6 +88,8 @@ typedef void robotConfigWriteIntFunction(RobotConfig* robotConfig, unsigned int 
  * Defines the contract for switch robot configuration.
  */
 struct RobotConfig {
+    // The type of the robot
+    enum RobotType robotType;
     /** The function which must be used to read the robot configuration */
     robotConfigReadIntFunction* robotConfigReadInt;
     /** The function which can be used if we change the config. */
@@ -91,7 +103,9 @@ struct RobotConfig {
  * @param robotConfigReadIntFunction the pointer on the real function which read an int.
  */
 void initRobotConfig(RobotConfig* robotConfig,
-                robotConfigReadIntFunction* robotConfigReadInt, robotConfigWriteIntFunction* robotConfigWriteInt);
+                     enum RobotType robotType, 
+                     robotConfigReadIntFunction* robotConfigReadInt,
+                     robotConfigWriteIntFunction* robotConfigWriteInt);
 
 /**
 * Reads the raw config Value.
@@ -103,5 +117,7 @@ unsigned int getConfigValue(RobotConfig* robotConfig);
 * Returns if the specified configMask is set or not
 */
 bool isConfigSet(RobotConfig* robotConfig, unsigned int configMask);
+
+bool isSonarActivated(RobotConfig* robotConfig);
 
 #endif

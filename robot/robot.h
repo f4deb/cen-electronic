@@ -18,6 +18,23 @@ typedef struct RobotPosition {
     float angleRadian;
 } RobotPosition;
 
+/**
+ * Structure to store the information about the robot
+ * @return 
+ */
+typedef struct Robot {
+    // The position of the robot
+    RobotPosition* robotPosition;
+} Robot;
+
+/**
+ * Constructor.
+ * Initialize the structure with the robot.
+ * @param robot
+ * @param robotPosition
+ */
+void initRobot(Robot* robot, RobotPosition* robotPosition);
+    
 /** 
  * Defines some information needed by MainBoard about the status of the Robot.
  * Very precise information about the position of the robot is handled by the trajectory handler

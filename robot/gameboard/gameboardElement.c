@@ -45,9 +45,21 @@ void setGameBoardPixel(GameBoard* gameBoard, float x, float y, char c) {
 }
 
 void setGameBoardArray(GameBoard* gameBoard, int column, int line, char c) {
+    if (column >= 0 && column < GAMEBOARD_COLUMN_COUNT && line >= 0 && line < GAMEBOARD_LINE_COUNT)
     gameBoard->pixels[column][line] = c;
 }
 
+// TEXT
+void drawString(GameBoard* gameBoard, float x, float y, char* s) {
+    unsigned int count = 2;
+    unsigned char column = convertXToColumn(x);
+    unsigned char line = convertYToLine(y);
+    setGameBoardArray(gameBoard, column, line, 'x');
+    while (*s != '\0') {
+        setGameBoardArray(gameBoard, column + count, line, *s++);
+        count++;
+    }
+}
 
 // POINT
 
@@ -84,7 +96,7 @@ void drawLine(GameBoard* gameBoard, float x1, float y1, float x2, float y2, char
 
 void drawCircle(GameBoard* gameBoard, float x, float y, float radius, char c) {
     float angle;
-    for (angle = 0.0f; angle < PI / 2; angle += 0.1f) {
+    for (angle = 0.0f; angle < PI * 2; angle += PI / 16) {
         float circleX = x + cosf(angle) * radius;
         float circleY = y + sinf(angle) * radius;
         setGameBoardPixel(gameBoard, circleX, circleY, c);

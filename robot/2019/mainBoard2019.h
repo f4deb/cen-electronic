@@ -15,6 +15,10 @@
 
 #include "../../robot/match/endMatch.h"
 
+#include "../../robot/config/robotConfig.h"
+
+#include "../../robot/2019/distributor2019.h"
+
 /**
  * This unit is done to isolate specific Functions to 2019 Editions & common to PC and PIC Implementation
  */
@@ -28,6 +32,6 @@ GameStrategyContext* initGameStrategyContext2019(RobotConfig* robotConfig, EndMa
 
 GameBoard* initGameBoard2019(GameStrategyContext* gameStrategyContext);
 
-void initDistributor2019(ColorSensor* colorSensor, enum TeamColor teamColor);
+void initDistributor2019(BigDistributor* bigDistributor, enum TeamColor teamColor);
 
 #endif

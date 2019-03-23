@@ -6,10 +6,11 @@
 
 #include "../../../common/i2c/i2cCommon.h"
 
-#define INA3221_READ_SENSOR_REGISTER              0x00
 #define INA3221_CONFIGURATION_SENSOR_REGISTER     0x01
-#define INA3221_HYSTERESIS_SENSOR_REGISTER        0x02
 #define INA3221_OVER_CURRENT_SENSOR_REGISTER   0x03
+
+#define DELTA 40 //40mV
+#define SHUNT 100 // 100 mOhms
 
 #define CONFIGURATION 0
 #define CHANNEL1_SHUNT_VOLTAGE 1

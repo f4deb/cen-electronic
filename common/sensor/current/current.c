@@ -9,7 +9,7 @@ void initCurrent(Current* current,
     CurrentWriteAlertLimitFunction* writeAlertLimit,
     void* object) {
     if (current == NULL) {
-        writeError(TEMPERATURE_NULL);
+        writeError(CURRENT_NULL);
         return;
     }  
     current->readSensorValue = readSensorValue;

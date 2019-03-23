@@ -13,10 +13,10 @@ const char* getCurrentSensorDeviceName(void) {
 int deviceCurrentSensorGetInterface(char header, DeviceInterfaceMode mode, bool fillDeviceArgumentList){
     if (header == COMMAND_READ_CURRENT_SENSOR ) {
         if (fillDeviceArgumentList) {
-            setFunction("Current Sensor Read", 0, 1);
-            setResultUnsignedHex2(0, "CURRENT");
+            setFunction("Current Sensor Read", 0, 2);
+            setResultUnsignedHex4(0, "CURRENT");
         }
-        return commandLengthValueForMode(mode, 0, 2);
+        return commandLengthValueForMode(mode, 0, 4);
     } else if (header == COMMAND_SET_CURRENT_SENSOR_ALERT) {
         if (fillDeviceArgumentList) {
             setFunction("Set Alert Current Sensor", 1, 0);

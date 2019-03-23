@@ -30,8 +30,8 @@ bool isCurrentSensorDeviceOk(void) {
 void deviceCurrentSensorHandleRawData(char header, InputStream* inputStream, OutputStream* outputStream, OutputStream* notificationOutputStream){
     if (header == COMMAND_READ_CURRENT_SENSOR) {
         ackCommand(outputStream, CURRENT_SENSOR_DEVICE_HEADER, COMMAND_READ_CURRENT_SENSOR);
-        unsigned char value = (unsigned char) current->readSensorValue(current);
-        appendHex2(outputStream, value);
+        unsigned int value = (unsigned int) current->readSensorValue(current);
+        appendHex4(outputStream, value);
     } else if (header == COMMAND_SET_CURRENT_SENSOR_ALERT) {
         char currentSensorAlert = readHex2(inputStream);
         ackCommand(outputStream, CURRENT_SENSOR_DEVICE_HEADER, COMMAND_SET_CURRENT_SENSOR_ALERT);

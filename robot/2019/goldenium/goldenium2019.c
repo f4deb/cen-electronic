@@ -31,11 +31,7 @@ bool fork2019TakeGoldenium(ServoList* servoList, TofSensorList* tofSensorList, u
     // We wait because all actions must be finished before going to the next step !
     bool wait = true;
 
-    moveElevatorToScanGoldenium(servoList, wait);
-
-    forkScan2019ConfigTofListForGoldenium(tofSensorList);
-
-    forkScan(servoList, tofSensorList, GOLDENIUM_2019_SCAN_RETRY_COUNT, leftRight);
+    forkScan(servoList, tofSensorList, leftRight);
 
     moveElevatorToTakeGoldenium(servoList, wait);
 

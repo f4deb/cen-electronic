@@ -67,9 +67,7 @@ void internalTofSensorListBeep(TofSensorList* tofSensorList, bool beepValue, boo
     }
     IOExpander* beepIoExpander = tofSensorList->beepIoExpander;
     if (beepIoExpander == NULL) {
-#ifndef PC_COMPILER
         writeError(IO_EXPANDER_NULL);
-#endif // !PC_COMPILER
         return;
     }
     if (tofSensorList->beepValue != beepValue) {

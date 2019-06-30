@@ -405,7 +405,6 @@
       <logicalFolder name="robot" displayName="robot" projectFiles="true">
         <itemPath>../../../robot/robotType.h</itemPath>
         <itemPath>../../../robot/robotTypeDebug.h</itemPath>
-        <itemPath>../../../robot/robot.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f6" displayName="robot.2019.electron" projectFiles="true">
         <itemPath>../../../robot/2019/electron/electronLauncher2019.h</itemPath>
@@ -867,7 +866,6 @@
       </logicalFolder>
       <logicalFolder name="f7" displayName="robot" projectFiles="true">
         <itemPath>../../../robot/robotTypeDebug.c</itemPath>
-        <itemPath>../../../robot/robot.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f8" displayName="robot.2019.electron" projectFiles="true">
         <itemPath>../../../robot/2019/electron/electronLauncher2019.c</itemPath>

@@ -21,7 +21,6 @@
 
 #include "../../robot/strategy/gameTargetList.h"
 #include "../../robot/strategy/gameStrategyHandler.h"
-#include "../../robot/strategy/gameStrategyOutsidePathHandler.h"
 #include "../../robot/strategy/gameStrategyMotionHandler.h"
 #include "../../robot/strategy/gameStrategyPositionHandler.h"
 #include "../../robot/strategy/gameTargetActionList.h"
@@ -35,9 +34,8 @@ void initStrategyHandler(GameStrategyContext* gameStrategyContext) {
 }
 
 
-Location* updateGameStrategyContextNearestLocation(GameStrategyContext* gameStrategyContext) {
+void updateGameStrategyContextNearestLocation(GameStrategyContext* gameStrategyContext) {
     gameStrategyContext->nearestLocation = getNearestLocationFromGameStrategyContext (gameStrategyContext);
-    return gameStrategyContext->nearestLocation;
 }
 
 GameTarget* findNextTarget(GameStrategyContext* gameStrategyContext) {
@@ -96,13 +94,8 @@ bool handleNextMoveActionOrAction(GameStrategyContext* gameStrategyContext) {
     Location* nearestLocation = gameStrategyContext->nearestLocation;
     // Start Location could be null if the nearest Location was not found (because too far)
     if (nearestLocation == NULL) {
-        gameStrategyCreateOutsideTemporaryPaths(gameStrategyContext);
-        // We have a new temporary location where the robot is !
-        nearestLocation = updateGameStrategyContextNearestLocation(gameStrategyContext);
-    }
-    else {
-        // Try to recycle the temporary Paths & Locations !
-        gameStrategyClearOusideTemporaryPathsAndLocations(gameStrategyContext);
+        // TODO : Find a Strategy to join a point if we are far from the nearest location (in case of Collision for example)
+        return false;
     }
 
     // Compute the next action to do by priority

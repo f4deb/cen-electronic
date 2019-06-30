@@ -16,7 +16,6 @@
 #include "../../drivers/tof/tofList.h"
 
 #include "../../motion/motionConstants.h"
-#include "../../motion/position/trajectoryDebug.h"
 
 /**
  * @private
@@ -72,23 +71,12 @@ void initGameStrategyContext(GameStrategyContext* gameStrategyContext,
     if (obstacleTimer != NULL) {
         obstacleTimer->callback = obstacleTimerCallbackFunc;
     }
-    obstacleTimer->enabled = true;
 
     // Position Management
     initGameStrategyMotionHandler(gameStrategyContext);
 
     // Complex init
     initGameStrategyIndex(gameStrategyContext);
-}
-
-void updateStrategyContextTrajectoryType(GameStrategyContext* gameStrategyContext, enum TrajectoryType trajectoryType) {
-    if (trajectoryType != gameStrategyContext->trajectoryType) {
-        appendTrajectoryTypeAsString(getDebugOutputStreamLogger(), gameStrategyContext->trajectoryType);
-        appendString(getDebugOutputStreamLogger(), " -> ");
-        appendTrajectoryTypeAsString(getDebugOutputStreamLogger(), trajectoryType);
-        appendCRLF(getDebugOutputStreamLogger());
-    }
-    gameStrategyContext->trajectoryType = trajectoryType;
 }
 
 void showGameStrategyContextTeamColorAndStrategy(GameStrategyContext* gameStrategyContext) {
@@ -103,10 +91,6 @@ void showGameStrategyContextTeamColorAndStrategy(GameStrategyContext* gameStrate
     RobotConfig* robotConfig = gameStrategyContext->robotConfig;
     unsigned int speedIndex = (robotConfig->robotConfigReadInt(robotConfig) & CONFIG_SPEED_MASK) >> CONFIG_SPEED_SHIFT_BIT_VALUE;
     appendDec(outputStream, speedIndex);
-    // MANUAL MODE if activated
-    if (!gameStrategyContext->loopTargetAndActions) {
-        appendStringLN(outputStream, "!! MANUAL MODE !!");
-    }
     // TOF
     unsigned int sonarIndex = (robotConfig->robotConfigReadInt(robotConfig) & CONFIG_SONAR_MASK) >> CONFIG_SONAR_SHIFT_BIT_VALUE;
     appendString(outputStream, "TOF:");

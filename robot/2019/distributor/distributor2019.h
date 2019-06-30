@@ -15,8 +15,6 @@
 
 #include "../../../drivers/tof/tofList.h"
 
-#define DISTRIBUTOR_2019_SCAN_RETRY_COUNT                2
-
 /**
  * Prepare the fork to take something on the Distributor
  * @param servoList
@@ -29,7 +27,7 @@ bool distributor2019PrepareTake(ServoList* servoList);
  * All actions to take a 2 Pucks.
  * @param servoList
  */
-bool distributor2019Take(ServoList* servoList, TofSensorList* tofSensorList, unsigned int leftRightIndex);
+bool distributor2019Take(ServoList* servoList, TofSensorList* tofSensorList);
 
 
 #endif

@@ -29,6 +29,9 @@
 
 #include "../../robot/kinematics/robotKinematics.h"
 
+/**
+* @private
+*/
 void updateSimpleSplineWithDistance(BSplineCurve* curve,
 									float destX, float destY, 
                                     float destAngle, 

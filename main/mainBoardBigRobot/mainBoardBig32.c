@@ -23,7 +23,6 @@
 #include "../../main/mainBoard/mainBoardCommonMotor.h"
 #include "../../main/mainBoard/mainBoardCommonStrategy.h"
 #include "../../main/mainBoard/mainBoardCommonTof.h"
-#include "../../main/mainBoard/mainBoardCommonTof32.h"
 
 #include "../../drivers/pwm/servo/servoPwmPca9685.h"
 #include "../../drivers/pwm/servo/pca9685.h"
@@ -36,8 +35,6 @@
 
 // SMALL ROBOT PART
 #include "../../drivers/pwm/servo/servoPwmPca9685.h"
-
-#include "../../robot/2019/mainBoard2019.h"
 #include "../../robot/2019/distributor/distributorDeviceInterface2019.h"
 #include "../../robot/2019/distributor/distributorDevice2019.h"
 #include "../../robot/2019/elevator/elevatorDeviceInterface2019.h"
@@ -62,8 +59,7 @@ void initMainBoardDevicesDescriptor() {
     mainBoardCommonLcdAddDevices();
     mainBoardCommonMotorAddDevices(MAIN_BOARD_SERIAL_PORT_MOTOR);
     mainBoardCommonStrategyAddDevices(MAIN_BOARD_SERIAL_PORT_MOTOR);
-	mainBoardCommonMatchAddDevices();
-    mainBoardCommonTofAddDevices32();
+    mainBoardCommonTofAddDevices();
     mainBoardCommonMeca1AddDevices();
 
     // Call the init on each devices
@@ -140,8 +136,8 @@ void mainBoardMainPhase2(void) {
     
     // Initialise the Strategy first so that we could show the color & stragegy
     // index at a very early stage
-    mainBoardCommonTofInitDrivers32(&robotConfig);
-    mainBoardCommonMatchMainInitDrivers(&robotConfig, &startupCheckList2019, isMatchStarted32, mainBoardWaitForInstruction, loopUnWaitForInstruction);    
+    mainBoardCommonTofInitDrivers(&robotConfig);
+    mainBoardCommonMatchMainInitDrivers(&robotConfig, isMatchStarted32, mainBoardWaitForInstruction, loopUnWaitForInstruction);    
 }
 
 void mainBoardMainPhase3(void) {

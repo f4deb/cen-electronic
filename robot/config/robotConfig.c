@@ -6,12 +6,10 @@
 
 #include "../../common/io/printWriter.h"
 
-#include "../../robot/robot.h"
-
 void initRobotConfig(RobotConfig* robotConfig,
                      enum RobotType robotType, 
                 robotConfigReadIntFunction* robotConfigReadInt, robotConfigWriteIntFunction* robotConfigWriteInt){
-    setRobotType(robotType);
+    robotConfig->robotType = robotType;
     robotConfig->robotConfigReadInt = robotConfigReadInt;
     robotConfig->robotConfigWriteInt = robotConfigWriteInt;
 }

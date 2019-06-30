@@ -84,7 +84,7 @@ void deviceNavigationHandleRawData(unsigned char commandHeader, InputStream* inp
         // Find an existing location if any to update or create if it doesn't find
         Location* location = findLocationByName(locationList, &locationNameFixedCharArray);
         if (location == NULL) {
-            addLocation(locationList, LOCATION_USAGE_TYPE_TEMPORARY, &locationNameFixedCharArray, "", x, y);
+            addLocation(locationList, &locationNameFixedCharArray, "", x, y);
         }
         else {
             copyFixedCharArray(&locationNameFixedCharArray, &(location->name));

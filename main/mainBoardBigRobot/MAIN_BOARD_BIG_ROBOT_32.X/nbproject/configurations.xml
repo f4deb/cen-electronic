@@ -486,7 +486,6 @@
         <itemPath>../../mainBoard/mainBoardCommonMotor.h</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonStrategy.h</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonTof.h</itemPath>
-        <itemPath>../../mainBoard/mainBoardCommonTof32.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f24"
                      displayName="main.mainBoardBigRobot"
@@ -623,9 +622,6 @@
                      projectFiles="true">
         <itemPath>../../../robot/config/32/robotConfigPic32.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f45" displayName="robot.fake" projectFiles="true">
-        <itemPath>../../../robot/fake/fakeRobot.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="f18" displayName="robot.gameboard" projectFiles="true">
         <itemPath>../../../robot/gameboard/gameboard.h</itemPath>
         <itemPath>../../../robot/gameboard/gameboardElement.h</itemPath>
@@ -682,7 +678,6 @@
         <itemPath>../../../robot/strategy/gameStrategyCollisionHandler.h</itemPath>
         <itemPath>../../../robot/strategy/gameStrategyMotionHandler.h</itemPath>
         <itemPath>../../../robot/strategy/gameStrategyPositionHandler.h</itemPath>
-        <itemPath>../../../robot/strategy/gameStrategyOutsidePathHandler.h</itemPath>
       </logicalFolder>
       <logicalFolder name="robot.strategy.factor"
                      displayName="robot.strategy.factor"
@@ -1205,7 +1200,6 @@
         <itemPath>../../mainBoard/mainBoardCommonMotor.c</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonStrategy.c</itemPath>
         <itemPath>../../mainBoard/mainBoardCommonTof.c</itemPath>
-        <itemPath>../../mainBoard/mainBoardCommonTof32.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f24"
                      displayName="main.mainBoardBigRobot"
@@ -1233,8 +1227,6 @@
         <itemPath>../../../navigation/navigationComputer.c</itemPath>
         <itemPath>../../../navigation/outgoingPathList.c</itemPath>
         <itemPath>../../../navigation/locationListComputer.c</itemPath>
-        <itemPath>../../../navigation/pathDebug.c</itemPath>
-        <itemPath>../../../navigation/locationDebug.c</itemPath>
       </logicalFolder>
       <logicalFolder name="robot" displayName="robot" projectFiles="true">
         <itemPath>../../../robot/robot.c</itemPath>
@@ -1316,9 +1308,6 @@
                      projectFiles="true">
         <itemPath>../../../robot/config/32/robotConfigPic32.c</itemPath>
       </logicalFolder>
-      <logicalFolder name="f44" displayName="robot.fake" projectFiles="true">
-        <itemPath>../../../robot/fake/fakeRobot.c</itemPath>
-      </logicalFolder>
       <logicalFolder name="f17" displayName="robot.gameboard" projectFiles="true">
         <itemPath>../../../robot/gameboard/gameboard.c</itemPath>
         <itemPath>../../../robot/gameboard/gameboardElement.c</itemPath>
@@ -1375,7 +1364,6 @@
         <itemPath>../../../robot/strategy/gameStrategyCollisionHandler.c</itemPath>
         <itemPath>../../../robot/strategy/gameStrategyMotionHandler.c</itemPath>
         <itemPath>../../../robot/strategy/gameStrategyPositionHandler.c</itemPath>
-        <itemPath>../../../robot/strategy/gameStrategyOutsidePathHandler.c</itemPath>
       </logicalFolder>
       <logicalFolder name="robot.strategy.factor"
                      displayName="robot.strategy.factor"

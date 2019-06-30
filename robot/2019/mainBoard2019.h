@@ -15,7 +15,6 @@
 
 #include "../../robot/gameboard/gameboard.h"
 
-#include "../../robot/match/startMatch.h"
 #include "../../robot/match/endMatch.h"
 
 #include "../../robot/config/robotConfig.h"
@@ -30,19 +29,12 @@
  // 2019
 #define MAIN_BOARD_2019_GAME_BOARD_PRINT_ELEMENT_ARRAY_LENGTH    30
 
-/**
- * Startup CheckList
- * @param startMatch
- * @return 
- */
-bool startupCheckList2019(StartMatch* startMatch);
+Navigation* initNavigation2019(void);
 
 GameStrategyContext* initGameStrategyContext2019(RobotConfig* robotConfig, 
                                                  EndMatch* endMatch,
                                                  TofSensorList* tofSensorList,
                                                  ServoList* servoList);
-
-Navigation* initNavigation2019(void);
 
 GameBoard* initGameBoard2019(GameStrategyContext* gameStrategyContext);
 

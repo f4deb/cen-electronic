@@ -7,19 +7,6 @@
 #include "location.h"
 
 /**
-* Determine the usage of the PathData.
-*/
-enum PathDataUsageType {
-    PATH_DATA_USAGE_TYPE_UNKNOWN = 0,
-    /** The path is permanent */
-    PATH_DATA_USAGE_TYPE_PERMANENT = 1,
-    /** The path is temporary, due */
-    PATH_DATA_USAGE_TYPE_TEMPORARY = 2,
-    /** The path was temporary, but we could now reuse it (kind of garbage collector behaviour */
-    PATH_DATA_USAGE_TYPE_TO_BE_REUSE = 3
-};
-
-/**
  * Contains all Information about a path, which is the minimal information to use a bspline by a robot.
  */
 typedef struct PathData {
@@ -45,8 +32,6 @@ typedef struct PathData {
     bool mustGoBackward;
     /** We add an additionnal cost when encouring a robot which decrease time after time to retest after several seconds */
     float obstacleCost;
-    /** */
-    enum PathDataUsageType usageType;
 } PathData;
 
 float getPathStartAngleRadian(PathData* pathData);
@@ -57,7 +42,6 @@ float getPathEndAngleRadian(PathData* pathData);
  * Initializes the PathData structure with all informations.
  */
 void initPathData(PathData* pathData,
-                  enum PathDataUsageType usageType,
                         Location* location1,
                          Location* location2, 
                          float cost,

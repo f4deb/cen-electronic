@@ -15,8 +15,6 @@
 #include "../../drivers/tof/tofList.h"
 #include "../../drivers/tof/tofDetectionUtils.h"
 
-#include "../../motion/simulation/motionSimulation.h"
-
 #include "../../robot/robot.h"
 #include "../../robot/gameboard/gameboard.h"
 #include "../../robot/match/startMatch.h"
@@ -90,24 +88,10 @@ void handleTofSensorList(GameStrategyContext* gameStrategyContext, StartMatch* s
         
         // We must know if it's in the gameboard
         if (isPointInTheCollisionArea(gameBoard, &detectedPoint)) {
+            tofSensorListBeep(tofSensorList, detected);
 
             // motionDriverStop();
-            if (gameStrategyContext->simulateMove) {
-#ifdef PC_COMPILER   
-                simulateMotionCancel(gameStrategyContext);
-#endif
-            }
-            else {
-                motionDriverCancel();
-            }
-            // We beep after to gain some ms !
-            tofSensorListBeep(tofSensorList, detected);
-            PathData* currentPath = gameStrategyContext->currentPath;
-            if (currentPath != NULL) {
-                // Good value to find
-                updateObstacleCostIfObstacle(currentPath);
-            }
-
+            motionDriverCancel();
             // Then we notify !
             OutputStream* alwaysOutputStream = getAlwaysOutputStreamLogger();
             println(alwaysOutputStream);
@@ -124,7 +108,7 @@ void handleTofSensorList(GameStrategyContext* gameStrategyContext, StartMatch* s
             appendStringCRLF(alwaysOutputStream, "Detected Point :");
             printPoint(alwaysOutputStream, &detectedPoint, "");
             // Block the notification system !
-            updateStrategyContextTrajectoryType(gameStrategyContext, TRAJECTORY_TYPE_NONE);
+            gameStrategyContext->trajectoryType = TRAJECTORY_TYPE_NONE;
             
             tofSensorListResetDetectionCount(tofSensorList);
             

@@ -13,8 +13,6 @@ typedef struct Point {
 
 // We store (not for compute) a precision of position to the millimeter
 #define POSITION_DIGIT_MM_PRECISION      0
-// We store (not for compute) a precision of speed (mm / s) to the millimeter / s
-#define SPEED_DIGIT_MMSEC_PRECISION      0
 
 /**
  * Structures to define the position with angle.
@@ -57,8 +55,6 @@ float distanceBetweenPoints2(float x0, float y0, float x1, float y1);
  */
 float angleOfVector(Point* p0, Point* p1);
 
-float angleOfVector2(float p0x, float p0y, float p1x, float p1y);
-
 /**
 * Scale a coordinates system by applying a factor for x and y.
 * @param point the point that we want to transform
@@ -93,19 +89,5 @@ void computeDirectionPoint(Point* ref, Point* result, float distance, float angl
 * @return true if the point is inside the rectangle, false else
 */
 bool isInRectangle(float x, float y, float width, float height, float pointX, float pointY);
-
-/**
-* Is the point in the circle.
-* @param pointX the X coordinate of the point that we want to test if it's inside the rectangle
-* @param pointX the X coordinate of the point that we want to test if it's inside the rectangle
-* @return true if the point is inside the rectangle, false else
-*/
-bool isInCircle2(float circleCenterX, float circleCenterY, float circleRadius, float pointX, float pointY);
-
-bool isInCircle(Point* circleCenterPoint, Point* point, float circleRadius);
-
-// 3 POINTS / CIRCLE
-
-bool computeRotationCenteredPoint(Point* a, Point* b, Point* c, Point* centeredPointIfAny);
 
 #endif

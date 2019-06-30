@@ -13,7 +13,6 @@
 #include "../common/io/outputStream.h"
 #include "../common/io/printWriter.h"
 
-// TODO : To be removed, no client must be used here !!!
 #include "../client/motion/extended/clientExtendedMotion.h"
 
 float getPathStartAngleRadian(PathData* pathData) {
@@ -25,7 +24,6 @@ float getPathEndAngleRadian(PathData* pathData) {
 }
 
 void initPathData(PathData* pathData, 
-                  enum PathDataUsageType usageType,
                     Location* location1,
                      Location* location2, 
                      float cost,
@@ -43,7 +41,6 @@ void initPathData(PathData* pathData,
         writeError(LOCATION_NULL);
         return;
     }
-    pathData->usageType = usageType;
     pathData->location1 = location1;
     pathData->location2 = location2;
     pathData->controlPointDistance1 = controlPointDistance1;
@@ -68,8 +65,8 @@ void initAsymmetricPathData(
                      float angle2,
                      unsigned char accelerationFactor,
                      unsigned char speedFactor) {
-    initPathData(pathData, PATH_DATA_USAGE_TYPE_PERMANENT, location1, location2, cost, controlPointDistance1, controlPointDistance2, angle1, angle2, accelerationFactor, speedFactor);
-    pathData->mustGoBackward = controlPointDistance1 < 0.0f;
+    initPathData(pathData, location1, location2, cost, controlPointDistance1, controlPointDistance2, angle1, angle2, accelerationFactor, speedFactor);
+    pathData->mustGoBackward = controlPointDistance1 < 0;
 }
 
 
@@ -88,9 +85,6 @@ bool moveAlongPath(PathData* pathData) {
 
 void updateObstacleCostIfObstacle(PathData* pathData) {
     pathData->obstacleCost = COST_IF_OBSTACLE;
-#ifdef PC_COMPILER
-    pathData->obstacleCost = COST_IF_OBSTACLE * 2;
-#endif
 }
 
 void decreaseObstacleCost(PathData* pathData) {
@@ -101,9 +95,6 @@ void decreaseObstacleCost(PathData* pathData) {
     }
 }
 
-/***
-* NOT USED !!
-*/
 bool restartFromPositionToGoToPath(PathData* pathData, Point* robotPosition) {
     Point locationPoint;
     locationPoint.x = pathData->location1->x;

@@ -28,9 +28,8 @@
 #define ELECTRON_LAUNCHER_2019_ROBOT_MOVED_DISTANCE_MAX                        10000
 
 // CHECK / THRESHOLD
-#define ELECTRON_LAUNCHER_2019_THRESHOLD_COUNT                                25
-#define ELECTRON_LAUNCHER_2019_MISSED_DECREMENT_VALUE                          5
-
+// #define ELECTRON_LAUNCHER_2019_CHECK_COUNT                                      3
+#define ELECTRON_LAUNCHER_2019_THRESHOLD_COUNT                                  2
 
 // RELEASE TRY COUNT 
 #define ELECTRON_LAUNCHER_2019_RELEASE_TRY_COUNT                                2
@@ -89,13 +88,11 @@ typedef struct {
     /** Tof List */
     TofSensorList* tofSensorList;
     /** How many analysis of Robot Placed was done (to detect if we do the check */
-    signed int robotPlacedAnalysisCount;
+    unsigned int robotPlacedAnalysisCount;
     /** How many analysis of Robot Placed was done (to detect if we do the check */
-    signed int robotMovedAnalysisCount;
+    unsigned int robotMovedAnalysisCount;
     /** How many times the robot Moved was found for the last check */
-    signed int robotMovedDetectionCount;
-    /** Internal timer (to avoid to show more than 10x by second) */
-    unsigned int timerCount;
+    unsigned int robotMovedDetectionCount;
 } ElectronLauncher2019;
 
 /**

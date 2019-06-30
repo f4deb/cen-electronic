@@ -66,8 +66,4 @@ PathData* addNavigationPath(Navigation* navigation,
     float accelerationFactor,
     float speedFactor);
 
-// TEMPORARY PATHS
-
-void addTemporaryPathListFromLocation(Navigation* navigation, Location* fromLocation, Location* excludeLocation, float startAngle);
-
 #endif

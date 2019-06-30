@@ -15,6 +15,12 @@ typedef bool mainBoardWaitForInstructionFunction(StartMatch* startMatchParam);
 void mainBoardCommonMatchAddDevices(void);
 
 /**
+ * Function used in the Main Board to wait that the match start, by polling the state
+ * on a specific function (stored in StartMatch).
+ */
+void mainBoardCommonMatchLoopUntilStart(void);
+
+/**
  * Returns the startMatch object of the main Board.
  * @return 
  */
@@ -33,7 +39,6 @@ EndMatch* mainBoardCommonMatchGetEndMatch(void);
  * @param loopUntilStartHandleFunction
  */
 void mainBoardCommonMatchMainInitDrivers(RobotConfig* robotConfig,
-                                         StartupCheckListFunction* startupCheckListFunction,
                                          IsMatchStartedFunction* isMatchStartedFunctionParam,
                                          LoopUntilStartHandleFunction* loopUntilStartHandleFunction,
                                          MatchHandleInstructionFunction* matchHandleInstructionFunction);

@@ -9,7 +9,6 @@
 
 #include "../../common/delay/cenDelay.h"
 #include "../../common/io/printWriter.h"
-#include "../../common/io/printTableWriter.h"
 #include "../../common/log/logger.h"
 
 
@@ -24,7 +23,6 @@
 #include "../mainBoard/mainBoardCommonMotor.h"
 #include "../mainBoard/mainBoardCommonStrategy.h"
 #include "../mainBoard/mainBoardCommonTof.h"
-#include "../mainBoard/mainBoardCommonTof32.h"
 
 #include "../../drivers/pwm/servo/servoPwmPca9685.h"
 #include "../../drivers/pwm/servo/pca9685.h"
@@ -33,8 +31,7 @@
 #include "../../common/i2c/i2cCommon.h"
 #include "../../common/i2c/i2cConstants.h"
 #include "../../common/i2c/i2cBusConnectionList.h"
-
-#include "../../robot/2019/mainBoard2019.h"
+#include "printTableWriter.h"
 
 // SMALL ROBOT PART
 #include "../../drivers/pwm/servo/servoPwmPca9685.h"
@@ -66,8 +63,7 @@ void initMainBoardDevicesDescriptor() {
     mainBoardCommonLcdAddDevices();
     mainBoardCommonMotorAddDevices(MAIN_BOARD_SERIAL_PORT_MOTOR);
     mainBoardCommonStrategyAddDevices(MAIN_BOARD_SERIAL_PORT_MOTOR);
-    mainBoardCommonMatchAddDevices();
-    mainBoardCommonTofAddDevices32();
+    mainBoardCommonTofAddDevices();
     mainBoardCommonMeca1AddDevices();
 
     // Call the init on each devices
@@ -144,8 +140,8 @@ void mainBoardMainPhase2(void) {
     // index at a very early stage
     mainBoardCommonStrategyMainInitDrivers(&robotConfig);
 
-    mainBoardCommonTofInitDrivers32(&robotConfig);
-    mainBoardCommonMatchMainInitDrivers(&robotConfig, &startupCheckList2019, isMatchStarted32, mainBoardWaitForInstruction, loopUnWaitForInstruction);
+    mainBoardCommonTofInitDrivers(&robotConfig);
+    mainBoardCommonMatchMainInitDrivers(&robotConfig, isMatchStarted32, mainBoardWaitForInstruction, loopUnWaitForInstruction);
 }
 
 void mainBoardMainPhase3(void) {

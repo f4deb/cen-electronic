@@ -3,9 +3,6 @@
 #include "mainBoardCommonMatch.h"
 
 #include "../../common/2d/2d.h"
-
-#include "../../common/delay/cenDelay.h"
-
 #include "../../common/error/error.h"
 
 #include "../../common/io/buffer.h"
@@ -70,8 +67,7 @@
 #include "../../robot/2019/mainBoard2019.h"
 #include "../../robot/2019/gameboard/gameBoardElement2019.h"
 #include "../../robot/2019/strategy/score2019.h"
-
-#include "../../client/motion/simple/clientMotion.h"
+#include "cenDelay.h"
 
 static GameStrategyContext* gameStrategyContext;
 static Navigation* navigation;
@@ -93,13 +89,10 @@ void updateNewPositionFromNotification(InputStream* inputStream) {
     float y = readHexFloat4(inputStream, POSITION_DIGIT_MM_PRECISION);
     checkIsSeparator(inputStream);
     float angleDegree = readHexFloat4(inputStream, ANGLE_DIGIT_DEGREE_PRECISION);
-    checkIsSeparator(inputStream);
-    float speed = readHexFloat4(inputStream, SPEED_DIGIT_MMSEC_PRECISION);
     
     gameStrategyContext->robotPosition->x = x;
     gameStrategyContext->robotPosition->y = y;
     gameStrategyContext->robotAngleRadian = degToRad(angleDegree);
-    gameStrategyContext->robotSpeed = speed;
     
     /*
     printPoint(getDebugOutputStreamLogger(), gameStrategyContext->robotPosition, "");
@@ -123,7 +116,6 @@ void mainBoardDeviceHandleTrajectoryDeviceNotification(const Device* device, con
             // and not on a TRAJECTORY_DEVICE_HEADER
             
             // gameStrategyContext->trajectoryType = trajectoryType;
-            mainBoardCommonUpdateTofMaxDistanceMM(gameStrategyContext, 200.0f, 800.0f);
             
             if (isLoggerDebugEnabled()) {
                 appendStringCRLF(getDebugOutputStreamLogger(), "Traj. Dev. Notif. !");
@@ -190,7 +182,7 @@ void mainBoardCommonStrategyMainEndInit(void) {
     // Update this on the MOTOR BOARD to synchronize the position !
     appendStringLN(getDebugOutputStreamLogger(), "Update Robot Position MainBoard->Motor Board");
     updateRobotPositionFromMainBoardToMotorBoard(gameStrategyContext);
-    
+
     appendStringLN(getDebugOutputStreamLogger(), "mainBoardCommonStrategyMainEndInit2019");
     mainBoardCommonStrategyMainEndInit2019(gameStrategyContext);
 }
@@ -211,18 +203,7 @@ void mainBoardCommonStrategyMainLoop(void) {
     StartMatch* startMatch = mainBoardCommonMatchGetStartMatch();
     EndMatch* endMatch = mainBoardCommonMatchGetEndMatch();
     
-    // Check just before
-    if (startMatch->startupCheckListFunction == NULL) {
-        writeError(ROBOT_START_MATCH_CHECKLIST_NOT_DEFINED);
-    }
-    else {
-        if (!startMatch->startupCheckListFunction(startMatch)) {
-            writeError(ROBOT_START_MATCH_CHECKLIST_ERROR);
-        }
-    }
-    
-    // Wait the start of the robot
-    loopUntilStart(startMatch);
+    mainBoardCommonMatchLoopUntilStart();
 
     while (true) {
         if (!startMatch->matchHandleInstructionFunction(startMatch)) {

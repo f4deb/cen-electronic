@@ -4,8 +4,6 @@
 
 #include <stdbool.h>
 
-#include "../../robot/match/startMatch.h"
-
 #define MAIN_BOARD_PC_NAME    "mainBoardPc"
 #define MAIN_BOARD_PC_ROBOT_MANAGER   "robotManager"
 
@@ -31,8 +29,8 @@
 #define MAIN_BOARD_TO_MOTOR_BOARD_PC_PIPE_I2C_MASTER_NAME    L"\\\\.\\pipe\\mainToMotorMasterPipe"
 #define MAIN_BOARD_TO_MECA1_BOARD_PC_PIPE_I2C_MASTER_NAME    L"\\\\.\\pipe\\mainToMeca1MasterPipe"
 
-#define MAIN_BOARD_PC_I2C_BUS_LIST_LENGTH					    2
-#define MAIN_BOARD_PC_I2C_BUS_CONNECTION_LIST_LENGTH			3
+#define MAIN_BOARD_I2C_BUS_LIST_LENGTH							2
+#define MAIN_BOARD_I2C_BUS_CONNECTION_LIST_LENGTH				3
 
 #define MAIN_BOARD_PC_I2C_DEBUG_MASTER_OUT_BUFFER_LENGTH        200
 #define MAIN_BOARD_PC_I2C_DEBUG_MASTER_IN_BUFFER_LENGTH         200
@@ -48,6 +46,7 @@
 // Devices
 #define MAIN_BOARD_PC_DEVICE_LIST_LENGTH                        30
 
+#define MAIN_BOARD_PC_TOF_SENSOR_LIST_LENGTH                    14
 #define MAIN_BOARD_PC_IO_EXPANDER_LIST_LENGTH                   2
 #define MAIN_BOARD_PC_MULTIPLEXER_LIST_LENGTH                   2
 
@@ -57,7 +56,7 @@
 // Timers
 #define MAIN_BOARD_PC_TIMER_LIST_LENGTH                         10
 
-bool mainBoardPcChecklist(StartMatch* startMatch);
+
 
 /**
  * Start Point to emulate the main Board PC.

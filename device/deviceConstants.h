@@ -160,7 +160,4 @@
 
 #define ELECTRON_LAUNCHER_2019_DEVICE_HEADER       '.'
 
-#define FAKE_ROBOT_DEVICE_HEADER                   '*'
-
-
 #endif

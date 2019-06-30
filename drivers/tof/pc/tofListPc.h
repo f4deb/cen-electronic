@@ -5,7 +5,6 @@
 
 #include "../tofList.h"
 
-
-void initTofSensorListPc(TofSensorList* tofSensorList, TofSensor(*tofSensorArray)[], unsigned int size, int* object);
+void initTofSensorListPc(TofSensorList* tofSensorList, TofSensor(*tofSensorArray)[], unsigned int size);
 
 #endif

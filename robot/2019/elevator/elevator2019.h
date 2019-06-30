@@ -29,8 +29,6 @@ void moveElevatorToTakeGoldenium(ServoList* servoList, bool wait);
 
 // LEFT / RIGHT
 
-void moveElevatorScanAtValue(ServoList* servoList, unsigned int value, bool wait);
-
 void moveElevatorLeft(ServoList* servoList, bool wait);
 
 void moveElevatorMiddle(ServoList* servoList, bool wait);

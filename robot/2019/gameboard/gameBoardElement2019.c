@@ -14,18 +14,8 @@
 
 #include "../../../robot/strategy/gameStrategyHandler.h"
 
-#include "../../../robot/fake/fakeRobot.h"
-
 #include "../../../robot/2019/gameboard/gameBoardElement2019.h"
 #include "../../../robot/2019/strategy/strategy2019.h"
-
-// FAKE ROBOT
-void fakeRobotPrint(GameBoard* gameBoard, int* element) {
-    setGameBoardCurrentColor(gameBoard, CONSOLE_COLOR_YELLOW);
-    FakeRobot* fakeRobot = getFakeRobotInstance();
-    drawCircle(gameBoard, fakeRobot->x, fakeRobot->y, fakeRobot->radius, '!');
-    setGameBoardCurrentColor(gameBoard, CONSOLE_COLOR_BLACK);
-}
 
 // 2019 ELEMENTS
 
@@ -244,7 +234,4 @@ void addGameBoardElements2019(GameBoardElementList* gameBoardElementList) {
     // puckPeriodicTablePrint
     addReachableByOpponentRobotGameBoardElement(gameBoardElementList, &puckPeriodicTablePrint);
     addReachableByOpponentRobotGameBoardElement(gameBoardElementList, &goldeniumPrint);
-
-    // Fake Robot
-    addReachableByOpponentRobotGameBoardElement(gameBoardElementList, &fakeRobotPrint);
 }

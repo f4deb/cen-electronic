@@ -84,7 +84,7 @@ float internalLoadMotionEndDetectionParameterItem(Eeprom* motionEndDetectionPara
 void internalSaveMotionEndDetectionParameterItem(Eeprom* motionEndDetectionParametersEeprom, unsigned long index, float value, unsigned int digitPrecision) {
     // All check about Eeprom are done by caller
     unsigned long dataIndex = EEPROM_MOTION_END_DETECTION_PARAMETERS_START_INDEX + index * MOTION_END_DETECTION_PARAMETER_DATA_SIZE;
-    eepromWriteFloat(motionEndDetectionParametersEeprom, dataIndex, value, digitPrecision);
+    eepromWriteUnsignedFloat(motionEndDetectionParametersEeprom, dataIndex, value, digitPrecision);
 }
 
 void loadMotionEndDetectionParameters(MotionEndDetectionParameter* motionEndDetectionParameter, Eeprom* motionEndDetectionParametersEeprom, bool loadDefaultValues) {

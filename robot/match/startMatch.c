@@ -45,13 +45,11 @@ bool isMatchStarted(StartMatch* startMatch) {
 void initStartMatch(StartMatch* startMatch,
                     RobotConfig* robotConfig,
                     EndMatch* endMatch,
-                    StartupCheckListFunction* startupCheckListFunction,
                     IsMatchStartedFunction* isMatchStartedFunctionParam,
                     LoopUntilStartHandleFunction* loopUntilStartHandleFunction,
                     MatchHandleInstructionFunction* matchHandleInstructionFunction) {
     startMatch->robotConfig = robotConfig;
     startMatch->endMatch = endMatch;
-    startMatch->startupCheckListFunction = startupCheckListFunction;
     startMatch->isMatchStartedFunction = isMatchStartedFunctionParam;
     startMatch->loopUntilStartHandleFunction = loopUntilStartHandleFunction;
     startMatch->matchHandleInstructionFunction = matchHandleInstructionFunction;

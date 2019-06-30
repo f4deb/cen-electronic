@@ -22,38 +22,25 @@
 #define FORK_2019_RIGHT_HARDWARE_IO_EXPANDER_IO_INDEX                          1
 
 // TOF THRESHOLD
-#define FORK_2019_SCAN_GOLDENIUM_DISTANCE_LEFT_MIN_THRESHOLD                   5
-#define FORK_2019_SCAN_GOLDENIUM_DISTANCE_LEFT_MAX_THRESHOLD                  35
-#define FORK_2019_SCAN_GOLDENIUM_DISTANCE_RIGHT_MIN_THRESHOLD                  5
-#define FORK_2019_SCAN_GOLDENIUM_DISTANCE_RIGHT_MAX_THRESHOLD                 45
-
-#define FORK_2019_SCAN_DISTRIBUTOR_DISTANCE_LEFT_MIN_THRESHOLD                 5
-#define FORK_2019_SCAN_DISTRIBUTOR_DISTANCE_LEFT_MAX_THRESHOLD                32
-#define FORK_2019_SCAN_DISTRIBUTOR_DISTANCE_RIGHT_MIN_THRESHOLD                5
-#define FORK_2019_SCAN_BIG_ROBOT_DISTRIBUTOR_DISTANCE_RIGHT_MAX_THRESHOLD     32
-#define FORK_2019_SCAN_SMALL_ROBOT_DISTRIBUTOR_DISTANCE_RIGHT_MAX_THRESHOLD   42
-
+#define FORK_2019_SCAN_DISTANCE_LEFT_MIN_THRESHOLD                             5
+#define FORK_2019_SCAN_DISTANCE_LEFT_MAX_THRESHOLD                            35
+#define FORK_2019_SCAN_DISTANCE_RIGHT_MIN_THRESHOLD                             5
+#define FORK_2019_SCAN_DISTANCE_RIGHT_MAX_THRESHOLD                            35
 #define FORK_2019_SCAN_SERVO_DELTA_SERVO_POSITION                             30
-#define FORK_2019_SCAN_SERVO_DELTA_MILLISECONDS                              100
+#define FORK_2019_SCAN_SERVO_DELTA_MILLISECONDS                               50
 #define FORK_2019_SCAN_MEASURE_COUNT                                           3
 #define FORK_2019_SCAN_MATCH_COUNT                                             2
 
 // VERY IMPORTANT to have more than 30 ms between calls, if not, the i2c link
 // seems to be quickly blocked
-#define FORK_2019_SCAN_TIME_BETWEEN_MEASURE_MILLISECONDS                      50
+#define FORK_2019_SCAN_TIME_BETWEEN_MEASURE_MILLISECONDS                      30
 
 // Scan Servo Value
 #define FORK_2019_SCAN_SPEED_FACTOR                                         0xFF
-
-// BIG ROBOT
-#define FORK_2019_BIG_ROBOT_SCAN_MIDDLE_SERVO_VALUE                         1500
-#define FORK_2019_BIG_ROBOT_SCAN_LEFT_SERVO_VALUE                           1850
-#define FORK_2019_BIG_ROBOT_SCAN_RIGHT_SERVO_VALUE                          1150
-
-// SMALL ROBOT
-#define FORK_2019_SMALL_ROBOT_SCAN_MIDDLE_SERVO_VALUE                       1410
-#define FORK_2019_SMALL_ROBOT_SCAN_LEFT_SERVO_VALUE                         1860
-#define FORK_2019_SMALL_ROBOT_SCAN_RIGHT_SERVO_VALUE                         960
+// TODO : To change
+#define FORK_2019_SCAN_MIDDLE_SERVO_VALUE                                   1400
+#define FORK_2019_SCAN_LEFT_SERVO_VALUE                                     1800
+#define FORK_2019_SCAN_RIGHT_SERVO_VALUE                                    1100
 
 
 // FORK SCAN
@@ -62,14 +49,10 @@ void forkScan2019ConfigTofList(TofSensor* leftForkScanSensor,
                               MultiplexerList* multiplexerList,
                               IOExpanderList* ioExpanderList);
 
-bool forkScan(ServoList* servoList, TofSensorList* tofSensorList, unsigned int retryCount, unsigned int leftRight);
+bool forkScan(ServoList* servoList, TofSensorList* tofSensorList, unsigned int leftRight);
 
-bool forkScanFromLeftToRight(ServoList* servoList, TofSensorList* tofSensorList, unsigned int retryCount);
+bool forkScanFromLeftToRight(ServoList* servoList, TofSensorList* tofSensorList);
 
-bool forkScanFromRightToLeft(ServoList* servoList, TofSensorList* tofSensorList, unsigned int retryCount);
-
-void forkScan2019ConfigTofListForGoldenium(TofSensorList* tofSensorList);
-
-void forkScan2019ConfigTofListForDistributor(TofSensorList* tofSensorList);
+bool forkScanFromRightToLeft(ServoList* servoList, TofSensorList* tofSensorList);
 
 #endif

@@ -6,10 +6,7 @@
 /**
  * Define the timer divider to have a timer at 1 Hertz (every second).
  */
-// #define TIME_DIVIDER_1_HERTZ                 31250
-// TODO : Find why this has changed ????
-// #define TIME_DIVIDER_1_HERTZ                 15625
-#define TIME_DIVIDER_1_HERTZ                 15625
+#define TIME_DIVIDER_1_HERTZ                 31250
 
 /**
  * Define the timer divider to have a timer at 2 Hertz.

@@ -12,9 +12,6 @@
 // Elevator at the middle to get the double puck
 #define COMMAND_2019_ELEVATOR_GOLDENIUM_POSITION   'G'
 
-// Elevator at the middle to scan the double puck
-#define COMMAND_2019_ELEVATOR_SCAN_GOLDENIUM_POSITION   'H'
-
 // Elevator to get the puck distributor
 #define COMMAND_2019_ELEVATOR_INIT_POSITION        'I'
 
@@ -28,8 +25,6 @@
 #define COMMAND_2019_ELEVATOR_UP                   'U'
 
 // LEFT / RIGHT / MIDDLE
-#define COMMAND_2019_ELEVATOR_SCAN_VALUE           'V' 
-
 #define COMMAND_2019_ELEVATOR_LEFT                 'L'
 
 #define COMMAND_2019_ELEVATOR_MIDDLE               'M'

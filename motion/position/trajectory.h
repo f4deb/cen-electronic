@@ -24,10 +24,6 @@ typedef struct {
     float lastRight;
     // Last angle
     float lastAngle;
-    /** The last time when we have notified */
-    float lastPidTimeInSeconds;
-    /** The last speed */
-    float lastSpeed;
     // NOTIFY CHANGE SYSTEM
     /** If we activate the notification on trajectory change */
     bool notifyChange;
@@ -117,8 +113,6 @@ void updateTrajectoryAndClearCoders(void);
 enum TrajectoryType computeTrajectoryType(float distanceSinceLastNotification, float angleRadianSinceLastNotification);
 
 float getDistanceBetweenLastNotificationAndCurrentRobotPosition(void);
-
-float getAverageSpeedSinceLastNotification(float distance);
 
 float getAbsoluteAngleRadianBetweenLastNotificationAndCurrentRobotPosition(void);
 

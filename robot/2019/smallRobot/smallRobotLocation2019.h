@@ -8,31 +8,26 @@
 #define SMALL_ROBOT_START_AREA_ANGLE_DECI_DEG                    ANGLE_DECI_DEG_90
 
 // Accelerator (SMALL ROBOT)
-#define ACCELERATOR_FRONT                                                     "ACCF"
+#define ACCELERATOR_FRONT                                                     "ACCE"
 #define ACCELERATOR_FRONT_LABEL                                  "Accelerator Front"
 #define ACCELERATOR_FRONT_X                                                     200
 #define ACCELERATOR_FRONT_Y                                                    1700
 #define ACCELERATOR_FRONT_DECI_DEG                                ANGLE_DECI_DEG_90
 
 // Accelerator centered (SMALL ROBOT)
-#define ACCELERATOR_CENTER                                                 "ACCC"
+#define ACCELERATOR_CENTER                                                    "ACCC"
 #define ACCELERATOR_CENTER_LABEL                               "Accelerator Center 2"
-#define ACCELERATOR_CENTER_X                                                 600
-#define ACCELERATOR_CENTER_Y                                                1500
-#define ACCELERATOR_CENTER_START_DECI_DEG                          ANGLE_DECI_DEG_90 
+#define ACCELERATOR_CENTER_X                                                    1000
+#define ACCELERATOR_CENTER_Y                                                    1500
+#define ACCELERATOR_CENTER_START_DECI_DEG                          ANGLE_DECI_DEG_90
 #define ACCELERATOR_CENTER_END_DECI_DEG                           ANGLE_DECI_DEG_180
 
-// Key point 1 (SMALL ROBOT)
-#define SMALL_ROBOT_KEYPOINT                                              "SRKP"
-#define SMALL_ROBOT_KEYPOINT_LABEL                               "Small Robot Key Point"
-#define SMALL_ROBOT_KEYPOINT_X                                               600
-#define SMALL_ROBOT_KEYPOINT_Y                                              1200
 
 // Goldenium (SMALL ROBOT)
 #define GOLDENIUM_FRONT                                                     "GOLD"
 #define GOLDENIUM_FRONT_LABEL                                         "Gold Front"
-#define GOLDENIUM_FRONT_X                                                     110
-#define GOLDENIUM_FRONT_Y                                                    2270
+#define GOLDENIUM_FRONT_X                                                     120
+#define GOLDENIUM_FRONT_Y                                                    2260
 #define GOLDENIUM_FRONT_ANGLE_DECI_DEG                         ANGLE_DECI_DEG_180
 
 // Weighing Machine FRONT
@@ -46,17 +41,9 @@
 // Weighing Machine DROP
 #define WEIGHING_MACHINE_DROP                                              "WMD"
 #define WEIGHING_MACHINE_DROP_LABEL                      "Weighing Machine Drop"
-#define WEIGHING_MACHINE_DROP_X                                            1510
+#define WEIGHING_MACHINE_DROP_X                                            1500
 #define WEIGHING_MACHINE_DROP_Y                                            1300
 #define WEIGHING_MACHINE_DROP_ANGLE_DECI_DEG                   ANGLE_DECI_DEG_0
-
-// Chaos Zone Small Robot
-#define CHAOS_ZONE_SMALL_ROBOT                                            "CZSR"
-#define CHAOS_ZONE_SMALL_ROBOT_LABEL                    "Chaos Zone Small Robot"
-#define CHAOS_ZONE_SMALL_ROBOT_X                                           1050
-#define CHAOS_ZONE_SMALL_ROBOT_Y                                            950
-#define CHAOS_ZONE_SMALL_ROBOT_ANGLE_DECI_DEG                                 0
-
 
 // Blueium Right (to go to small Distributor)
 #define BLUEIUM_RIGHT                                                     "BLUR"

@@ -12,8 +12,6 @@
     #define START_DETECTOR_PIN      PORTFbits.RF6
 #endif
 
-#define COMMAND_CHECKLIST_MATCH                   'c' 
-
 /** To Debug the device. */
 #define COMMAND_START_MATCH_DEBUG                 'd'
 

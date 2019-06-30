@@ -28,7 +28,6 @@
 #include "forkScan2019.h"
 #include "../elevator/elevator2019.h"
 #include "../arm/arm2019.h"
-#include "../../robot.h"
 
 /**
  * @param servoList the list of servo
@@ -103,21 +102,11 @@ void moveForkPushOff(ServoList* servoList, unsigned int leftRight, bool wait) {
 }
 
 void moveForkPushOn(ServoList* servoList, unsigned int leftRight, bool wait) {
-    enum RobotType robotType = getRobotType();
-    if (robotType == ROBOT_TYPE_BIG) {
-        fork2019MoveServo(servoList, leftRight,
+    fork2019MoveServo(servoList, leftRight,
             FORK_2019_LEFT_SERVO_PUSH_INDEX, FORK_2019_RIGHT_SERVO_PUSH_INDEX,
             FORK_2019_SERVO_PUSH_LEFT_SPEED_FACTOR, FORK_2019_SERVO_PUSH_LEFT_SPEED_FACTOR,
-            FORK_2019_BIG_ROBOT_SERVO_PUSH_LEFT_ON_SERVO_VALUE, FORK_2019_BIG_ROBOT_SERVO_PUSH_RIGHT_ON_SERVO_VALUE,
+            FORK_2019_SERVO_PUSH_LEFT_ON_SERVO_VALUE, FORK_2019_SERVO_PUSH_RIGHT_ON_SERVO_VALUE,
             wait);
-    }
-    else if (robotType == ROBOT_TYPE_SMALL) {
-        fork2019MoveServo(servoList, leftRight,
-            FORK_2019_LEFT_SERVO_PUSH_INDEX, FORK_2019_RIGHT_SERVO_PUSH_INDEX,
-            FORK_2019_SERVO_PUSH_LEFT_SPEED_FACTOR, FORK_2019_SERVO_PUSH_LEFT_SPEED_FACTOR,
-            FORK_2019_SMALL_ROBOT_SERVO_PUSH_LEFT_ON_SERVO_VALUE, FORK_2019_SMALL_ROBOT_SERVO_PUSH_RIGHT_ON_SERVO_VALUE,
-            wait);
-    }
 }
 
 void moveForkPushOffAllWithoutWait(ServoList* servoList) {

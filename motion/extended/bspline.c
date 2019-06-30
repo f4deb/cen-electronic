@@ -1,7 +1,5 @@
 #include <math.h>
 
-#include "../../common/2d/2d.h"
-
 #include "../../common/error/error.h"
 #include "../../common/math/cenMath.h"
 
@@ -56,7 +54,7 @@ void computeBSplinePoint(BSplineCurve* bSplineCurve, float t, Point* resultPoint
     float _3_t_l_t2 = 3.0f * t * l_t2;
     float _3_t2_l_t = 3.0f * t2 * l_t;
 
-    Point* p0 = &(bSplineCurve->p0); 
+    Point* p0 = &(bSplineCurve->p0);
     Point* p1 = &(bSplineCurve->p1);
     Point* p2 = &(bSplineCurve->p2);
     Point* p3 = &(bSplineCurve->p3);
@@ -68,7 +66,7 @@ void computeBSplinePoint(BSplineCurve* bSplineCurve, float t, Point* resultPoint
     resultPoint->y = (p0->y * l_t3) + (_3_t_l_t2 * p1->y) + (_3_t2_l_t * p2->y) + (p3->y * t3);
 }
 
-void computeBSplineDerivativeComponents(BSplineCurve* bSplineCurve, float t, Point* derivativeResult) {
+float computeBSplineOrientationWithDerivative(BSplineCurve* bSplineCurve, float t) {
     float t2 = t * t;
     float l_t = (1.0f - t);
     float l_t2 = l_t * l_t;
@@ -79,45 +77,19 @@ void computeBSplineDerivativeComponents(BSplineCurve* bSplineCurve, float t, Poi
     // derivative of bezier function is 
     // - 3 * P0 * (t-1)^2   +    3 * P1 * (t - 1) * (3*t - 1) - 3 * P2 * t (3 * t - 2)    + 3 * P3 * t * t
     // d'ou
-    // 3 * (-P0 * (t-1)^2  -    P1 * (1 - t) * (3*t - 1)        - P2 * t (3 * t - 2)    +   P3 * t * t)
+    // - 3 * (P0 * (t-1)^2  -    P1 * (1 - t) * (3*t - 1)        - P2 * t (3 * t - 2)    +   P3 * t * t)
 
     Point* p0 = &(bSplineCurve->p0);
     Point* p1 = &(bSplineCurve->p1);
     Point* p2 = &(bSplineCurve->p2);
     Point* p3 = &(bSplineCurve->p3);
 
-    derivativeResult->x = 3.0f * ( (- p0->x * l_t2) - (p1->x * l_t * _3t_1) - (p2->x * t * _3t_2) + (p3->x * t2) );
-    derivativeResult->y = 3.0f * ( (- p0->y * l_t2) - (p1->y * l_t * _3t_1) - (p2->y * t * _3t_2) + (p3->y * t2) );
-}
-
-void computeBSplineAccelerationComponent(BSplineCurve* bSplineCurve, float t, Point* accelerationResult) {
-    Point* p0 = &(bSplineCurve->p0);
-    Point* p1 = &(bSplineCurve->p1);
-    Point* p2 = &(bSplineCurve->p2);
-    Point* p3 = &(bSplineCurve->p3);
-    
-    // Formula of acceleration for cubic curve is available here :
-    // https://en.wikipedia.org/wiki/B%C3%A9zier_curve
-    accelerationResult->x = 6.0f * (1.0f - t) * (p2->x - 2.0f * p1->x + p0->x) + 6.0f * t * (p3->x - 2.0f * p2->x + p1->x);
-    accelerationResult->y = 6.0f * (1.0f - t) * (p2->y - 2.0f * p1->y + p0->y) + 6.0f * t * (p3->y - 2.0f * p2->y + p1->y);
-}
-
-float computeBSplineSpeed(BSplineCurve* bSplineCurve, float t) {
-    Point derivativeResult;
-
-    computeBSplineDerivativeComponents(bSplineCurve, t, &derivativeResult);
-
-    // https://brilliant.org/wiki/parametric-equations-velocity-and-acceleration/
-    return sqrtf(derivativeResult.x * derivativeResult.x + derivativeResult.y + derivativeResult.y);
-}
-
-float computeBSplineOrientationWithDerivative(BSplineCurve* bSplineCurve, float t) {
-    Point derivativeResult;
-
-    computeBSplineDerivativeComponents(bSplineCurve, t, &derivativeResult);
+    // Warning about orientation
+    float diffX = 3.0f * ( (- p0->x * l_t2) - (p1->x * l_t * _3t_1) - (p2->x * t * _3t_2) + (p3->x * t2) );
+    float diffY = 3.0f * ( (- p0->y * l_t2) - (p1->y * l_t * _3t_1) - (p2->y * t * _3t_2) + (p3->y * t2) );
 
     // note that the atan2 is atan2(y, x) and not atan2(x, y)
-    float result = atan2f(derivativeResult.y, derivativeResult.x);
+    float result = atan2f(diffY, diffX);
     
     // TODO : There is a big problem if diffY = 0 and diffX = 0 because it is undefined !
 
@@ -127,63 +99,12 @@ float computeBSplineOrientationWithDerivative(BSplineCurve* bSplineCurve, float 
     return result;
 }
 
-float computeBSplineAccelerationNormalVector(BSplineCurve* bSplineCurve, float t) {
-    Point accelerationResult;
-
-    computeBSplineAccelerationComponent(bSplineCurve, t, &accelerationResult);
-    
-    // TODO
-
-    return 0.0f;
-}
-
-float computeBSplineCurvature(BSplineCurve* bSplineCurve, float t) {
-    Point p;
-    computeBSplinePoint(bSplineCurve, t, &p);
-    Point d;
-    computeBSplineDerivativeComponents(bSplineCurve, t, &d);
-    Point a;
-    computeBSplineAccelerationComponent(bSplineCurve, t, &a);
-
-    float dx = p.x;
-    float dy = p.y;
-    
-    float ddx = a.x;
-    float ddy = a.y;
-    
-    float numerator = dx * ddy - ddx * dy;
-    float denominator = powf(dx*dx + dy*dy, 1.5);
-    
-    return numerator / denominator;
-}
-
-float computeNormalAccelerationAtCenter(BSplineCurve* bSplineCurve, float t) {
-    float speed = computeBSplineSpeed(bSplineCurve, t);
-    float radius = computeBSplineCurveRadius(bSplineCurve, t);
-    
-    if (radius == 0.0f) {
-        return 0.0f;
-    }
-    
-    return speed * speed / radius;
-}
-
-float computeTangentialAccelerationAtCenter(BSplineCurve* bSplineCurve, float t) {
-
-}
-
 void copyBSplineData(BSplinePointData* source, BSplinePointData* target) {
     target->time = source->time;
     target->length = source->length;
     target->orientation = source->orientation;
     target->point.x = source->point.x;
     target->point.y = source->point.y;
-}
-
-float computeBSplineArcApproximativeLength(BSplineCurve* bSplineCurve, float t) {
-    // Implementation from : https://pomax.github.io/bezierinfo/#arclength
-    // We take z = 1.0
-    return 0.0f;
 }
 
 float computeBSplineArcLength(BSplineCurve* bSplineCurve, float timeIncrement) {
@@ -304,43 +225,4 @@ void parameterBSplineWithDistanceAndAngle(BSplineCurve* curve,
         point->y = destY;
     }
     computeBSplineArcLength(curve, BSPLINE_TIME_INCREMENT);
-}
-
-float computeBSplineCurveRadius(BSplineCurve* curve, float time) {
-    float incrementTime = BSPLINE_TIME_INCREMENT;
-    Point p1, p2, p3, centerPointOfRotation;
-    computeBSplinePoint(curve, time - incrementTime, &p1);
-    computeBSplinePoint(curve, time, &p2);
-    computeBSplinePoint(curve, time + incrementTime, &p3);
-    
-    bool isCurve = computeRotationCenteredPoint(&p1, &p2, &p3, &centerPointOfRotation);
-    if (!isCurve) {
-        // We go forward, so no difference between the wheels
-        return 0.0f;
-    }
-    
-    return distanceBetweenPoints(&p2, &centerPointOfRotation);
-}
-
-float computeSpeedFactorToCenterDueToCurve(BSplineCurve* curve, float time, float distanceToCurve) {
-    float radius = computeBSplineCurveRadius(curve, time);
-    if (fabs(radius) < 0.001f) {
-        // No radius => the speed factor is the same
-        return 1.0f;
-    } 
-    
-    // The speed of a point on a circle is 2 * PI * R / T
-    // The radius for one on the point (the most excentric point compared to the 
-    // center of the point is (radius + distanceToCurve) and the other is (radius - distanceToCurve).
-    // So the speed
-    // The real speed of the most excentric is (distanceToCurve + R) * 2 * PI
-    // So the speed Factor due to the curve is  : 2 * PI * (R + distanceToCurve)  / 2 * PI * R
-    // = 1 + distanceToCurve / radius
-    return 1 + (distanceToCurve / radius); 
-}
-
-float computeAccelerationFactorToCenterDueToCurve(BSplineCurve* curve, float time, float speedFactor) {
-    // The acceleration Factor is the speedFactor^2
-    
-    return speedFactor * speedFactor;
 }

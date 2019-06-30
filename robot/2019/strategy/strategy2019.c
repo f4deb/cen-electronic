@@ -72,7 +72,7 @@ void initColorAndStartPosition2019(GameStrategyContext* gameStrategyContext) {
         gameStrategyContext->color = TEAM_COLOR_2019_VIOLET;
     }
     float angleDeciDegree = 0;
-    enum RobotType robotType = getRobotType();
+    enum RobotType robotType = robotConfig->robotType;
     if (robotType == ROBOT_TYPE_BIG) {
         gameStrategyContext->robotPosition->x = BIG_ROBOT_START_AREA_X;
         gameStrategyContext->robotPosition->y = BIG_ROBOT_START_AREA_Y;
@@ -97,7 +97,7 @@ Location* addLocationWithColors(enum TeamColor teamColor, Navigation* navigation
     if (teamColor == TEAM_COLOR_2019_VIOLET) {
         y = GAMEBOARD_HEIGHT - y;
     }
-    Location* result = addNamedLocation(locationList, LOCATION_USAGE_TYPE_PERMANENT, name, label, x, y);
+    Location* result = addNamedLocation(locationList, name, label, x, y);
     return result;
 }
 
@@ -122,7 +122,7 @@ PathData* addNavigationPathWithColor(
         angle2 = mod2PI(-angle2);
     }
 
-    initPathData(pathData, PATH_DATA_USAGE_TYPE_PERMANENT, location1, location2, cost, controlPointDistance1, controlPointDistance2, angle1, angle2, accelerationFactor, speedFactor);
+    initPathData(pathData, location1, location2, cost, controlPointDistance1, controlPointDistance2, angle1, angle2, accelerationFactor, speedFactor);
     return pathData;
 }
 
@@ -133,7 +133,8 @@ void initStrategy2019(GameStrategyContext* gameStrategyContext) {
     gameStrategyContext->defaultAccelerationFactor = getAccelerationFactor(gameStrategyContext->robotConfig);
     gameStrategyContext->defaultSpeedFactor = getSpeedFactor(gameStrategyContext->robotConfig);
 
-    enum RobotType robotType = getRobotType();
+    RobotConfig* robotConfig = gameStrategyContext->robotConfig;
+    enum RobotType robotType = robotConfig->robotType;
 
     // We only load the item relative to the strategy Index chosen
     unsigned int strategyId = gameStrategyContext->strategyId;

@@ -20,7 +20,6 @@
 
 #define COMMAND_2019_DISTRIBUTOR_ACCELERATOR_COMPLETE_SEQUENCE   'C'
 
-#define COMMAND_2019_DISTRIBUTOR_TAKE_HEIGHT                     'h'
 
 /**
  * Get the device interface for Distributor 2019.

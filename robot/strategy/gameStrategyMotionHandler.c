@@ -24,8 +24,6 @@
 #include "../../motion/extended/bspline.h"
 #include "../../motion/extended/bsplineList.h"
 
-#include "../../motion/simulation/motionSimulation.h"
-
 #include "../../navigation/location.h"
 #include "../../navigation/locationList.h"
 #include "../../navigation/locationListComputer.h"
@@ -54,8 +52,6 @@ bool motionRotateToFollowPath(GameStrategyContext* gameStrategyContext, PathData
     }
 
     if (diff > 0.0f) {
-        // TODO : Simulate the rotation too ...
-
         appendStringAndDecf(getDebugOutputStreamLogger(), "motionDriverLeft:", radToDeg(diff));
         println(getDebugOutputStreamLogger());
         // Simulate as if the robot goes to the position with a small error to be sure
@@ -65,8 +61,8 @@ bool motionRotateToFollowPath(GameStrategyContext* gameStrategyContext, PathData
         }
         else {
             motionDriverLeft(radToDeg(diff));
+            gameStrategyContext->trajectoryType = TRAJECTORY_TYPE_ROTATION;
         }
-        updateStrategyContextTrajectoryType(gameStrategyContext, TRAJECTORY_TYPE_ROTATION);
     }
     else {
         appendStringAndDecf(getDebugOutputStreamLogger(), "motionDriverRight:", radToDeg(-diff));
@@ -76,8 +72,8 @@ bool motionRotateToFollowPath(GameStrategyContext* gameStrategyContext, PathData
         }
         else {
             motionDriverRight(radToDeg(-diff));
+            gameStrategyContext->trajectoryType = TRAJECTORY_TYPE_ROTATION;
         }
-        updateStrategyContextTrajectoryType(gameStrategyContext, TRAJECTORY_TYPE_ROTATION);
     }
     
 
@@ -100,28 +96,25 @@ bool motionFollowPath(GameStrategyContext* gameStrategyContext, PathData* pathDa
 
     Location* location = pathData->location2;
 
-    float angleRadian = getPathEndAngleRadian(pathData);
+    float angle = getPathEndAngleRadian(pathData);
     float cp1 = pathData->controlPointDistance1;
     float cp2 = pathData->controlPointDistance2;
-
-    gameStrategyContext->currentPath = pathData;
 
     // Simulate as if the robot goes to the position with a small error to be sure that 
     // algorithm to find nearest position are ok
     if (gameStrategyContext->simulateMove) {
-#ifdef PC_COMPILER        
-        simulateBSplineAbsolute(gameStrategyContext, location->x, location->y, angleRadian, cp1, cp2,
-            pathData->accelerationFactor, pathData->speedFactor);
-#endif
+        gameStrategyContext->robotPosition->x = location->x + 1.0f;
+        gameStrategyContext->robotPosition->y = location->y + 1.0f;
+        gameStrategyContext->robotAngleRadian = angle;
     }
     else {
-        clientExtendedMotionBSplineAbsolute(location->x, location->y, angleRadian, cp1, cp2,
+        clientExtendedMotionBSplineAbsolute(location->x, location->y, angle, cp1, cp2,
             pathData->accelerationFactor, pathData->speedFactor);
         if (cp1 < 0.0f) {
-            updateStrategyContextTrajectoryType(gameStrategyContext, TRAJECTORY_TYPE_BACKWARD);
+            gameStrategyContext->trajectoryType = TRAJECTORY_TYPE_BACKWARD;
         }
         else {
-            updateStrategyContextTrajectoryType(gameStrategyContext, TRAJECTORY_TYPE_FORWARD);
+            gameStrategyContext->trajectoryType = TRAJECTORY_TYPE_FORWARD;
         }
     }
     return true;

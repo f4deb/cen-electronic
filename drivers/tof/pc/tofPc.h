@@ -5,8 +5,6 @@
 
 #include "../tof.h"
 
-#define TOF_PC_BEAM_ANGLE_DEGREE             25.0f
-
-void initTofSensorPc(TofSensor* tofSensor, int* object);
+void initTofSensorPc(TofSensor* tofSensor);
 
 #endif

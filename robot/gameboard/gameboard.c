@@ -27,7 +27,6 @@
 #include "../../navigation/locationListComputer.h"
 #include "../../navigation/navigationComputer.h"
 
-#include "../../robot/robot.h"
 #include "../../robot/config/robotConfig.h"
 #include "../../robot/strategy/gameTarget.h"
 #include "../../robot/strategy/gameTargetList.h"
@@ -87,7 +86,9 @@ void drawRobot(GameBoard* gameBoard, Point* robotPosition, float angle) {
     float x = robotPosition->x;
     float y = robotPosition->y;
 
-    enum RobotType robotType = getRobotType();
+    GameStrategyContext* strategyContext = gameBoard->gameStrategyContext;
+    RobotConfig* robotConfig = strategyContext->robotConfig;
+    enum RobotType robotType = robotConfig->robotType;
     // Draw the central point
     if (robotType == ROBOT_TYPE_BIG) {
         drawPoint(gameBoard, robotPosition, 'B');
@@ -244,9 +245,6 @@ void fillGameBoardCharElements(GameBoard* gameBoard, int* element) {
         unsigned int i;
         for (i = 0; i < locationSize; i++) {
             Location* location = getLocation(locationList, i);
-            if (location->usageType != LOCATION_USAGE_TYPE_PERMANENT && location->usageType != LOCATION_USAGE_TYPE_TEMPORARY) {
-                continue;
-            }
             drawString(gameBoard, location->x, location->y, (unsigned char*) location->label);
         }
     }
@@ -259,9 +257,6 @@ void fillGameBoardCharElements(GameBoard* gameBoard, int* element) {
         unsigned int i;
         for (i = 0; i < pathSize; i++) {
             PathData* pathData = getPath(pathList, i);
-            if (pathData->usageType != PATH_DATA_USAGE_TYPE_PERMANENT && pathData->usageType != PATH_DATA_USAGE_TYPE_TEMPORARY) {
-                continue;
-            }
             // We try to use the alphabet to avoid that path could not be easily read
             unsigned char c = (char)((i % 26) + 97);
             gamePathPrint(gameBoard, (int*)pathData, c);

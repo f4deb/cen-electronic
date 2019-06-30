@@ -5,16 +5,8 @@
 
 #include "../../common/i2c/i2cBusList.h"
 
-// -> IO EXPANDER
-#include "../../drivers/ioExpander/ioExpanderList.h"
-
-// MULTIPLEXER
-#include "../../drivers/i2c/multiplexer/multiplexerList.h"
-
 #include "../../robot/config/robotConfig.h"
 #include "../../drivers/tof/tofList.h"
-
-#include "../../robot/strategy/gameStrategyContext.h"
 
 // TOFS
 #define MAIN_BOARD_TOF_SENSOR_LIST_LENGTH                                     14
@@ -86,16 +78,16 @@
 #define BACK_SIDE_RIGHT_SENSOR_DISTANCE_THRESHOLD    150
 
 /**
+ * Device Tof Initialization of MAIN_BOARD.
+ */
+void mainBoardCommonTofAddDevices(void);
+
+/**
  * Main Part of MAIN_BOARD for Tof initialization (Driver).
  * Useful when we just want to initialize 2 tof like for Experience 2019 Main
  * Program.
  */
-TofSensorList* mainBoardCommonTofInitDrivers(RobotConfig* robotConfig, MultiplexerList* multiplexerList, IOExpanderList* ioExpanderList);
-
-/**
- * Function used to update the threshold of the Tof regarding the speed of the robot.
- */
-void mainBoardCommonUpdateTofMaxDistanceMM(GameStrategyContext* gameStrategyContext, float marginDistanceMM, float maxDistanceMM);
+void mainBoardCommonTofInitDrivers(RobotConfig* robotConfig);
 
 /**
  * Returns the list of Tof Sensor.

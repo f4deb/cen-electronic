@@ -75,8 +75,14 @@ void mainBoardCommonIOExpanderListInitDrivers(void) {
     
     // -> IO Expander (either classical or IOButtonBoard)
     IOExpander* ioExpander = getIOExpanderByIndex(&ioExpanderList, 0);
+    IOExpander* ioExpander1 = getIOExpanderByIndex(&ioExpanderList, 1);
+    
     I2cBusConnection* ioExpanderBusConnection = addI2cBusConnection(ioExpanderBus, PCF8574_ADDRESS_0, true);
     initIOExpanderPCF8574(ioExpander, ioExpanderBusConnection);
+    
+    I2cBusConnection* ioExpanderBusConnection1 = addI2cBusConnection(ioExpanderBus, PCF8574_ADDRESS_1, true);
+    initIOExpanderPCF8574(ioExpander1, ioExpanderBusConnection1);
+    
     // We need to be sure that the VL530X will not be resetted by the IO Expander
     ioExpander->ioExpanderWriteValue(ioExpander, 0xFF);
 

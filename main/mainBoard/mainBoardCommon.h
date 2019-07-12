@@ -22,7 +22,7 @@
 #define MAIN_BOARD_SERVO_LIST_LENGTH                                   21
 
 // IO EXPANDER
-#define MAIN_BOARD_IO_EXPANDER_LIST_LENGTH                             1
+#define MAIN_BOARD_IO_EXPANDER_LIST_LENGTH                             8
 
 // MULTIPLEXER
 #define MAIN_BOARD_MULTIPLEXER_LIST_LENGTH                             2

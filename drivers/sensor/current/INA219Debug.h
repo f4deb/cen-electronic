@@ -1,7 +1,7 @@
 #ifndef INA219_DEBUG_H
 #define INA219_DEBUG_H
 
-#include "ina219.h"
+#include "INA219.h"
 
 #include "../../common/sensor/accelerometer/accelerometer.h"
 

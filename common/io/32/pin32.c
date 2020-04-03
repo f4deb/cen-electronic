@@ -90,9 +90,13 @@ void setPinValue32(PinList* pinList, int pinIndex, bool pinValue) {
             break;
         case PIN_INDEX_RB11: LATBbits.LATB11 = pinValue;
             break;
-        case PIN_INDEX_RB12: LATBbits.LATB12 = pinValue;
+        case PIN_INDEX_RB12: 
+            TRISBbits.TRISB12  = 0; // 0 = OUT    1 = IN
+            LATBbits.LATB12 = pinValue;
             break;
-        case PIN_INDEX_RB13: LATBbits.LATB13 = pinValue;
+        case PIN_INDEX_RB13: 
+            TRISBbits.TRISB13  = 0;
+            LATBbits.LATB13 = pinValue;
             break;
         case PIN_INDEX_RB14: LATBbits.LATB14 = pinValue;
             break;
@@ -262,8 +266,14 @@ bool getPinValue32(PinList* pinList, int pinIndex) {
         case PIN_INDEX_RB9: return PORTBbits.RB9;
         case PIN_INDEX_RB10: return PORTBbits.RB10;
         case PIN_INDEX_RB11: return PORTBbits.RB11;
-        case PIN_INDEX_RB12: return PORTBbits.RB12;
-        case PIN_INDEX_RB13: return PORTBbits.RB13;
+        case PIN_INDEX_RB12: 
+            AD1PCFGbits.PCFG12 = 1;// Passe en mode DIGITAL  désactive le mode Analogique
+            TRISBbits.TRISB12  = 1;
+            return PORTBbits.RB12;
+        case PIN_INDEX_RB13: 
+            AD1PCFGbits.PCFG13 = 1;
+            TRISBbits.TRISB13  = 1;
+            return PORTBbits.RB13;
         case PIN_INDEX_RB14: return PORTBbits.RB14;
         case PIN_INDEX_RB15: return PORTBbits.RB15;
 

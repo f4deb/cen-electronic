@@ -136,7 +136,7 @@ void mainBoardMainPhase2(void) {
 
     // ROBOT2019 : PCA9685
     ServoList* servoList = mainBoardCommonGetServoList();
-    I2cBusConnection* servoI2cBusConnection = addI2cBusConnection(i2cBus, PCA9685_ADDRESS_0, true);
+    I2cBusConnection* servoI2cBusConnection = addI2cBusConnection(i2cBus, PCA9685_ADDRESS_3, true);
     addServoAllPca9685(servoList, servoI2cBusConnection);
 
     // Initialise the Strategy first so that we could show the color & stragegy

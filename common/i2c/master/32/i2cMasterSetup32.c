@@ -30,7 +30,17 @@ void i2cMasterInitialize(I2cBus* i2cBus) {
         return;
     }
     i2cBus->initialized = true;
-#define I2C_BRG     0xC6    // 100khz for PIC32
+   
+// SYSCLK = QUARTZ_FREQUENCY * FPLLMUL / FPLLIDIV   = 80Mhz
+// PBCLK = SYSCLK / FPBDIV                          = 40Mhz
+// TPGD = 104 ns    
+// I2C_BRG  = [((1/(2*Fsck))-TPGD)*PBCLK]-2
+// 100khz = 0xC2
+// 400khz = 0x2B
+// 1Mhz = 0x0E    
+    
+  
+#define I2C_BRG     0xC2    //100khz
     // Configure I2C for 7 bit address mode
 #define I2C_CON     I2C_ON
 

@@ -21,6 +21,8 @@
 
 #define EEPROM_DEVICE_HEADER                       'E'
 
+#define MOTORI2C_DEVICE_HEADER                     'f'
+
 #define FILE_DEVICE_HEADER                         'F'
 
 #define IO_DEVICE_EXPANDER_HEADER                  'g'

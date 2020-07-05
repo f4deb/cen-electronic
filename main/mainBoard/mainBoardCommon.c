@@ -105,6 +105,10 @@
 #include "../../device/i2c/master/i2cMasterDebugDevice.h"
 #include "../../device/i2c/master/i2cMasterDebugDeviceInterface.h"
 
+// MOTORI2C
+#include "../../device/motorI2c/motorI2cDevice.h"
+#include "../../device/motorI2c/motorI2cDeviceInterface.h"
+
 // SERIAL
 #include "../../device/serial/serialDebugDevice.h"
 #include "../../device/serial/serialDebugDeviceInterface.h"
@@ -202,6 +206,10 @@ static I2cBusConnection* eepromI2cBusConnection;
 static Clock clock;
 static I2cBusConnection* clockI2cBusConnection;
 
+//MOTORI2C
+static MotorI2c motorI2c;
+static I2cBusConnection* motorI2cBusConnection;
+
 // IO
 static PinList pinList;
 
@@ -210,6 +218,11 @@ static PinList pinList;
 // TEMPERATURE
 static Temperature temperature;
 static I2cBusConnection* temperatureI2cBusConnection;
+
+// MOTORI2C
+static MotorI2c motorI2c;
+static I2cBusConnection* motorI2cBusConnection;
+
 
 // CURRENT
 // static Current current;
@@ -354,6 +367,9 @@ void mainBoardCommonAddDevices(RobotConfig* robotConfig) {
 
     // ROBOT CONFIG
     addLocalDevice(getRobotConfigDeviceInterface(), getRobotConfigDeviceDescriptor(robotConfig));
+    
+    // MOTORI2C 
+    addLocalDevice(getMotorI2cDeviceInterface(), getMotorI2cDeviceDescriptor(&motorI2c));
 }
 
 /**

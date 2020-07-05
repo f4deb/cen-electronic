@@ -128,6 +128,9 @@
                      projectFiles="true">
         <itemPath>../../../common/motor/dualHBridgePin.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f48" displayName="common.motorI2c" projectFiles="true">
+        <itemPath>../../../common/motorI2c/motorI2c.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="common.pwm" displayName="common.pwm" projectFiles="true">
         <itemPath>../../../common/pwm/pwmPic.h</itemPath>
       </logicalFolder>
@@ -307,6 +310,10 @@
                      displayName="device.motor"
                      projectFiles="true">
         <itemPath>../../../device/motor/pwmMotorDeviceInterface.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f47" displayName="device.motorI2c" projectFiles="true">
+        <itemPath>../../../device/motorI2c/motorI2cDeviceInterface.h</itemPath>
+        <itemPath>../../../device/motorI2c/motorI2cDevice.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f20" displayName="device.navigation" projectFiles="true">
         <itemPath>../../../device/navigation/navigationDevice.h</itemPath>
@@ -826,6 +833,9 @@
                      projectFiles="true">
         <itemPath>../../../common/math/32/random32.c</itemPath>
       </logicalFolder>
+      <logicalFolder name="f47" displayName="common.motorI2c" projectFiles="true">
+        <itemPath>../../../common/motorI2c/motorI2c.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="common.pwm.32"
                      displayName="common.pwm.32"
                      projectFiles="true">
@@ -1014,6 +1024,10 @@
                      displayName="device.motor"
                      projectFiles="true">
         <itemPath>../../../device/motor/pwmMotorDeviceInterface.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f46" displayName="device.motorI2c" projectFiles="true">
+        <itemPath>../../../device/motorI2c/motorI2cDevice.c</itemPath>
+        <itemPath>../../../device/motorI2c/motorI2cDeviceInterface.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f20" displayName="device.navigation" projectFiles="true">
         <itemPath>../../../device/navigation/navigationDevice.c</itemPath>
@@ -1698,6 +1712,7 @@
         <property key="UART6" value="true"/>
         <property key="USB" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

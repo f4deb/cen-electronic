@@ -113,6 +113,10 @@ void clearLastError();
 // CURRENT
 #define CURRENT_NULL                                                      0x02C0
 
+// MOTORI2C
+#define MOTORI2C_NULL                                                     0x02D0
+#define MOTORI2C_NOT_INITIALIZED                                          0x02D1
+
 // BIT LIST
 #define BIT_LIST_ARRAY_OUT_OF_BOUNDS                                      0x0300
 

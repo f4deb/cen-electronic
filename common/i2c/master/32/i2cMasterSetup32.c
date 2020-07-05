@@ -45,7 +45,8 @@ void i2cMasterInitialize(I2cBus* i2cBus) {
     } else {
         I2C_MODULE i2cModule = getI2C_MODULE(i2cBus->port);
         I2CConfigure(i2cModule, I2C_ON);
-        I2CSetFrequency(i2cModule, GetPeripheralClock(), 100000L);
+        I2CSetFrequency(i2cModule, GetPeripheralClock(), 400000L);
+
     }
 
     WaitI2C(i2cBus);

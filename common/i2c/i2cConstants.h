@@ -40,6 +40,17 @@
 #define PCF8574_ADDRESS_6        0x4C
 #define PCF8574_ADDRESS_7        0x4E
 
+// MCP23017
+#define MCP23017_ADDRESS_0        0x40
+#define MCP23017_ADDRESS_1        0x42
+#define MCP23017_ADDRESS_2        0x44
+#define MCP23017_ADDRESS_3        0x46
+#define MCP23017_ADDRESS_4        0x48
+#define MCP23017_ADDRESS_5        0x4A
+#define MCP23017_ADDRESS_6        0x4C
+#define MCP23017_ADDRESS_7        0x4E
+
+
 // FREE ADDRESS
 
 #define FREE_ADDRESS_0            0x50

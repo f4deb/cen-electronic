@@ -414,6 +414,12 @@ void mainBoardCommonInitCommonDrivers(void) {
     temperatureI2cBusConnection = addI2cBusConnection(i2cBus, LM75A_ADDRESS, true);
     initTemperatureLM75A(&temperature, temperatureI2cBusConnection);
     appendStringLN(getDebugOutputStreamLogger(), "OK");
+    // ->MOTORI2C
+    appendString(getDebugOutputStreamLogger(), "MOTORI2C ...");
+    motorI2cBusConnection = addI2cBusConnection(i2cBus, MCP23017_ADDRESS_0, true);
+    initIoExpanderMCP23017(&motorI2c, motorI2cBusConnection);
+    appendStringLN(getDebugOutputStreamLogger(), "OK");
+    
     /*
     //--> Current
     appendString(getDebugOutputStreamLogger(), "CURRENT...");

@@ -437,6 +437,11 @@
       <logicalFolder name="f46" displayName="drivers.led.pca9685" projectFiles="true">
         <itemPath>../../../drivers/led/pca9685/ledPca9685.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f49"
+                     displayName="drivers.mcpIoExpander"
+                     projectFiles="true">
+        <itemPath>../../../drivers/mcpIoExpander/MCP23017.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f25" displayName="drivers.pwm.servo" projectFiles="true">
         <itemPath>../../../drivers/pwm/servo/pca9685.h</itemPath>
         <itemPath>../../../drivers/pwm/servo/pca9685Debug.h</itemPath>
@@ -1153,6 +1158,11 @@
       </logicalFolder>
       <logicalFolder name="f45" displayName="drivers.led.pca9685" projectFiles="true">
         <itemPath>../../../drivers/led/pca9685/ledPca9685.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f48"
+                     displayName="drivers.mcpIoExpander"
+                     projectFiles="true">
+        <itemPath>../../../drivers/mcpIoExpander/MCP23017.c</itemPath>
       </logicalFolder>
       <logicalFolder name="drivers.motion"
                      displayName="drivers.motion"

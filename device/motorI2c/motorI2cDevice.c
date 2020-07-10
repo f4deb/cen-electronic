@@ -45,33 +45,45 @@ bool isMotorI2cDeviceOk(void) {
 void deviceMotorI2cHandleRawData(unsigned char header, InputStream* inputStream, OutputStream* outputStream, OutputStream* notificationOutputStream) {
     MotorI2c* motorI2c = getMotorI2cFromDeviceDescriptor();
     _deviceMotorI2cCheckInitialized();
-    if (header == COMMAND_READ_MOTORI2C) {            
-        ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_READ_MOTORI2C);
+    if (header == COMMAND_READ_SWITCH) {            
+        ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_READ_SWITCH);
         MotorI2cData* motorI2cData = motorI2c->readMotorI2c(motorI2c);
-        appendHex2(outputStream, motorI2cData->hour);
+        appendHex4(outputStream, motorI2cData->speed);
         append(outputStream, ':');
-        appendHex2(outputStream, motorI2cData->minute);
+        appendHex2(outputStream, motorI2cData->dir);
         append(outputStream, ':');
-        appendHex2(outputStream, motorI2cData->second);
-        append(outputStream, ' ');
-        appendHex2(outputStream, motorI2cData->day);
-        append(outputStream, '/');
-        appendHex2(outputStream, motorI2cData->month);
-        append(outputStream, '/');
-        appendHex2(outputStream, motorI2cData->year);
-    } else if (header == COMMAND_WRITE_MOTORI2C) {
+        appendHex2(outputStream, motorI2cData->sw);
+    } else if (header == COMMAND_SELECT_SWITCH) {            
+        ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_READ_SWITCH);
+        MotorI2cData* motorI2cData = motorI2c->readMotorI2c(motorI2c);
+        appendHex4(outputStream, motorI2cData->speed);
+        append(outputStream, ':');
+        appendHex2(outputStream, motorI2cData->dir);
+        append(outputStream, ':');
+        appendHex2(outputStream, motorI2cData->sw);
+    }
+    
+    else if (header == COMMAND_WRITE_MOTORI2C) {
         MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
-        motorI2cData->hour = readHex2(inputStream);
-        motorI2cData->minute = readHex2(inputStream);
-        motorI2cData->second = readHex2(inputStream);
+        motorI2cData->speed = readHex2(inputStream);
+        motorI2cData->dir = readHex2(inputStream);
+        motorI2cData->sw = readHex2(inputStream);
 
         ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_WRITE_MOTORI2C);
         motorI2c->writeMotorI2c(motorI2c);
     } else if (header == COMMAND_STOP_MOTORI2C) {
         MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
-        motorI2cData->day = readHex2(inputStream);
-        motorI2cData->month = readHex2(inputStream);
-        motorI2cData->year = readHex2(inputStream);
+        motorI2cData->speed = readHex2(inputStream);
+        motorI2cData->dir = readHex2(inputStream);
+        motorI2cData->sw = readHex2(inputStream);
+
+        ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_STOP_MOTORI2C);
+        motorI2c->writeMotorI2c(motorI2c);
+    }else if (header == COMMAND_DEBUG_MOTORI2C) {
+        MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
+        motorI2cData->speed = readHex2(inputStream);
+        motorI2cData->dir = readHex2(inputStream);
+        motorI2cData->sw = readHex2(inputStream);
 
         ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_STOP_MOTORI2C);
         motorI2c->writeMotorI2c(motorI2c);

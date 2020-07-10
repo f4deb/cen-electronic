@@ -9,36 +9,50 @@ const char* getMotorI2cDeviceName(void) {
 }
 
 int deviceMotorI2cGetInterface(unsigned char commandHeader, DeviceInterfaceMode mode, bool fillDeviceArgumentList) {
-    if (commandHeader == COMMAND_READ_MOTORI2C) {
+    if (commandHeader == COMMAND_READ_SWITCH) {
         if (fillDeviceArgumentList) {
-            setFunction("MotorI2c Read", 0, 11);
-            setResultUnsignedHex2(0, "HOUR");
+            setFunction("MotorSwitch Read", 0, 5);
+            setResultUnsignedHex4(0, "SPEED");
             setResultSeparator(1);
-            setResultUnsignedHex2(2, "MINUTE");
+            setResultUnsignedHex2(2, "DIRECTION");
             setResultSeparator(3);
-            setResultUnsignedHex2(4, "SECOND");
-            setResultSeparator(5);
-            setResultUnsignedHex2(6, "DAY");
-            setResultSeparator(7);
-            setResultUnsignedHex2(8, "MONTH");
-            setResultSeparator(9);
-            setResultUnsignedHex2(10, "YEAR");
+            setResultUnsignedHex2(4, "CAPTEUR");
         }
-        return commandLengthValueForMode(mode, 0, 17);
-    } else if (commandHeader == COMMAND_WRITE_MOTORI2C) {
+        return commandLengthValueForMode(mode, 0, 10);
+    } else if (commandHeader == COMMAND_SELECT_SWITCH) {
         if (fillDeviceArgumentList) {
-            setFunction("Time Write", 3, 0);
-            setArgumentUnsignedHex2(0, "HOUR");
-            setArgumentUnsignedHex2(1, "MINUTE");
-            setArgumentUnsignedHex2(2, "SECOND");
+            setFunction("MotorSwitch Select", 0, 5);
+            setResultUnsignedHex4(0, "SPEED");
+            setResultSeparator(1);
+            setResultUnsignedHex2(2, "DIRECTION");
+            setResultSeparator(3);
+            setResultUnsignedHex2(4, "CAPTEUR");
         }
-        return commandLengthValueForMode(mode, 6, 0);
+        return commandLengthValueForMode(mode, 0, 10);
+    } 
+    
+    else if (commandHeader == COMMAND_WRITE_MOTORI2C) {
+        if (fillDeviceArgumentList) {
+            setFunction("Motor Write", 3, 0);
+            setArgumentUnsignedHex4(0, "SPEED");
+            setArgumentUnsignedHex2(1, "DIRECTION");
+            setArgumentUnsignedHex2(2, "CAPTEUR");
+        }
+        return commandLengthValueForMode(mode, 8, 0);
     } else if (commandHeader == COMMAND_STOP_MOTORI2C) {
         if (fillDeviceArgumentList) {
-            setFunction("Date Write", 3, 0);
-            setArgumentUnsignedHex2(0, "DAY");
-            setArgumentUnsignedHex2(1, "MONTH");
-            setArgumentUnsignedHex2(2, "YEAR");
+            setFunction("Motor Stop", 3, 0);
+            setArgumentUnsignedHex2(0, "SPEED");
+            setArgumentUnsignedHex2(1, "DIRECTION");
+            setArgumentUnsignedHex2(2, "CAPTEUR");
+        }
+        return commandLengthValueForMode(mode, 6, 0);
+    } else if (commandHeader == COMMAND_DEBUG_MOTORI2C) {
+        if (fillDeviceArgumentList) {
+            setFunction("Debug", 3, 0);
+            setArgumentUnsignedHex2(0, "SPEED");
+            setArgumentUnsignedHex2(1, "DIRECTION");
+            setArgumentUnsignedHex2(2, "CAPTEUR");
         }
         return commandLengthValueForMode(mode, 6, 0);
     }

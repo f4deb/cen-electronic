@@ -4,16 +4,12 @@
 #include <stdbool.h>
 
 /**
- * Universal clock definition.
+ * Universal motorI2c definition.
  */
 typedef struct {
-    int year;
-    int month;
-    int dayofweek;
-    int day;
-    int hour;
-    int minute;
-    int second;
+    int speed;
+    int dir;
+    int sw;
 } MotorI2cData;
 
 // forward declaration

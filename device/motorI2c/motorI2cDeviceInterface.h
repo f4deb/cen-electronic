@@ -7,19 +7,29 @@
 // List of MOTORI2C COMMAND HEADER
 
 /**
- * Defines the header to read the MOTORI2C.
+ * Defines the header to read the MOTORI2C switch.
  */
-#define COMMAND_READ_MOTORI2C         'r'
+#define COMMAND_READ_SWITCH         'r'
 
 /**
- * Defines the header to write the time on the MOTORI2C.
+ * Defines the header to select the MOTORI2C switch.
+ */
+#define COMMAND_SELECT_SWITCH         'R'
+
+/**
+ * Defines the header to write the speed and direction on the MOTORI2C.
  */
 #define COMMAND_WRITE_MOTORI2C         'w'
 
 /**
- * Defines the header to write the Hours on the MOTORI2C.
+ * Defines the header to Stop the MOTORI2C.
  */
 #define COMMAND_STOP_MOTORI2C         's'
+
+/**
+ * Defines the header to print the debug on the MOTORI2C.
+ */
+#define COMMAND_DEBUG_MOTORI2C         'd'
 
 // Function to get the specific Device Interface
 

@@ -1,5 +1,6 @@
 #include "MCP23017.h"
 
+#include <plib.h>
 #include "../../common/motorI2c/motorI2c.h"
 
 #include "../../common/i2c/i2cConstants.h"
@@ -23,6 +24,10 @@ MotorI2cData* _readPcm23017MotorI2c(MotorI2c* motorI2c) {
 
     MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
 
+        TRISBbits.TRISB0 = 0;
+        LATBbits.LATB0 = 1;
+  
+
     
     return motorI2cData;
 }
@@ -35,6 +40,10 @@ MotorI2cData* _readPcm23017MotorI2c(MotorI2c* motorI2c) {
  */
 void _writePcm23017MotorI2c(MotorI2c* motorI2c) {
     I2cBusConnection* i2cBusConnection = _pcm23017GetI2cBusConnection(motorI2c);
+
+        TRISBbits.TRISB1 = 0;
+        LATBbits.LATB1 = 1;
+ 
 
     MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
 

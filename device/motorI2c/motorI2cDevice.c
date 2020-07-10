@@ -45,19 +45,7 @@ bool isMotorI2cDeviceOk(void) {
 void deviceMotorI2cHandleRawData(unsigned char header, InputStream* inputStream, OutputStream* outputStream, OutputStream* notificationOutputStream) {
     MotorI2c* motorI2c = getMotorI2cFromDeviceDescriptor();
     _deviceMotorI2cCheckInitialized();
-    if (header == COMMAND_READ_MOTORI2C) {
-            while (1){
-        TRISBbits.TRISB0 = 0;
-        LATBbits.LATB0 = 0;
-        TRISBbits.TRISB1 = 0;
-        LATBbits.LATB1 = 1;
-        delayMilliSecs(500);
-        TRISBbits.TRISB0 = 0;
-        LATBbits.LATB0 = 1;
-        TRISBbits.TRISB1 = 0;
-        LATBbits.LATB1 = 0;
-        delayMilliSecs(500);
-    }        
+    if (header == COMMAND_READ_MOTORI2C) {            
         ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_READ_MOTORI2C);
         MotorI2cData* motorI2cData = motorI2c->readMotorI2c(motorI2c);
         appendHex2(outputStream, motorI2cData->hour);

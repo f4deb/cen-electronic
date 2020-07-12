@@ -416,7 +416,7 @@ void mainBoardCommonInitCommonDrivers(void) {
     appendStringLN(getDebugOutputStreamLogger(), "OK");
     // ->MOTORI2C
     appendString(getDebugOutputStreamLogger(), "MOTORI2C ...");
-    motorI2cBusConnection = addI2cBusConnection(i2cBus, MCP23017_ADDRESS_0, true);
+    motorI2cBusConnection = addI2cBusConnection(i2cBus4, MCP23017_ADDRESS_7, true);
     initIoExpanderMCP23017(&motorI2c, motorI2cBusConnection);
     appendStringLN(getDebugOutputStreamLogger(), "OK");
     

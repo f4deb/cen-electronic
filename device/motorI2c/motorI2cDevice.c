@@ -53,7 +53,8 @@ void deviceMotorI2cHandleRawData(unsigned char header, InputStream* inputStream,
         appendHex2(outputStream, motorI2cData->dir);
         append(outputStream, ':');
         appendHex2(outputStream, motorI2cData->sw);
-    } else if (header == COMMAND_SELECT_SWITCH) {            
+    } 
+    else if (header == COMMAND_SELECT_SWITCH) {            
         ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_READ_SWITCH);
         MotorI2cData* motorI2cData = motorI2c->readMotorI2c(motorI2c);
         appendHex4(outputStream, motorI2cData->speed);
@@ -61,32 +62,32 @@ void deviceMotorI2cHandleRawData(unsigned char header, InputStream* inputStream,
         appendHex2(outputStream, motorI2cData->dir);
         append(outputStream, ':');
         appendHex2(outputStream, motorI2cData->sw);
-    }
-    
+    }    
     else if (header == COMMAND_WRITE_MOTORI2C) {
         MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
-        motorI2cData->speed = readHex2(inputStream);
+        motorI2cData->speed = readHex4(inputStream);
         motorI2cData->dir = readHex2(inputStream);
         motorI2cData->sw = readHex2(inputStream);
-
         ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_WRITE_MOTORI2C);
         motorI2c->writeMotorI2c(motorI2c);
-    } else if (header == COMMAND_STOP_MOTORI2C) {
+    } 
+    else if (header == COMMAND_STOP_MOTORI2C) {
         MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
         motorI2cData->speed = readHex2(inputStream);
         motorI2cData->dir = readHex2(inputStream);
         motorI2cData->sw = readHex2(inputStream);
 
         ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_STOP_MOTORI2C);
-        motorI2c->writeMotorI2c(motorI2c);
-    }else if (header == COMMAND_DEBUG_MOTORI2C) {
+        //motorI2c->writeMotorI2c(motorI2c);
+    }
+    else if (header == COMMAND_DEBUG_MOTORI2C) {
         MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
         motorI2cData->speed = readHex2(inputStream);
         motorI2cData->dir = readHex2(inputStream);
         motorI2cData->sw = readHex2(inputStream);
 
         ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_STOP_MOTORI2C);
-        motorI2c->writeMotorI2c(motorI2c);
+        //motorI2c->writeMotorI2c(motorI2c);
     }
 }
 

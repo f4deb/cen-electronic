@@ -19,7 +19,8 @@ int deviceMotorI2cGetInterface(unsigned char commandHeader, DeviceInterfaceMode 
             setResultUnsignedHex2(4, "CAPTEUR");
         }
         return commandLengthValueForMode(mode, 0, 10);
-    } else if (commandHeader == COMMAND_SELECT_SWITCH) {
+    } 
+    else if (commandHeader == COMMAND_SELECT_SWITCH) {
         if (fillDeviceArgumentList) {
             setFunction("MotorSwitch Select", 0, 5);
             setResultUnsignedHex4(0, "SPEED");
@@ -29,8 +30,7 @@ int deviceMotorI2cGetInterface(unsigned char commandHeader, DeviceInterfaceMode 
             setResultUnsignedHex2(4, "CAPTEUR");
         }
         return commandLengthValueForMode(mode, 0, 10);
-    } 
-    
+    }     
     else if (commandHeader == COMMAND_WRITE_MOTORI2C) {
         if (fillDeviceArgumentList) {
             setFunction("Motor Write", 3, 0);

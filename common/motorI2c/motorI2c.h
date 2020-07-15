@@ -7,9 +7,9 @@
  * Universal motorI2c definition.
  */
 typedef struct {
-    int speed;
-    int dir;
-    int sw;
+    char mcp23017Address;
+    char mcp23017Register;
+    char mcp23017Data;
 } MotorI2cData;
 
 // forward declaration

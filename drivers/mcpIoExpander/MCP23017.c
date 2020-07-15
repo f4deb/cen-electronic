@@ -53,51 +53,14 @@ void _writePcm23017MotorI2c(MotorI2c* motorI2c) {
     portableMasterWaitSendI2C(i2cBusConnection);
     portableMasterStartI2C(i2cBusConnection);
     WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, MCP23017_ADDRESS_7);
+    portableMasterWriteI2C(i2cBusConnection, motorI2cData->mcp23017Address);
     WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, IODIRB);
+    portableMasterWriteI2C(i2cBusConnection, motorI2cData->mcp23017Register);
     WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, 0x00);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterStopI2C(i2cBusConnection);
-    WaitI2cBusConnection(i2cBusConnection);  
-          
-        
-        
-    TRISBbits.TRISB1 = 0;
-    
-    while (1){
-        LATBbits.LATB1 = 0;
-        delayMilliSecs(1);
-        
-        portableMasterWaitSendI2C(i2cBusConnection);
-    portableMasterStartI2C(i2cBusConnection);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, MCP23017_ADDRESS_7);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, GPIOB);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, 0x55);
+    portableMasterWriteI2C(i2cBusConnection, motorI2cData->mcp23017Data);
     WaitI2cBusConnection(i2cBusConnection);
     portableMasterStopI2C(i2cBusConnection);
     WaitI2cBusConnection(i2cBusConnection);  
-        
-        LATBbits.LATB1 = 1;
-        delayMilliSecs(1);  
-        
-        portableMasterWaitSendI2C(i2cBusConnection);
-    portableMasterStartI2C(i2cBusConnection);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, MCP23017_ADDRESS_7);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, GPIOB);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, 0xAA);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterStopI2C(i2cBusConnection);
-    WaitI2cBusConnection(i2cBusConnection);  
-    
-    }
 }
 
 void initIoExpanderMCP23017(MotorI2c* motorI2c, I2cBusConnection* i2cBusConnection) {

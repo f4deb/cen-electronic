@@ -7,9 +7,6 @@
 #include "../../common/io/printWriter.h"
 
 void initMotorI2c(MotorI2c* motorI2c, WriteMotorI2cFunction* writeMotorI2c, ReadMotorI2cFunction* readMotorI2c, int* object) {
-    motorI2c->motorI2cData.speed = 0;
-    motorI2c->motorI2cData.dir = 0;
-    motorI2c->motorI2cData.sw = 0;
     motorI2c->writeMotorI2c = writeMotorI2c;
     motorI2c->readMotorI2c = readMotorI2c;
     motorI2c->object = object;

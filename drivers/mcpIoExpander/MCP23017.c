@@ -49,21 +49,8 @@ MotorI2cData* _readPcm23017MotorI2c(MotorI2c* motorI2c) {
 void _writePcm23017MotorI2c(MotorI2c* motorI2c) {
     I2cBusConnection* i2cBusConnection = _pcm23017GetI2cBusConnection(motorI2c);
     MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
-    
-    
-        portableMasterWaitSendI2C(i2cBusConnection);
-    portableMasterStartI2C(i2cBusConnection);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, MCP23017_ADDRESS_7);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, IODIRA);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, 0x00);
-    WaitI2cBusConnection(i2cBusConnection);
-    portableMasterStopI2C(i2cBusConnection);
-    WaitI2cBusConnection(i2cBusConnection);  
-    
-        portableMasterWaitSendI2C(i2cBusConnection);
+  
+    portableMasterWaitSendI2C(i2cBusConnection);
     portableMasterStartI2C(i2cBusConnection);
     WaitI2cBusConnection(i2cBusConnection);
     portableMasterWriteI2C(i2cBusConnection, MCP23017_ADDRESS_7);
@@ -74,37 +61,43 @@ void _writePcm23017MotorI2c(MotorI2c* motorI2c) {
     WaitI2cBusConnection(i2cBusConnection);
     portableMasterStopI2C(i2cBusConnection);
     WaitI2cBusConnection(i2cBusConnection);  
+          
+        
+        
+    TRISBbits.TRISB1 = 0;
     
-    
-    
-    portableMasterWaitSendI2C(i2cBusConnection);
+    while (1){
+        LATBbits.LATB1 = 0;
+        delayMilliSecs(1);
+        
+        portableMasterWaitSendI2C(i2cBusConnection);
     portableMasterStartI2C(i2cBusConnection);
     WaitI2cBusConnection(i2cBusConnection);
     portableMasterWriteI2C(i2cBusConnection, MCP23017_ADDRESS_7);
     WaitI2cBusConnection(i2cBusConnection);
     portableMasterWriteI2C(i2cBusConnection, GPIOB);
     WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, 0xFF);
+    portableMasterWriteI2C(i2cBusConnection, 0x55);
+    WaitI2cBusConnection(i2cBusConnection);
+    portableMasterStopI2C(i2cBusConnection);
+    WaitI2cBusConnection(i2cBusConnection);  
+        
+        LATBbits.LATB1 = 1;
+        delayMilliSecs(1);  
+        
+        portableMasterWaitSendI2C(i2cBusConnection);
+    portableMasterStartI2C(i2cBusConnection);
+    WaitI2cBusConnection(i2cBusConnection);
+    portableMasterWriteI2C(i2cBusConnection, MCP23017_ADDRESS_7);
+    WaitI2cBusConnection(i2cBusConnection);
+    portableMasterWriteI2C(i2cBusConnection, GPIOB);
+    WaitI2cBusConnection(i2cBusConnection);
+    portableMasterWriteI2C(i2cBusConnection, 0xAA);
     WaitI2cBusConnection(i2cBusConnection);
     portableMasterStopI2C(i2cBusConnection);
     WaitI2cBusConnection(i2cBusConnection);  
     
-    
-        TRISBbits.TRISB1 = 0;
-        LATBbits.LATB1 = 0;
-        delayMilliSecs(100);
-        LATBbits.LATB1 = 1;
-        delayMilliSecs(100);        
-        LATBbits.LATB1 = 0;
-        delayMilliSecs(100);        
-        LATBbits.LATB1 = 1;
-        delayMilliSecs(100); 
-        LATBbits.LATB1 = 0;
-        delayMilliSecs(100);        
-        LATBbits.LATB1 = 1;
-        delayMilliSecs(100); 
-
-   
+    }
 }
 
 void initIoExpanderMCP23017(MotorI2c* motorI2c, I2cBusConnection* i2cBusConnection) {

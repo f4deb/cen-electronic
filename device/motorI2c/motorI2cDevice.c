@@ -45,17 +45,19 @@ bool isMotorI2cDeviceOk(void) {
 void deviceMotorI2cHandleRawData(unsigned char header, InputStream* inputStream, OutputStream* outputStream, OutputStream* notificationOutputStream) {
     MotorI2c* motorI2c = getMotorI2cFromDeviceDescriptor();
     _deviceMotorI2cCheckInitialized();
-    if (header == COMMAND_READ_SWITCH) {            
-        ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_READ_SWITCH);
-        Mcp23017Data* mcp23017Data = motorI2c->readMotorI2c(motorI2c);
-        appendHex4(outputStream, mcp23017Data->mcp23017Register);
-        append(outputStream, ':');
-        appendHex2(outputStream, mcp23017Data->mcp23017Data);
-        append(outputStream, ':');
+    if (header == COMMAND_READ_MCP23017) {            
+        ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_READ_MCP23017);
+        
+        
+        Mcp23017Data* mcp23017Data = &(motorI2c->mcp23017Data);        
+        mcp23017Data->mcp23017Address = readHex2(inputStream);
+        mcp23017Data->mcp23017Register = readHex2(inputStream);
+
+        mcp23017Data = motorI2c->readMotorI2c(motorI2c);
         appendHex2(outputStream, mcp23017Data->mcp23017Data);
     } 
     else if (header == COMMAND_SELECT_SWITCH) {            
-        ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_READ_SWITCH);
+        ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_SELECT_SWITCH);
         Mcp23017Data* mcp23017Data = motorI2c->readMotorI2c(motorI2c);
         appendHex4(outputStream, mcp23017Data->mcp23017Register);
         append(outputStream, ':');
@@ -63,13 +65,13 @@ void deviceMotorI2cHandleRawData(unsigned char header, InputStream* inputStream,
         append(outputStream, ':');
         appendHex2(outputStream, mcp23017Data->mcp23017Data);
     }    
-    else if (header == COMMAND_WRITE_MOTORI2C) {
+    else if (header == COMMAND_WRITE_MCP23017) {
         Mcp23017Data* mcp23017Data = &(motorI2c->mcp23017Data);        
         mcp23017Data->mcp23017Address = readHex2(inputStream);
         mcp23017Data->mcp23017Register = readHex2(inputStream);
         mcp23017Data->mcp23017Data = readHex2(inputStream);
         motorI2c->writeMotorI2c(motorI2c);
-        ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_WRITE_MOTORI2C);
+        ackCommand(outputStream, MOTORI2C_DEVICE_HEADER, COMMAND_WRITE_MCP23017);
         
     } 
     else if (header == COMMAND_STOP_MOTORI2C) {

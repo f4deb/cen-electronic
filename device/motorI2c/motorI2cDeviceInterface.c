@@ -9,16 +9,15 @@ const char* getMotorI2cDeviceName(void) {
 }
 
 int deviceMotorI2cGetInterface(unsigned char commandHeader, DeviceInterfaceMode mode, bool fillDeviceArgumentList) {
-    if (commandHeader == COMMAND_READ_SWITCH) {
+    if (commandHeader == COMMAND_READ_MCP23017) {
         if (fillDeviceArgumentList) {
-            setFunction("MotorSwitch Read", 0, 5);
-            setResultUnsignedHex4(0, "SPEED");
-            setResultSeparator(1);
-            setResultUnsignedHex2(2, "DIRECTION");
-            setResultSeparator(3);
-            setResultUnsignedHex2(4, "CAPTEUR");
+            setFunction("MCP23017 Read", 2, 1);
+            setArgumentUnsignedHex2(0, "MCP23017 Address");
+            setArgumentUnsignedHex2(1, "MCP23017 Register");
+
+            setResultUnsignedHex2(0, "MCP23017 Data");
         }
-        return commandLengthValueForMode(mode, 0, 10);
+        return commandLengthValueForMode(mode, 4, 2);
     } 
     else if (commandHeader == COMMAND_SELECT_SWITCH) {
         if (fillDeviceArgumentList) {
@@ -31,12 +30,12 @@ int deviceMotorI2cGetInterface(unsigned char commandHeader, DeviceInterfaceMode 
         }
         return commandLengthValueForMode(mode, 0, 10);
     }     
-    else if (commandHeader == COMMAND_WRITE_MOTORI2C) {
+    else if (commandHeader == COMMAND_WRITE_MCP23017) {
         if (fillDeviceArgumentList) {
             setFunction("Motor Write", 3, 0);
-            setArgumentUnsignedHex2(0, "SPEED");
-            setArgumentUnsignedHex2(1, "DIRECTION");
-            setArgumentUnsignedHex2(2, "CAPTEUR");
+            setArgumentUnsignedHex2(0, "MCP23017 Address");
+            setArgumentUnsignedHex2(1, "MCP23017 Register");
+            setArgumentUnsignedHex2(2, "MCP23017 Data");
         }
         return commandLengthValueForMode(mode, 6, 0);
     } else if (commandHeader == COMMAND_STOP_MOTORI2C) {

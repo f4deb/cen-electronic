@@ -38,7 +38,7 @@ int deviceMotorI2cGetInterface(unsigned char commandHeader, DeviceInterfaceMode 
             setArgumentUnsignedHex2(1, "DIRECTION");
             setArgumentUnsignedHex2(2, "CAPTEUR");
         }
-        return commandLengthValueForMode(mode, 8, 0);
+        return commandLengthValueForMode(mode, 6, 0);
     } else if (commandHeader == COMMAND_STOP_MOTORI2C) {
         if (fillDeviceArgumentList) {
             setFunction("Motor Stop", 3, 0);

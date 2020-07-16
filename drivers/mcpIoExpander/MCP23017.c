@@ -20,10 +20,10 @@ I2cBusConnection* _pcm23017GetI2cBusConnection(MotorI2c* motorI2c) {
  * Read the hour and the date from the Pcm23017, and store in the structure.
  * @param motorI2c the motorI2c
  */
-MotorI2cData* _readPcm23017MotorI2c(MotorI2c* motorI2c) {
+Mcp23017Data* _readPcm23017MotorI2c(MotorI2c* motorI2c) {
     I2cBusConnection* i2cBusConnection = _pcm23017GetI2cBusConnection(motorI2c);
 
-    MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
+    Mcp23017Data* mcp23017Data = &(motorI2c->mcp23017Data);
 
         TRISBbits.TRISB0 = 0;
         LATBbits.LATB0 = 0;
@@ -37,7 +37,7 @@ MotorI2cData* _readPcm23017MotorI2c(MotorI2c* motorI2c) {
   
 
     
-    return motorI2cData;
+    return mcp23017Data;
 }
 
 /**
@@ -48,16 +48,16 @@ MotorI2cData* _readPcm23017MotorI2c(MotorI2c* motorI2c) {
  */
 void _writePcm23017MotorI2c(MotorI2c* motorI2c) {
     I2cBusConnection* i2cBusConnection = _pcm23017GetI2cBusConnection(motorI2c);
-    MotorI2cData* motorI2cData = &(motorI2c->motorI2cData);
+    Mcp23017Data* mcp23017Data = &(motorI2c->mcp23017Data);
   
     portableMasterWaitSendI2C(i2cBusConnection);
     portableMasterStartI2C(i2cBusConnection);
     WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, motorI2cData->mcp23017Address);
+    portableMasterWriteI2C(i2cBusConnection, mcp23017Data->mcp23017Address);
     WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, motorI2cData->mcp23017Register);
+    portableMasterWriteI2C(i2cBusConnection, mcp23017Data->mcp23017Register);
     WaitI2cBusConnection(i2cBusConnection);
-    portableMasterWriteI2C(i2cBusConnection, motorI2cData->mcp23017Data);
+    portableMasterWriteI2C(i2cBusConnection, mcp23017Data->mcp23017Data);
     WaitI2cBusConnection(i2cBusConnection);
     portableMasterStopI2C(i2cBusConnection);
     WaitI2cBusConnection(i2cBusConnection);  

@@ -34,7 +34,7 @@ int deviceMotorI2cGetInterface(unsigned char commandHeader, DeviceInterfaceMode 
     else if (commandHeader == COMMAND_WRITE_MOTORI2C) {
         if (fillDeviceArgumentList) {
             setFunction("Motor Write", 3, 0);
-            setArgumentUnsignedHex4(0, "SPEED");
+            setArgumentUnsignedHex2(0, "SPEED");
             setArgumentUnsignedHex2(1, "DIRECTION");
             setArgumentUnsignedHex2(2, "CAPTEUR");
         }

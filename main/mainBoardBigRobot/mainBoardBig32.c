@@ -188,6 +188,9 @@ void mainBoardMainPhase3(void) {
 }
 
 int main(void) {
+    TRISBbits.TRISB0 = 0;
+    LATBbits.LATB0 = 1;
+
     mainBoardMainPhase1();
     mainBoardMainPhase2();
     mainBoardMainPhase3();
@@ -196,7 +199,7 @@ int main(void) {
     // TofSensorList* tofSensorList = mainBoardCommonTofGetTofSensorList();
     ServoList* servoList = mainBoardCommonGetServoList();
     addLocalDevice(getArm2020DeviceInterface(), getArm2020DeviceDescriptor(servoList));
-
+    LATBbits.LATB0 = 0;
     mainBoardCommonStrategyMainLoop();
 
     while (true) {

@@ -32,7 +32,7 @@ int deviceMotorI2cGetInterface(unsigned char commandHeader, DeviceInterfaceMode 
     }     
     else if (commandHeader == COMMAND_WRITE_MCP23017) {
         if (fillDeviceArgumentList) {
-            setFunction("Motor Write", 3, 0);
+            setFunction("MCP23017 Write", 3, 0);
             setArgumentUnsignedHex2(0, "MCP23017 Address");
             setArgumentUnsignedHex2(1, "MCP23017 Register");
             setArgumentUnsignedHex2(2, "MCP23017 Data");

@@ -131,6 +131,9 @@
       <logicalFolder name="f48" displayName="common.motorI2c" projectFiles="true">
         <itemPath>../../../common/motorI2c/motorI2c.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f50" displayName="common.police.5x7" projectFiles="true">
+        <itemPath>../../../common/police/5x7/5x7.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="common.pwm" displayName="common.pwm" projectFiles="true">
         <itemPath>../../../common/pwm/pwmPic.h</itemPath>
       </logicalFolder>
@@ -429,7 +432,7 @@
       </logicalFolder>
       <logicalFolder name="drivers.lcd" displayName="drivers.lcd" projectFiles="true">
         <itemPath>../../../drivers/lcd/lcd.h</itemPath>
-        <itemPath>../../../drivers/lcd/lcdHd44780.h</itemPath>
+        <itemPath>../../../drivers/lcd/lcdHd44780_Matrix.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f44" displayName="drivers.led" projectFiles="true">
         <itemPath>../../../drivers/led/led.h</itemPath>
@@ -1150,8 +1153,8 @@
       </logicalFolder>
       <logicalFolder name="drivers.lcd" displayName="drivers.lcd" projectFiles="true">
         <itemPath>../../../drivers/lcd/lcd.c</itemPath>
-        <itemPath>../../../drivers/lcd/lcdHd44780.c</itemPath>
-        <itemPath>../../../drivers/lcd/lcdProvider_Hd44780.c</itemPath>
+        <itemPath>../../../drivers/lcd/lcdHd44780_Matrix.c</itemPath>
+        <itemPath>../../../drivers/lcd/lcdProvider_Hd44780 _Matrix.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f36" displayName="drivers.led" projectFiles="true">
         <itemPath>../../../drivers/led/led.c</itemPath>
@@ -1723,6 +1726,7 @@
         <property key="UART6" value="true"/>
         <property key="USB" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

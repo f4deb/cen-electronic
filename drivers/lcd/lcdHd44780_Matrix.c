@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "lcdHd44780_Matrix.h"
+//#include "../../common/police/5x7/5x7.h"
 #include "../../common/delay/cenDelay.h"
 
 #define LCD_ROW_COUNT                       4
@@ -32,9 +33,7 @@ void hd44780_sendComLcd(unsigned char comLcd) {
 }
 
 void hd44780_sendDataLcd(unsigned char DataLcd) {
-    
-
-        
+         
     TRIS_DATA_MATRIX = 0;
     TRIS_CLCK_MATRIX = 0;
     TRIS_STRO_MATRIX = 0;
@@ -42,52 +41,64 @@ void hd44780_sendDataLcd(unsigned char DataLcd) {
     TRIS_A1_MATRIX = 0;
     TRIS_A2_MATRIX = 0;
     TRIS_E1_MATRIX = 0;
+    
+    STRO_MATRIX = 0;
+    DATA_MATRIX = 0;
+    CLCK_MATRIX = 0;
+    
+                char character[]=""; 
+
+            character[0] =0b01110;
+            character[1] =0b01000;
+            character[2] =0b00100;
+            character[3] =0b00010;
+            character[4] =0b00001;
+            character[5] =0b10000;
+            character[6] =0b01000;
+            character[7] =0b00100;
+            character[8] =0b00010;
+            character[9] =0b11111;            
+            character[10] =0b01000;
+            character[11] =0b00100;
+            character[12] =0b00010;
+            character[13] =0b00001;
+            character[14] =0b10000;
+            character[15] =0b01000;
+            character[16] =0b00100;
+            character[17] =0b00010;
+            character[18] =0b00111;
+
 
     int ligne = 0;
     while (1){
         for (ligne=0;ligne<7;ligne++){
-            STRO_MATRIX = 0;
-            DATA_MATRIX = 0;
-            CLCK_MATRIX = 0;
-
-            char character[6]; 
-
-            character[0] =0b11111;
-            character[1] =0b11110;
-            character[2] =0b11101;
-            character[3] =0b11011;
-            character[4] =0b10111;
-            character[5] =0b01111;
-
-            int i = 0;
-            int j = 0;
-                for (i=0;i<6;i++){
-                    for (j=0;j<5;j++){
-                        DATA_MATRIX = character[i];
-                        //delayMicroSecs(100);
-                        CLCK_MATRIX = 0;
-                        //delayMicroSecs(100);
-                        CLCK_MATRIX = 1;
-                        //delayMicroSecs(100);
-                        CLCK_MATRIX = 0;
-                        //delayMicroSecs(100);
-                        character[i]>>=1;
-                    }    
-                 }  
-                    STRO_MATRIX = 0;    
+            int i = 0;  //index caractere
+            int j = 0;  //index bit
+            for (i=19;i>=0;i--){
+                char toto;
+                toto = character[i];
+                for (j=0;j<5;j++){
+                        
+                    DATA_MATRIX = toto;
                     //delayMicroSecs(100);
-                    STRO_MATRIX = 1;    
-                    //delayMicroSecs(100);    
-                    STRO_MATRIX = 0;    
-                    //delayMicroSecs(100);    
+                    CLCK_MATRIX = 0;
+                    //delayMicroSecs(100);
+                    CLCK_MATRIX = 1;
+                    //delayMicroSecs(100);
+                    CLCK_MATRIX = 0;
+                    //delayMicroSecs(100);
+                    toto>>=1;
+                }    
+            }  
+            STRO_MATRIX = 1;  
+            STRO_MATRIX = 0;    
 
-                    int ligne1;
+            int ligne1;
             ligne1 = ligne;            
             A0_MATRIX = ligne1;
             A1_MATRIX = ligne1>>=1;
             A2_MATRIX = ligne1>>=1;
             E1_MATRIX = 0;
-            delayMicroSecs(1000);
         }    
     }
 

@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "lcdHd44780_Matrix.h"
-//#include "../../common/police/5x7/5x7.h"
+#include "../../common/police/5x7/5x7.h"
 #include "../../common/delay/cenDelay.h"
 
 #define LCD_ROW_COUNT                       4
@@ -46,48 +46,28 @@ void hd44780_sendDataLcd(unsigned char DataLcd) {
     DATA_MATRIX = 0;
     CLCK_MATRIX = 0;
     
-                char character[]=""; 
-
-            character[0] =0b01110;
-            character[1] =0b01000;
-            character[2] =0b00100;
-            character[3] =0b00010;
-            character[4] =0b00001;
-            character[5] =0b10000;
-            character[6] =0b01000;
-            character[7] =0b00100;
-            character[8] =0b00010;
-            character[9] =0b11111;            
-            character[10] =0b01000;
-            character[11] =0b00100;
-            character[12] =0b00010;
-            character[13] =0b00001;
-            character[14] =0b10000;
-            character[15] =0b01000;
-            character[16] =0b00100;
-            character[17] =0b00010;
-            character[18] =0b00111;
-
-
+    char str_19[] = "ABCDEFGHIJKLMNOPQRS";
+    //int str_1 = ((int)str_19[0])*7 ;
     int ligne = 0;
     while (1){
+        
         for (ligne=0;ligne<7;ligne++){
             int i = 0;  //index caractere
             int j = 0;  //index bit
+            
+            
             for (i=19;i>=0;i--){
-                char toto;
-                toto = character[i];
+                int str_1 = ((int)str_19[i])*7 ;
+                char character;
+                character = tab_char_5x7 [str_1 + ligne];
+                //character = tab_char_5x7 [462 +ligne];
                 for (j=0;j<5;j++){
                         
-                    DATA_MATRIX = toto;
-                    //delayMicroSecs(100);
-                    CLCK_MATRIX = 0;
-                    //delayMicroSecs(100);
+                    DATA_MATRIX = character;
+//                    CLCK_MATRIX = 0;
                     CLCK_MATRIX = 1;
-                    //delayMicroSecs(100);
                     CLCK_MATRIX = 0;
-                    //delayMicroSecs(100);
-                    toto>>=1;
+                    character>>=1;
                 }    
             }  
             STRO_MATRIX = 1;  

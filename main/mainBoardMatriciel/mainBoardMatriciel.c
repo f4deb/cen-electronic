@@ -116,7 +116,7 @@ bool loopUnWaitForInstruction(StartMatch* startMatchParam) {
  * @return 
  */
 void mainBoardMainPhase1(void) {
-    setBoardName("MAIN BIG ROBOT 32");
+    setBoardName("MAIN BIG ROBOT MATRICIEL");
 
     // CONFIG
     initRobotConfigPic32(&robotConfig, ROBOT_TYPE_BIG);
@@ -126,6 +126,8 @@ void mainBoardMainPhase1(void) {
 
     // LCD
     mainBoardCommonLcdInit(&robotConfig);
+    
+    hd44780_writeString("ALEXANFGHIJKLMNOPQRS");
 
     // SERIAL
     mainBoardCommonInitSerialList();

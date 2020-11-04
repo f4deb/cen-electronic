@@ -34,6 +34,12 @@ void hd44780_sendComLcd(unsigned char comLcd) {
 
 void hd44780_sendDataLcd(unsigned char DataLcd) {
          
+   
+
+}
+
+void hd44780_initLcd(void) {
+    
     TRIS_DATA_MATRIX = 0;
     TRIS_CLCK_MATRIX = 0;
     TRIS_STRO_MATRIX = 0;
@@ -46,46 +52,6 @@ void hd44780_sendDataLcd(unsigned char DataLcd) {
     DATA_MATRIX = 0;
     CLCK_MATRIX = 0;
     
-    char str_19[] = "ABCDEFGHIJKLMNOPQRS";
-    //int str_1 = ((int)str_19[0])*7 ;
-    int ligne = 0;
-    while (1){
-        
-        for (ligne=0;ligne<7;ligne++){
-            int i = 0;  //index caractere
-            int j = 0;  //index bit
-            
-            
-            for (i=19;i>=0;i--){
-                int str_1 = ((int)str_19[i])*7 ;
-                char character;
-                character = tab_char_5x7 [str_1 + ligne];
-                //character = tab_char_5x7 [462 +ligne];
-                for (j=0;j<5;j++){
-                        
-                    DATA_MATRIX = character;
-//                    CLCK_MATRIX = 0;
-                    CLCK_MATRIX = 1;
-                    CLCK_MATRIX = 0;
-                    character>>=1;
-                }    
-            }  
-            STRO_MATRIX = 1;  
-            STRO_MATRIX = 0;    
-
-            int ligne1;
-            ligne1 = ligne;            
-            A0_MATRIX = ligne1;
-            A1_MATRIX = ligne1>>=1;
-            A2_MATRIX = ligne1>>=1;
-            E1_MATRIX = 0;
-        }    
-    }
-
-}
-
-void hd44780_initLcd(void) {
-    
 }
 
 void hd44780_writeString(const char* text) {
@@ -95,8 +61,61 @@ void hd44780_writeString(const char* text) {
     a = strlen(text);
 
     for (i = 1; i <= a; i++) {
-        hd44780_sendDataLcd(*text);
+        //hd44780_sendDataLcd(*text);
         text++;
+    }
+    
+    int delay_print = 10000;
+    char *str_19 = "SOLENEFGHIJKLMOO";
+
+    //strcpy (str_19,text);
+    //*str_19 = *text;
+    
+
+    
+    
+    
+    
+    //int str_1 = ((int)str_19[0])*7 ;
+    int ligne = 0;
+    while (delay_print >0){
+        delay_print--;
+        for (ligne=0;ligne<7;ligne++){
+            int i = 0;  //index caractere
+            int j = 0;  //index bit            
+            
+            // print the string
+            for (i=19;i>=0;i--){
+                int str_1 = ((int)str_19[i])*7 ;
+                char character;
+                character = tab_char_5x7 [str_1 + ligne]; // code ASCII
+                //print character
+                for (j=0;j<5;j++){                        
+                    DATA_MATRIX = character;
+//                    CLCK_MATRIX = 0;
+                    CLCK_MATRIX = 1;
+                    CLCK_MATRIX = 0;
+                    character>>=1;
+                }    
+                if  (i>0) {     
+                DATA_MATRIX = 0;       // clear one column     
+                CLCK_MATRIX = 1;
+                CLCK_MATRIX = 0;    
+                }
+            }  
+            STRO_MATRIX = 1;  
+            STRO_MATRIX = 0;    
+            
+            //select  the ligne to print
+            int ligne1;
+            ligne1 = ligne;            
+            A0_MATRIX = ligne1;
+            A1_MATRIX = ligne1>>=1;
+            A2_MATRIX = ligne1>>=1;
+            E1_MATRIX = 0;
+            delayMilliSecs(1);
+            
+        }    
     }
 }
 
@@ -109,7 +128,7 @@ void hd44780_affTexteLcdXY(const char* text, unsigned char column, unsigned char
     a = strlen(text);
 
     for (i = 1; i <= a; i++) {
-        hd44780_sendDataLcd(*text);
+        //hd44780_sendDataLcd(*text);
         text++;
     }
 }
@@ -130,33 +149,12 @@ void incLcdColumn() {
 }
 
 void hd44780_setCursorRowAndColumn(unsigned char row, unsigned char column) {
-    currentRow = row;
-    currentColumn = column;
-
-    unsigned char cursor;
-    if (row == 0) {
-        cursor = 0x80;
-    }
-    if (row == 1) {
-        cursor = 0xC0;
-    }
-    if (row == 2) {
-        cursor = 0x94;
-    }
-    if (row == 3) {
-        cursor = 0xD4;
-    }
-    cursor = cursor + column;
-    hd44780_sendComLcd(cursor);
-
 }
 
 void hd44780_hideCursor(void) {
-    hd44780_sendComLcd(0b00001100);
 }
 
 void hd44780_showUnderlineCursor(void) {
-    hd44780_sendComLcd(0b00001110);
 }
 
 void hd44780_setBacklight(bool enabled) {
@@ -164,43 +162,64 @@ void hd44780_setBacklight(bool enabled) {
 }
 
 void hd44780_setBlinkCursor(void) {
-    hd44780_sendComLcd(0b00001111);
 }
 
 void initCursorPosition() {
-    currentColumn = 0;
-    currentRow = 0;
 }
 
 void hd44780_setCursorAtHome(void) {
-    initCursorPosition();
-    hd44780_sendComLcd(0b00000010);
 }
 
 void hd44780_clearScreen(void) {
-    initCursorPosition();
-    hd44780_sendComLcd(0b00000001);
 }
 
 void hd44780_writeChar(unsigned char c) {
-    hd44780_setCursorRowAndColumn(currentRow, currentColumn);
+    
 
-    // does not handle CR
-    if (c == CARRIAGE_RETURN) {
-        return;
+    /*
+    int delay_print = 100;
+    char str_19[] = "AZCDEFGHIJKLMNOPQRS";
+    //int str_1 = ((int)str_19[0])*7 ;
+    int ligne = 0;
+    while (delay_print >0){
+        delay_print--;
+        for (ligne=0;ligne<7;ligne++){
+            int i = 0;  //index caractere
+            int j = 0;  //index bit            
+            
+            // print the string
+            for (i=19;i>=0;i--){
+                int str_1 = ((int)str_19[i])*7 ;
+                char character;
+                character = tab_char_5x7 [str_1 + ligne]; // code ASCII
+                //print character
+                for (j=0;j<5;j++){                        
+                    DATA_MATRIX = character;
+//                    CLCK_MATRIX = 0;
+                    CLCK_MATRIX = 1;
+                    CLCK_MATRIX = 0;
+                    character>>=1;
+                }    
+                if  (i>0) {     
+                DATA_MATRIX = 0;       // clear one column     
+                CLCK_MATRIX = 1;
+                CLCK_MATRIX = 0;    
+                }
+            }  
+            STRO_MATRIX = 1;  
+            STRO_MATRIX = 0;    
+            
+            //select  the ligne to print
+            int ligne1;
+            ligne1 = ligne;            
+            A0_MATRIX = ligne1;
+            A1_MATRIX = ligne1>>=1;
+            A2_MATRIX = ligne1>>=1;
+            E1_MATRIX = 0;
+            delayMilliSecs(1);
+            
+        }    
     }
-    if (c == LF) {
-        while (currentColumn != 0) {
-            // Fill with spaces
-            hd44780_sendDataLcd(' ');
-            incLcdColumn();
-        }
-        hd44780_setCursorRowAndColumn(currentRow, currentColumn);
-    } else if (c == CLS) {
-        hd44780_setCursorAtHome();
-        hd44780_clearScreen();
-    } else {
-        hd44780_sendDataLcd(c);
-        incLcdColumn();
-    }
+            
+      */      
 }

@@ -126,8 +126,6 @@ void mainBoardMainPhase1(void) {
 
     // LCD
     mainBoardCommonLcdInit(&robotConfig);
-    
-    hd44780_writeString("ALEXANFGHIJKLMNOPQRS");
 
     // SERIAL
     mainBoardCommonInitSerialList();
@@ -196,7 +194,9 @@ int main(void) {
     mainBoardMainPhase1();
     mainBoardMainPhase2();
     mainBoardMainPhase3();
-
+    while (1){
+        writeLCDString("LINDSEY ET        ");
+    }
     // Initialise the 2020 specific Devices
     // TofSensorList* tofSensorList = mainBoardCommonTofGetTofSensorList();
     ServoList* servoList = mainBoardCommonGetServoList();

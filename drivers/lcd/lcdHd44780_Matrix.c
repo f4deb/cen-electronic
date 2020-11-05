@@ -54,29 +54,14 @@ void hd44780_initLcd(void) {
     
 }
 
-void hd44780_writeString(const char* text) {
-    unsigned char i;
-    unsigned char a;
+void hd44780_writeString(const char *text) {
 
-    a = strlen(text);
 
-    for (i = 1; i <= a; i++) {
-        //hd44780_sendDataLcd(*text);
-        text++;
-    }
+    int delay_print = 100;
     
-    int delay_print = 10000;
-    char *str_19 = "SOLENEFGHIJKLMOO";
+    char str_19[] = "";
+    strcpy (str_19,text); // transfert du text dans le tableau pour affichage
 
-    //strcpy (str_19,text);
-    //*str_19 = *text;
-    
-
-    
-    
-    
-    
-    //int str_1 = ((int)str_19[0])*7 ;
     int ligne = 0;
     while (delay_print >0){
         delay_print--;
@@ -92,7 +77,6 @@ void hd44780_writeString(const char* text) {
                 //print character
                 for (j=0;j<5;j++){                        
                     DATA_MATRIX = character;
-//                    CLCK_MATRIX = 0;
                     CLCK_MATRIX = 1;
                     CLCK_MATRIX = 0;
                     character>>=1;
@@ -174,52 +158,4 @@ void hd44780_clearScreen(void) {
 }
 
 void hd44780_writeChar(unsigned char c) {
-    
-
-    /*
-    int delay_print = 100;
-    char str_19[] = "AZCDEFGHIJKLMNOPQRS";
-    //int str_1 = ((int)str_19[0])*7 ;
-    int ligne = 0;
-    while (delay_print >0){
-        delay_print--;
-        for (ligne=0;ligne<7;ligne++){
-            int i = 0;  //index caractere
-            int j = 0;  //index bit            
-            
-            // print the string
-            for (i=19;i>=0;i--){
-                int str_1 = ((int)str_19[i])*7 ;
-                char character;
-                character = tab_char_5x7 [str_1 + ligne]; // code ASCII
-                //print character
-                for (j=0;j<5;j++){                        
-                    DATA_MATRIX = character;
-//                    CLCK_MATRIX = 0;
-                    CLCK_MATRIX = 1;
-                    CLCK_MATRIX = 0;
-                    character>>=1;
-                }    
-                if  (i>0) {     
-                DATA_MATRIX = 0;       // clear one column     
-                CLCK_MATRIX = 1;
-                CLCK_MATRIX = 0;    
-                }
-            }  
-            STRO_MATRIX = 1;  
-            STRO_MATRIX = 0;    
-            
-            //select  the ligne to print
-            int ligne1;
-            ligne1 = ligne;            
-            A0_MATRIX = ligne1;
-            A1_MATRIX = ligne1>>=1;
-            A2_MATRIX = ligne1>>=1;
-            E1_MATRIX = 0;
-            delayMilliSecs(1);
-            
-        }    
-    }
-            
-      */      
-}
+  }

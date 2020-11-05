@@ -106,3 +106,7 @@ unsigned int getLCDSoftwareRevision (void) {
         return getLCD02SoftwareRevision();
 }
  */
+
+void writeLCDString(const char *text) {
+    hd44780_writeString(text);
+}

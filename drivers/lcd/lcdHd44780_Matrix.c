@@ -54,10 +54,10 @@ void hd44780_initLcd(void) {
     
 }
 
-void hd44780_writeString(const char *text) {
+void hd44780_writeString(char *text) {
 
 
-    int delay_print = 100;
+    int delay_print = 50;
     
     char str_19[] = "";
     strcpy (str_19,text); // transfert du text dans le tableau pour affichage
@@ -101,6 +101,7 @@ void hd44780_writeString(const char *text) {
             
         }    
     }
+    E1_MATRIX = 1; //efface la ligne du bas lorsque pas d'affichage'
 }
 
 void hd44780_affTexteLcdXY(const char* text, unsigned char column, unsigned char row) {

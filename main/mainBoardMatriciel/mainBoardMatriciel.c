@@ -195,7 +195,9 @@ int main(void) {
     mainBoardMainPhase2();
     mainBoardMainPhase3();
     while (1){
-        writeLCDString("LINDSEY ET        ");
+        writeLCDString("LINDSEY    AU LIT ");
+        
+        writeLCDString("SOLENE     AU LIT ");
     }
     // Initialise the 2020 specific Devices
     // TofSensorList* tofSensorList = mainBoardCommonTofGetTofSensorList();

@@ -21,7 +21,7 @@
 #include "../../main/mainBoard/mainBoardCommonIoExpanderList.h"
 #include "../../main/mainBoard/mainBoardCommonMatch.h"
 #include "../../main/mainBoard/mainBoardCommonMeca1.h"
-#include "../../main/mainBoard/mainBoardCommonMotor.h"
+//#include "../../main/mainBoard/mainBoardCommonMotor.h"
 #include "../../main/mainBoard/mainBoardCommonMotion.h"
 #include "../../main/mainBoard/mainBoardCommonServo.h"
 #include "../../main/mainBoard/mainBoardCommonStrategy.h"
@@ -70,9 +70,9 @@ void initMainBoardDevicesDescriptor() {
 
     mainBoardCommonAddDevices(&robotConfig);
     mainBoardCommonLcdAddDevices();
-    mainBoardCommonMotorAddDevices(MAIN_BOARD_SERIAL_PORT_MOTOR);
-    mainBoardCommonMotionAddDevices(MAIN_BOARD_SERIAL_PORT_MOTOR);
-    mainBoardCommonStrategyAddDevices(MAIN_BOARD_SERIAL_PORT_MOTOR);
+//    mainBoardCommonMotorAddDevices(MAIN_BOARD_SERIAL_PORT_MOTOR);
+//    mainBoardCommonMotionAddDevices(MAIN_BOARD_SERIAL_PORT_MOTOR);
+//    mainBoardCommonStrategyAddDevices(MAIN_BOARD_SERIAL_PORT_MOTOR);
     mainBoardCommonMatchAddDevices();
     mainBoardCommonTofAddDevices32();
     mainBoardCommonMeca1AddDevices();
@@ -85,7 +85,7 @@ void initMainBoardDevicesDescriptor() {
 void initMainBoardDriverDataDispatcherList(void) {
     mainBoardCommonInitDriverDataDispatcherList();
 
-    mainBoardCommonMotorAddDispatcher();
+//    mainBoardCommonMotorAddDispatcher();
 }
 
 bool mainBoardWaitForInstruction(StartMatch* startMatchParam) {
@@ -93,7 +93,7 @@ bool mainBoardWaitForInstruction(StartMatch* startMatchParam) {
     // notification handler must avoid to handle directly information in notification callback
     // and never to the call back device
     mainBoardCommonHandleStreamInstruction();
-    mainBoardCommonMotorHandleStreamInstruction();
+//    mainBoardCommonMotorHandleStreamInstruction();
     mainBoardCommonStrategyHandleStreamInstruction();
     
     ServoList* servoList = mainBoardCommonGetServoList();
@@ -116,7 +116,7 @@ bool loopUnWaitForInstruction(StartMatch* startMatchParam) {
  * @return 
  */
 void mainBoardMainPhase1(void) {
-    setBoardName("MAIN BIG ROBOT MATRICIEL");
+    setBoardName("MAIN MATRICIEL");
 
     // CONFIG
     initRobotConfigPic32(&robotConfig, ROBOT_TYPE_BIG);
@@ -139,8 +139,8 @@ void mainBoardMainPhase2(void) {
     mainBoardCommonMainInit(&robotConfig);
 
     // OTHER SERIAL LINKS
-    mainBoardCommonMotorNotifyOpenSerialLink();
-    mainBoardCommonMotorOpenSerialLink();
+ //   mainBoardCommonMotorNotifyOpenSerialLink();
+ //   mainBoardCommonMotorOpenSerialLink();
 
     mainBoardCommonInitBusList();
     mainBoardCommonInitTimerList();
@@ -183,7 +183,7 @@ void mainBoardMainPhase3(void) {
     initMainBoardDevicesDescriptor();
     initMainBoardDriverDataDispatcherList();
 
-    mainBoardCommonMotorMainEndInit();
+//    mainBoardCommonMotorMainEndInit();
     mainBoardCommonStrategyMainEndInit();
 }
 
@@ -194,11 +194,30 @@ int main(void) {
     mainBoardMainPhase1();
     mainBoardMainPhase2();
     mainBoardMainPhase3();
+    
     while (1){
-        writeLCDString("LINDSEY    AU LIT ");
+        char *text = "KARATE ADULTES";
+        print_matrix(text, 250);
         
-        writeLCDString("SOLENE     AU LIT ");
+        text = "LUN 19H00-20H30 ";
+        print_matrix(text , 200);
+        
+        text = "JEU 18H45-20H30 ";
+        print_matrix(text , 200);
+        
+        text = "VEN 18H45-20H30 ";
+        print_matrix(text , 200);
+        
+        text = "KARATE ENFANTS";
+        print_matrix(text, 250);
+        
+        text = "JEU 18H45-20H30 ";
+        print_matrix(text , 200);
+        
+        text = "VEN 18H45-20H30 ";
+        print_matrix(text , 200);
     }
+
     // Initialise the 2020 specific Devices
     // TofSensorList* tofSensorList = mainBoardCommonTofGetTofSensorList();
     ServoList* servoList = mainBoardCommonGetServoList();
@@ -209,4 +228,11 @@ int main(void) {
     while (true) {
         // Avoid reboot even at end
     }
+}
+
+void print_matrix(const char *text, int time){
+    int i;
+    for (i=0;i<time;i++){
+        writeLCDString(text);
+    }    
 }

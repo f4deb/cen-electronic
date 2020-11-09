@@ -108,5 +108,5 @@ unsigned int getLCDSoftwareRevision (void) {
  */
 
 void writeLCDString(const char *text) {
-    hd44780_writeString(text);
+   hd44780_writeString(text);
 }

@@ -131,9 +131,6 @@
       <logicalFolder name="f48" displayName="common.motorI2c" projectFiles="true">
         <itemPath>../../../common/motorI2c/motorI2c.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f50" displayName="common.police.5x7" projectFiles="true">
-        <itemPath>../../../common/police/5x7/5x7.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="common.pwm" displayName="common.pwm" projectFiles="true">
         <itemPath>../../../common/pwm/pwmPic.h</itemPath>
       </logicalFolder>
@@ -1252,7 +1249,7 @@
       <logicalFolder name="f24"
                      displayName="main.mainBoardMatriciel"
                      projectFiles="true">
-        <itemPath>../mainBoardMatriciel.c</itemPath>
+        <itemPath>../mainBoardMatricel.c</itemPath>
       </logicalFolder>
       <logicalFolder name="motion.extended"
                      displayName="motion.extended"

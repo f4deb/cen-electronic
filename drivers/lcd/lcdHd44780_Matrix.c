@@ -54,68 +54,53 @@ void hd44780_initLcd(void) {
     
 }
 
-void hd44780_writeString(char *text) {
+void hd44780_writeString(const char *text) {
 
 
-    int delay_print = 50;
+    int i = 0;  // character index
+    int j = 0;  // bit index
+    int ligne = 0; // line index
+    int ligne1; //variable for the line
+    char character; // character to print
     
-    char str_19[] = "";
-    strcpy (str_19,text); // transfert du text dans le tableau pour affichage
+    char str_19[40] = "";
+    strcpy (str_19,text); // transfer  the text into the array
 
-    int ligne = 0;
-    while (delay_print >0){
-        delay_print--;
-        for (ligne=0;ligne<7;ligne++){
-            int i = 0;  //index caractere
-            int j = 0;  //index bit            
-            
-            // print the string
-            for (i=19;i>=0;i--){
-                int str_1 = ((int)str_19[i])*7 ;
-                char character;
-                character = tab_char_5x7 [str_1 + ligne]; // code ASCII
-                //print character
-                for (j=0;j<5;j++){                        
-                    DATA_MATRIX = character;
-                    CLCK_MATRIX = 1;
-                    CLCK_MATRIX = 0;
-                    character>>=1;
-                }    
-                if  (i>0) {     
-                DATA_MATRIX = 0;       // clear one column     
+    for (ligne=0;ligne<7;ligne++){
+        // print the string
+        for (i=19;i>=0;i--){
+            int str_1 = ((int)str_19[i])*7 ;
+
+            character = tab_char_5x7 [str_1 + ligne]; // code ASCII
+            //print character
+            for (j=0;j<5;j++){                        
+                DATA_MATRIX = character;
                 CLCK_MATRIX = 1;
-                CLCK_MATRIX = 0;    
-                }
-            }  
-            STRO_MATRIX = 1;  
-            STRO_MATRIX = 0;    
-            
-            //select  the ligne to print
-            int ligne1;
-            ligne1 = ligne;            
-            A0_MATRIX = ligne1;
-            A1_MATRIX = ligne1>>=1;
-            A2_MATRIX = ligne1>>=1;
-            E1_MATRIX = 0;
-            delayMilliSecs(1);
-            
-        }    
-    }
-    E1_MATRIX = 1; //efface la ligne du bas lorsque pas d'affichage'
+                CLCK_MATRIX = 0;
+                character>>=1;
+            }    
+            if  (i>0) {     
+            DATA_MATRIX = 0;       // clear one column     
+            CLCK_MATRIX = 1;
+            CLCK_MATRIX = 0;    
+            }
+        }  
+        STRO_MATRIX = 1;  
+        STRO_MATRIX = 0;    
+
+        //select  the ligne to print
+        ligne1 = ligne;            
+        A0_MATRIX = ligne1;
+        A1_MATRIX = ligne1>>=1;
+        A2_MATRIX = ligne1>>=1;
+        E1_MATRIX = 0;
+        delayMilliSecs(1);
+    }       
+    E1_MATRIX = 1; // clear the last line while there is nothing to print  
 }
 
 void hd44780_affTexteLcdXY(const char* text, unsigned char column, unsigned char row) {
-    unsigned char i;
-    unsigned char a;
-
-    hd44780_setCursorRowAndColumn(column, row);
-
-    a = strlen(text);
-
-    for (i = 1; i <= a; i++) {
-        //hd44780_sendDataLcd(*text);
-        text++;
-    }
+ 
 }
 
 void incLcdRow() {

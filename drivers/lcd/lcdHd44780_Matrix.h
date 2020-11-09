@@ -61,7 +61,7 @@ void hd44780_sendDataLcd(unsigned char DataLcd);
  * Show a string
  * @param text to send
  */
-void hd44780_writeString(char *text);
+void hd44780_writeString(const char *text);
 
 /**
  * Affiche une chaine de texte

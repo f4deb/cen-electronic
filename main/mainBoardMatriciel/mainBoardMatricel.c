@@ -211,10 +211,10 @@ int main(void) {
         text = "KARATE ENFANTS";
         print_matrix(text, 250);
         
-        text = "JEU 18H45-20H30 ";
+        text = "JEU 18H45-19H45 ";
         print_matrix(text , 200);
         
-        text = "VEN 18H45-20H30 ";
+        text = "VEN 18H45-19H45 ";
         print_matrix(text , 200);
     }
 
